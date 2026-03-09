@@ -6,61 +6,606 @@
   <title>BoxRFID Web Installer</title>
   <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
   <style>
+    :root {
+      --bg: #0f172a;
+      --bg2: #111827;
+      --card: rgba(255,255,255,0.08);
+      --card-border: rgba(255,255,255,0.14);
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --accent: #38bdf8;
+      --accent2: #22c55e;
+      --button: rgba(255,255,255,0.10);
+      --button-hover: rgba(255,255,255,0.18);
+      --shadow: 0 10px 30px rgba(0,0,0,0.28);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 20px;
-      line-height: 1.5;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(34,197,94,0.14), transparent 24%),
+        linear-gradient(135deg, var(--bg), var(--bg2));
+      min-height: 100vh;
     }
+
+    .container {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 28px 18px 40px;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05));
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .logo {
+      width: 68px;
+      height: 68px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, rgba(56,189,248,0.22), rgba(34,197,94,0.18));
+      border: 1px solid rgba(255,255,255,0.16);
+      font-size: 30px;
+      box-shadow: var(--shadow);
+      flex-shrink: 0;
+    }
+
     h1 {
-      margin-bottom: 10px;
+      margin: 0;
+      font-size: 2.2rem;
+      line-height: 1.1;
+      letter-spacing: 0.2px;
     }
-    .box {
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      padding: 20px;
-      margin-top: 20px;
-    }
-    code {
-      background: #f3f3f3;
-      padding: 2px 6px;
-      border-radius: 4px;
-    }
-    ul {
+
+    .subtitle {
       margin-top: 8px;
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 700px;
+    }
+
+    .lang-switch {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .lang-switch button {
+      border: 1px solid rgba(255,255,255,0.16);
+      background: var(--button);
+      color: var(--text);
+      padding: 9px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 0.92rem;
+      transition: 0.18s ease;
+      min-width: 56px;
+    }
+
+    .lang-switch button:hover {
+      background: var(--button-hover);
+      transform: translateY(-1px);
+    }
+
+    .lang-switch button.active {
+      background: linear-gradient(135deg, rgba(56,189,248,0.28), rgba(34,197,94,0.22));
+      border-color: rgba(255,255,255,0.28);
+      font-weight: bold;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 14px;
+      font-size: 1.2rem;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .install-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .supported-board {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text);
+      font-weight: bold;
+    }
+
+    ul {
+      margin: 10px 0 0;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      color: var(--muted);
+    }
+
+    code {
+      background: rgba(255,255,255,0.10);
+      color: #e2e8f0;
+      padding: 3px 7px;
+      border-radius: 8px;
+      word-break: break-all;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(56,189,248,0.14);
+      border: 1px solid rgba(56,189,248,0.22);
+      color: #dbeafe;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    .lang {
+      display: none;
+    }
+
+    .lang.active {
+      display: block;
+    }
+
+    a {
+      color: #bae6fd;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-top {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .lang-switch {
+        justify-content: flex-start;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>BoxRFID Web Installer</h1>
-  <p>Mit diesem Installer kannst du die BoxRFID-Firmware direkt über den Browser auf dein ESP32-Board installieren.</p>
+  <div class="container">
+    <section class="hero">
+      <div class="hero-top">
+        <div class="brand">
+          <div class="logo">📦</div>
+          <div>
+            <h1>BoxRFID Web Installer</h1>
 
-  <div class="box">
-    <h2>Installation</h2>
-    <p>
-      Unterstütztes Board:<br>
-      <strong>ESP32-2432S028R (CYD) – BoxRFID V2.0</strong>
-    </p>
+            <div class="subtitle">
+              <span class="lang lang-de active">Installiere die BoxRFID-Firmware direkt aus dem Browser auf dein ESP32-Board.</span>
+              <span class="lang lang-en">Install the BoxRFID firmware directly from your browser to your ESP32 board.</span>
+              <span class="lang lang-fr">Installez le firmware BoxRFID directement depuis votre navigateur sur votre carte ESP32.</span>
+              <span class="lang lang-es">Instala el firmware BoxRFID directamente desde tu navegador en tu placa ESP32.</span>
+              <span class="lang lang-it">Installa il firmware BoxRFID direttamente dal browser sulla tua scheda ESP32.</span>
+              <span class="lang lang-pt">Instale o firmware BoxRFID diretamente do navegador para a sua placa ESP32.</span>
+            </div>
+          </div>
+        </div>
 
-    <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
+        <div class="lang-switch">
+          <button id="btn-de" type="button">DE</button>
+          <button id="btn-en" type="button">EN</button>
+          <button id="btn-fr" type="button">FR</button>
+          <button id="btn-es" type="button">ES</button>
+          <button id="btn-it" type="button">IT</button>
+          <button id="btn-pt" type="button">PT</button>
+        </div>
+      </div>
 
-    <p><strong>Wichtige Hinweise:</strong></p>
-    <ul>
-      <li>Verwende <strong>Chrome</strong> oder <strong>Edge</strong>.</li>
-      <li>Verwende ein <strong>datenfähiges USB-Kabel</strong>.</li>
-      <li>Falls keine Verbindung möglich ist, Board neu anstecken und erneut versuchen.</li>
-      <li>Falls nötig, beim Verbinden die <strong>BOOT-Taste</strong> gedrückt halten.</li>
-      <li>Mit der Installation wird die Firmware auf dem Gerät überschrieben.</li>
-    </ul>
+      <div class="hero-grid">
+        <div class="card">
+          <div class="install-wrap">
+            <div>
+              <div class="lang lang-de active">
+                <h2>Installation</h2>
+                <p class="muted">
+                  Mit diesem Installer kannst du die <strong>BoxRFID-Firmware</strong> direkt auf das unterstützte Gerät flashen.
+                </p>
+                <div class="supported-board">Unterstütztes Board: ESP32-2432S028R (CYD) – BoxRFID V2.0</div>
+              </div>
+
+              <div class="lang lang-en">
+                <h2>Installation</h2>
+                <p class="muted">
+                  This installer lets you flash the <strong>BoxRFID firmware</strong> directly to the supported device.
+                </p>
+                <div class="supported-board">Supported board: ESP32-2432S028R (CYD) – BoxRFID V2.0</div>
+              </div>
+
+              <div class="lang lang-fr">
+                <h2>Installation</h2>
+                <p class="muted">
+                  Cet installateur vous permet de flasher directement le <strong>firmware BoxRFID</strong> sur l'appareil pris en charge.
+                </p>
+                <div class="supported-board">Carte prise en charge : ESP32-2432S028R (CYD) – BoxRFID V2.0</div>
+              </div>
+
+              <div class="lang lang-es">
+                <h2>Instalación</h2>
+                <p class="muted">
+                  Este instalador te permite grabar directamente el <strong>firmware BoxRFID</strong> en el dispositivo compatible.
+                </p>
+                <div class="supported-board">Placa compatible: ESP32-2432S028R (CYD) – BoxRFID V2.0</div>
+              </div>
+
+              <div class="lang lang-it">
+                <h2>Installazione</h2>
+                <p class="muted">
+                  Questo installer consente di caricare direttamente il <strong>firmware BoxRFID</strong> sul dispositivo supportato.
+                </p>
+                <div class="supported-board">Scheda supportata: ESP32-2432S028R (CYD) – BoxRFID V2.0</div>
+              </div>
+
+              <div class="lang lang-pt">
+                <h2>Instalação</h2>
+                <p class="muted">
+                  Este instalador permite gravar diretamente o <strong>firmware BoxRFID</strong> no dispositivo suportado.
+                </p>
+                <div class="supported-board">Placa suportada: ESP32-2432S028R (CYD) – BoxRFID V2.0</div>
+              </div>
+            </div>
+
+            <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="lang lang-de active">
+            <h2>Wichtige Hinweise</h2>
+            <ul>
+              <li>Verwende <strong>Chrome</strong> oder <strong>Edge</strong>.</li>
+              <li>Verwende ein <strong>datenfähiges USB-Kabel</strong>.</li>
+              <li>Falls keine Verbindung möglich ist, Board neu anstecken und erneut versuchen.</li>
+              <li>Falls nötig, beim Verbinden die <strong>BOOT-Taste</strong> gedrückt halten.</li>
+              <li>Die Installation überschreibt die vorhandene Firmware auf dem Gerät.</li>
+            </ul>
+          </div>
+
+          <div class="lang lang-en">
+            <h2>Important Notes</h2>
+            <ul>
+              <li>Use <strong>Chrome</strong> or <strong>Edge</strong>.</li>
+              <li>Use a <strong>data-capable USB cable</strong>.</li>
+              <li>If the connection fails, reconnect the board and try again.</li>
+              <li>If needed, keep the <strong>BOOT button</strong> pressed while connecting.</li>
+              <li>The installation will overwrite the existing firmware on the device.</li>
+            </ul>
+          </div>
+
+          <div class="lang lang-fr">
+            <h2>Remarques importantes</h2>
+            <ul>
+              <li>Utilisez <strong>Chrome</strong> ou <strong>Edge</strong>.</li>
+              <li>Utilisez un <strong>câble USB compatible données</strong>.</li>
+              <li>Si la connexion échoue, rebranchez la carte et réessayez.</li>
+              <li>Si nécessaire, maintenez le bouton <strong>BOOT</strong> enfoncé lors de la connexion.</li>
+              <li>L'installation remplacera le firmware existant sur l'appareil.</li>
+            </ul>
+          </div>
+
+          <div class="lang lang-es">
+            <h2>Notas importantes</h2>
+            <ul>
+              <li>Utiliza <strong>Chrome</strong> o <strong>Edge</strong>.</li>
+              <li>Utiliza un <strong>cable USB con datos</strong>.</li>
+              <li>Si la conexión falla, vuelve a conectar la placa y prueba de nuevo.</li>
+              <li>Si es necesario, mantén pulsado el botón <strong>BOOT</strong> al conectar.</li>
+              <li>La instalación sobrescribirá el firmware existente en el dispositivo.</li>
+            </ul>
+          </div>
+
+          <div class="lang lang-it">
+            <h2>Note importanti</h2>
+            <ul>
+              <li>Usa <strong>Chrome</strong> o <strong>Edge</strong>.</li>
+              <li>Usa un <strong>cavo USB dati</strong>.</li>
+              <li>Se la connessione non riesce, ricollega la scheda e riprova.</li>
+              <li>Se necessario, tieni premuto il pulsante <strong>BOOT</strong> durante la connessione.</li>
+              <li>L'installazione sovrascriverà il firmware esistente sul dispositivo.</li>
+            </ul>
+          </div>
+
+          <div class="lang lang-pt">
+            <h2>Notas importantes</h2>
+            <ul>
+              <li>Use <strong>Chrome</strong> ou <strong>Edge</strong>.</li>
+              <li>Use um <strong>cabo USB com suporte a dados</strong>.</li>
+              <li>Se a ligação falhar, volte a ligar a placa e tente novamente.</li>
+              <li>Se necessário, mantenha o botão <strong>BOOT</strong> pressionado ao ligar.</li>
+              <li>A instalação substituirá o firmware existente no dispositivo.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="card">
+          <div class="badge">Firmware</div>
+
+          <div class="lang lang-de active">
+            <h2>Version</h2>
+            <p class="muted">
+              <strong>Version:</strong> 2.0<br>
+              <strong>Datei:</strong> <code>BoxRFID_CYD_ESP32_2432S028R_V2.0.ino.merged.bin</code>
+            </p>
+          </div>
+
+          <div class="lang lang-en">
+            <h2>Version</h2>
+            <p class="muted">
+              <strong>Version:</strong> 2.0<br>
+              <strong>File:</strong> <code>BoxRFID_CYD_ESP32_2432S028R_V2.0.ino.merged.bin</code>
+            </p>
+          </div>
+
+          <div class="lang lang-fr">
+            <h2>Version</h2>
+            <p class="muted">
+              <strong>Version :</strong> 2.0<br>
+              <strong>Fichier :</strong> <code>BoxRFID_CYD_ESP32_2432S028R_V2.0.ino.merged.bin</code>
+            </p>
+          </div>
+
+          <div class="lang lang-es">
+            <h2>Versión</h2>
+            <p class="muted">
+              <strong>Versión:</strong> 2.0<br>
+              <strong>Archivo:</strong> <code>BoxRFID_CYD_ESP32_2432S028R_V2.0.ino.merged.bin</code>
+            </p>
+          </div>
+
+          <div class="lang lang-it">
+            <h2>Versione</h2>
+            <p class="muted">
+              <strong>Versione:</strong> 2.0<br>
+              <strong>File:</strong> <code>BoxRFID_CYD_ESP32_2432S028R_V2.0.ino.merged.bin</code>
+            </p>
+          </div>
+
+          <div class="lang lang-pt">
+            <h2>Versão</h2>
+            <p class="muted">
+              <strong>Versão:</strong> 2.0<br>
+              <strong>Ficheiro:</strong> <code>BoxRFID_CYD_ESP32_2432S028R_V2.0.ino.merged.bin</code>
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="badge">Browser</div>
+
+          <div class="lang lang-de active">
+            <h2>Kompatibilität</h2>
+            <p class="muted">
+              Empfohlen für aktuelle Desktop-Versionen von Chrome und Edge mit USB-Zugriff.
+            </p>
+          </div>
+
+          <div class="lang lang-en">
+            <h2>Compatibility</h2>
+            <p class="muted">
+              Recommended for current desktop versions of Chrome and Edge with USB access.
+            </p>
+          </div>
+
+          <div class="lang lang-fr">
+            <h2>Compatibilité</h2>
+            <p class="muted">
+              Recommandé pour les versions desktop actuelles de Chrome et Edge avec accès USB.
+            </p>
+          </div>
+
+          <div class="lang lang-es">
+            <h2>Compatibilidad</h2>
+            <p class="muted">
+              Recomendado para versiones de escritorio actuales de Chrome y Edge con acceso USB.
+            </p>
+          </div>
+
+          <div class="lang lang-it">
+            <h2>Compatibilità</h2>
+            <p class="muted">
+              Consigliato per le versioni desktop attuali di Chrome ed Edge con accesso USB.
+            </p>
+          </div>
+
+          <div class="lang lang-pt">
+            <h2>Compatibilidade</h2>
+            <p class="muted">
+              Recomendado para versões desktop atuais do Chrome e Edge com acesso USB.
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="badge">Project</div>
+
+          <div class="lang lang-de active">
+            <h2>Hinweis</h2>
+            <p class="muted">
+              Diese Installer-Seite ist aktuell für eine unterstützte Hardware-Variante ausgelegt. Weitere Varianten können später ergänzt werden.
+            </p>
+          </div>
+
+          <div class="lang lang-en">
+            <h2>Note</h2>
+            <p class="muted">
+              This installer page currently targets one supported hardware variant. Additional variants can be added later.
+            </p>
+          </div>
+
+          <div class="lang lang-fr">
+            <h2>Remarque</h2>
+            <p class="muted">
+              Cette page d'installation est actuellement prévue pour une seule variante matérielle prise en charge. D'autres variantes pourront être ajoutées plus tard.
+            </p>
+          </div>
+
+          <div class="lang lang-es">
+            <h2>Nota</h2>
+            <p class="muted">
+              Esta página de instalación está pensada actualmente para una sola variante de hardware compatible. Se podrán añadir más variantes más adelante.
+            </p>
+          </div>
+
+          <div class="lang lang-it">
+            <h2>Nota</h2>
+            <p class="muted">
+              Questa pagina di installazione è attualmente pensata per una sola variante hardware supportata. Ulteriori varianti potranno essere aggiunte in seguito.
+            </p>
+          </div>
+
+          <div class="lang lang-pt">
+            <h2>Nota</h2>
+            <p class="muted">
+              Esta página de instalação destina-se atualmente a uma única variante de hardware suportada. Outras variantes poderão ser adicionadas mais tarde.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        <span class="lang lang-de active">BoxRFID Web Installer · GitHub Pages</span>
+        <span class="lang lang-en">BoxRFID Web Installer · GitHub Pages</span>
+        <span class="lang lang-fr">BoxRFID Web Installer · GitHub Pages</span>
+        <span class="lang lang-es">BoxRFID Web Installer · GitHub Pages</span>
+        <span class="lang lang-it">BoxRFID Web Installer · GitHub Pages</span>
+        <span class="lang lang-pt">BoxRFID Web Installer · GitHub Pages</span>
+      </div>
+    </section>
   </div>
 
-  <div class="box">
-    <h2>Firmware</h2>
-    <p>
-      Version: <strong>2.0</strong><br>
-      Datei: <code>BoxRFID_CYD_ESP32_2432S028R_V2.0.ino.merged.bin</code>
-    </p>
-  </div>
+  <script>
+    const supportedLanguages = ["de", "en", "fr", "es", "it", "pt"];
+
+    function normalizeLanguage(lang) {
+      const l = (lang || "").toLowerCase();
+
+      if (l.startsWith("de")) return "de";
+      if (l.startsWith("en")) return "en";
+      if (l.startsWith("fr")) return "fr";
+      if (l.startsWith("es")) return "es";
+      if (l.startsWith("it")) return "it";
+      if (l.startsWith("pt")) return "pt";
+
+      return "en";
+    }
+
+    function setLanguage(lang) {
+      const finalLang = supportedLanguages.includes(lang) ? lang : "en";
+
+      document.documentElement.lang = finalLang;
+      localStorage.setItem("boxrfid_lang", finalLang);
+
+      document.querySelectorAll(".lang").forEach(el => {
+        el.classList.remove("active");
+      });
+
+      document.querySelectorAll(".lang-" + finalLang).forEach(el => {
+        el.classList.add("active");
+      });
+
+      supportedLanguages.forEach(code => {
+        const btn = document.getElementById("btn-" + code);
+        if (btn) btn.classList.toggle("active", code === finalLang);
+      });
+    }
+
+    function detectLanguage() {
+      const saved = localStorage.getItem("boxrfid_lang");
+      if (saved && supportedLanguages.includes(saved)) {
+        return saved;
+      }
+      return normalizeLanguage(navigator.language || navigator.userLanguage || "en");
+    }
+
+    supportedLanguages.forEach(code => {
+      const btn = document.getElementById("btn-" + code);
+      if (btn) {
+        btn.addEventListener("click", () => setLanguage(code));
+      }
+    });
+
+    setLanguage(detectLanguage());
+  </script>
 </body>
 </html>
