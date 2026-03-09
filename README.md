@@ -99,8 +99,8 @@ Just connect the device, open the installer page, click **Connect**, select the 
 
 - **PN532 NFC/RFID module**
   - Used for reading and writing compatible RFID/NFC tags
-  [Amazon Germany PN532](https://www.amazon.de/dp/B0D86CPN5J)
-  ASIN: B0D86CPN5
+  - [Amazon Germany PN532](https://www.amazon.de/dp/B0D86CPN5J)
+  - ASIN: B0D86CPN5
 
 - **Jumper wires**
   - Used to connect CYD and PN532 (included with ESP32-2432S028R)
