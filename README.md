@@ -140,3 +140,17 @@ ESP32-2432S028R CYD    PN532
 GND                 -> GND
 GPIO 21             -> SDA
 GPIO 22             -> SCL
+```
+
+## SCREENSHOTS
+
+<img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/HomeDetailed.jpeg" height="180" alt="BoxRFID-Touch Home Screen">
+<img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/ReadTag.jpeg" height="180" alt="BoxRFID-Touch Home Screen">
+<img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/ReadManually.jpeg" height="180" alt="BoxRFID-Touch Home Screen">
+<img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/WriteMain.jpeg" height="180" alt="BoxRFID-Touch Home Screen">
+<img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/WriteMaterial.jpeg" height="180" alt="BoxRFID-Touch Home Screen">
+<img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/WriteColor.jpeg" height="180" alt="BoxRFID-Touch Home Screen">
+<img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/SetupMain.jpeg" height="180" alt="BoxRFID-Touch Home Screen">
+<img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/SetupLanguage.jpeg" height="180" alt="BoxRFID-Touch Home Screen">
+<img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/SetupManufacturer.jpeg" height="180" alt="BoxRFID-Touch Home Screen">
+<img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/SetupMaterial.jpeg" height="180" alt="BoxRFID-Touch Home Screen">
