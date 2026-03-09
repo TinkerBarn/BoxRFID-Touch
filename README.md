@@ -29,10 +29,11 @@ Compatibility with the **QIDI Q2** may be possible, but has not been tested yet.
 - Customizable **material list**
 - Reset custom lists to factory defaults
 - Full factory reset including **touch calibration**
-- Integrated **BLE support** for use as an external RFID reader/writer
-- Prepared for iOS companion app support (**app currently in alpha stage**)
 - Browser-based **Web Installer**
 - Optional **3D printable housing**
+
+- Integrated **BLE support** for use as an external RFID reader/writer for iOS devices
+- Prepared for iOS companion app support (**app currently in alpha stage**)
 
 ---
 
