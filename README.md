@@ -48,7 +48,7 @@ Compatibility with the **QIDI Q2** may be possible, but has not been tested yet.
 
 - 1x ESP32-2432S028R CYD
 - 1x PN532 NFC/RFID module
-- jumper wires
+- jumper wires (included with ESP32-2432S028R)
 - USB cable
 - optional 3D printed enclosure
 
