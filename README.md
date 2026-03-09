@@ -94,12 +94,16 @@ Just connect the device, open the installer page, click **Connect**, select the 
 
 - **ESP32-2432S028R CYD**
   - Main controller with integrated display and touchscreen
+  [Amazon Germany ESP32-2432S028R](https://www.amazon.de/dp/B0CG2WQGP9)
+  ASIN: B0CG2WQGP9
 
 - **PN532 NFC/RFID module**
   - Used for reading and writing compatible RFID/NFC tags
+    [Amazon Germany PN532](https://www.amazon.de/dp/B0D86CPN5J)
+    ASIN: B0D86CPN5
 
 - **Jumper wires**
-  - Used to connect CYD and PN532
+  - Used to connect CYD and PN532 (included with ESP32-2432S028R)
 
 - **USB cable**
   - Used for flashing and power supply
