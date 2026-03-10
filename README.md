@@ -142,6 +142,27 @@ GPIO 21             -> SDA
 GPIO 22             -> SCL
 ```
 
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Inside.jpeg" height="180" alt="Home Detailed"><br>
+      <sub>Mounting</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Connector.jpg" height="180" alt="Read Tag"><br>
+      <sub>Connector</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/PN532.jpg" height="180" alt="Read Manually"><br>
+      <sub>PN532/sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Back.jpeg" height="180" alt="Read Manually"><br>
+      <sub>PN532/sub>
+    </td>
+   </tr>
+</table>
+
 ## SCREENSHOTS
 
 <table align="center">
