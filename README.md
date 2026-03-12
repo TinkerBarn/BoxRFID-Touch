@@ -153,7 +153,7 @@ GPIO 22             -> SCL
       <sub>Connector</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/PN532I2C.jpeg" height="180" alt="Set I2C"><br>
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/PN532-I2C.jpeg" height="180" alt="Set I2C"><br>
       <sub>PN532</sub>
     </td>
     <td align="center">
