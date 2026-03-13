@@ -164,3 +164,154 @@ ESP32-2432S028R CYD    PN532
 GND                 -> GND
 GPIO 21             -> SDA
 GPIO 22             -> SCL
+```
+
+### Overview of Necessary Parts
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Electronic%20parts.jpeg" height="180" alt="Electronic parts"><br>
+      <sub>Electronic parts</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/PN532.jpeg" height="180" alt="PN532 RFID sensor"><br>
+      <sub>PN532 RFID sensor</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/PN532-I2C.jpeg" height="180" alt="Set PN532 to I2C mode"><br>
+      <sub>Set PN532 to I2C mode</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/ESP32-2432S028R.jpeg" height="180" alt="ESP32-2432S028R"><br>
+      <sub>ESP32-2432S028R</sub>
+    </td>
+  </tr>
+</table>
+
+### Details on How to Connect the Boards
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Cable%20connection.jpeg" height="180" alt="Connect the cables"><br>
+      <sub>Connect the cables</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Detail%20cable.jpeg" height="180" alt="ESP32 detail view"><br>
+      <sub>ESP32 detail view</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Detail%20PN532.jpeg" height="180" alt="PN532 detail view"><br>
+      <sub>PN532 detail view</sub>
+    </td>
+  </tr>
+</table>
+
+### Case Mounting
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Place%20PN532.jpeg" height="180" alt="Place PN532"><br>
+      <sub>Place PN532</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Place%20parts.jpeg" height="180" alt="Place ESP32 in case"><br>
+      <sub>Place ESP32 in case</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Mount%20CYD.jpeg" height="180" alt="Mount CYD with M3 6 mm screws"><br>
+      <sub>Mount CYD with M3 6 mm screws</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Mounted.jpeg" height="180" alt="All parts mounted"><br>
+      <sub>All parts mounted</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Place%20PN532.jpeg" height="180" alt="Base plate and adhesive pads"><br>
+      <sub>Base plate and adhesive pads</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Base%20plate%20with%20feeds.jpeg" height="180" alt="Base plate with mounted pads"><br>
+      <sub>Base plate with mounted pads</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Close%20Case.jpeg" height="180" alt="Close the case"><br>
+      <sub>Close the case</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Screw01.jpeg" height="180" alt="M3 5 mm countersunk screw"><br>
+      <sub>M3 5 mm countersunk screw</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Screw02.jpeg" height="180" alt="Bolted base plate"><br>
+      <sub>Bolted base plate</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Side.jpeg" height="180" alt="Side view"><br>
+      <sub>Side view</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Front.jpeg" height="180" alt="Front view"><br>
+      <sub>Front view</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Back.jpeg" height="180" alt="Back view"><br>
+      <sub>Back view</sub>
+    </td>
+  </tr>
+</table>
+
+## Screenshots
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/TinkerBarn/BoxRFID-Touch/main/screenshots/HomeDetailed.jpeg" height="180" alt="Home detailed"><br>
+      <sub>Home</sub>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/TinkerBarn/BoxRFID-Touch/main/screenshots/ReadTag.jpeg" height="180" alt="Read tag"><br>
+      <sub>Read Tag</sub>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/TinkerBarn/BoxRFID-Touch/main/screenshots/ReadManually.jpeg" height="180" alt="Read manually"><br>
+      <sub>Read Manually</sub>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/TinkerBarn/BoxRFID-Touch/main/screenshots/WriteMain.jpeg" height="180" alt="Write main"><br>
+      <sub>Write Main</sub>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/TinkerBarn/BoxRFID-Touch/main/screenshots/WriteMaterial.jpeg" height="180" alt="Write material"><br>
+      <sub>Write Material</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/TinkerBarn/BoxRFID-Touch/main/screenshots/WriteColor.jpeg" height="180" alt="Write color"><br>
+      <sub>Write Color</sub>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/TinkerBarn/BoxRFID-Touch/main/screenshots/SetupMain.jpeg" height="180" alt="Setup main"><br>
+      <sub>Setup Main</sub>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/TinkerBarn/BoxRFID-Touch/main/screenshots/SetupLanguage.jpeg" height="180" alt="Setup language"><br>
+      <sub>Setup Language</sub>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/TinkerBarn/BoxRFID-Touch/main/screenshots/SetupManufacturer.jpeg" height="180" alt="Setup manufacturer"><br>
+      <sub>Setup Manufacturer</sub>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/TinkerBarn/BoxRFID-Touch/main/screenshots/SetupMaterial.jpeg" height="180" alt="Setup material"><br>
+      <sub>Setup Material</sub>
+    </td>
+  </tr>
+</table>
