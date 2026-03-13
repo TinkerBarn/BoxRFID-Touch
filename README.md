@@ -143,7 +143,7 @@ GPIO 21             -> SDA
 GPIO 22             -> SCL
 ```
 
-# Overview of necessary parts 
+### Overview of necessary parts 
 <table align="center">
   <tr>
     <td align="center">
@@ -165,7 +165,7 @@ GPIO 22             -> SCL
   </tr>
 </table>
 
-# Details how to connect the boards
+### Details how to connect the boards
 
 <table align="center">
   <tr>
