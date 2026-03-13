@@ -184,6 +184,64 @@ GPIO 22             -> SCL
    </tr>
 </table>
 
+### Case mounting 
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Place PN532.jpeg" height="180" alt="Place PN532"><br>
+      <sub>Place PN532</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Place parts.jpeg" height="180" alt="Place ESP32 in case"><br>
+      <sub>Place ESP32 in case</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Mount CYD.jpeg" height="180" alt="Mount CYD with M3 6mm screws"><br>
+      <sub>Mount CYD with M3 6mm screws</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Mounted.jpeg" height="180" alt="All parts mounted"><br>
+      <sub>All parts mounted</sub>
+    </td>
+  </tr>
+    <tr>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Place PN532.jpeg" height="180" alt="Base plate and adhesive pads"><br>
+      <sub>Base plate and adhesive pads</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Base plate with feeds.jpeg" height="180" alt="Base plate and mounted pads"><br>
+      <sub>Base plate and mounted pads</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Close Case.jpeg" height="180" alt="Close the case"><br>
+      <sub>Close the case</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Screw01.jpeg" height="180" alt="M3 5mm countersunk screw"><br>
+      <sub>M3 5mm countersunk screw</sub>
+    </td>
+  </tr>
+    <tr>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Screw02.jpeg" height="180" alt="Bolted base plate"><br>
+      <sub>Bolted base plate</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Side.jpeg" height="180" alt="Side view"><br>
+      <sub>Side view</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Front.jpeg" height="180" alt="Front view"><br>
+      <sub>Front view</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Back.jpeg" height="180" alt="Back view"><br>
+      <sub>Back view</sub>
+    </td>
+  </tr>
+</table>
+
 ## SCREENSHOTS
 
 <table align="center">
