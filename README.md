@@ -80,7 +80,8 @@ The Web Installer is designed for users who do **not** want to deal with:
 - Optional **3D-printable housing**
 
 ### See details on YouTube
-https://youtu.be/4cGLlr9Ckx4?is=3c7DeLp9Vy9mUeB2
+[![Watch the video](https://img.youtube.com/vi/4cGLlr9Ckx4/hqdefault.jpg)](https://youtu.be/4cGLlr9Ckx4?is=3c7DeLp9Vy9mUeB2)
+
 ---
 
 ## Compatibility
