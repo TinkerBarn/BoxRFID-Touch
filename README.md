@@ -161,6 +161,24 @@ GPIO 22             -> SCL
       <sub>Back view</sub>
     </td>
    </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Cable connection.jpeg" height="180" alt="Connect the cables"><br>
+      <sub>Mounting</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Detail cable.jpeg" height="180" alt="Detail view ESP32"><br>
+      <sub>Connector</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/Detail PN532.jpeg" height="180" alt="Detail view PN532"><br>
+      <sub>PN532</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/screenshots/ESP32-2432S028R.jpeg" height="180" alt="ESP32-2432S028R"><br>
+      <sub>Back view</sub>
+    </td>
+   </tr>
 </table>
 
 ## SCREENSHOTS
