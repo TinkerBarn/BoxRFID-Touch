@@ -10,7 +10,7 @@ BoxRFID-Touch is a standalone touchscreen device for reading and writing NFC/RFI
 It runs on an **ESP32-2432S028R CYD** together with a **PN532** RFID/NFC reader and allows you to create, read and modify tag data directly on the device — no PC required during normal use.
 
 - **Platform:** ESP32-2432S028R CYD + PN532 (I2C)
-- **Firmware:** Version 2.0
+- **Firmware:** Version 2.1
 - **License:** CC BY-NC-SA 4.0
 
 ---
