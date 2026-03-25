@@ -304,13 +304,15 @@ This ensures the device keeps its configuration after reboot or power loss.
 
 ---
 
-## BLE support
+## BLE support for iOS RFID app
 
-The sketch includes integrated **BLE support** using a UART-style service.
+The sketch includes integrated **BLE support** using a UART-style service as an external RFID reader / writer device for iOS device which do not
+support MIFARE classic tags.
 
 BLE can be enabled or disabled in the settings.
 
-In the current firmware design, BLE is primarily relevant to the **QIDI workflow** and is not the main focus of the OpenSpool feature set.
+In the current firmware design, BLE is primarily only relevant to the **QIDI workflow** and is not the main focus of the OpenSpool feature set.
+**Currently on iOS app is available to support the device.**
 
 ---
 
@@ -353,11 +355,3 @@ Its key strengths are:
 - installation via the BoxRFID-Touch Web Installer
 
 ---
-
-## Technical note for GitHub publication
-
-This description is intentionally based on the actual feature set visible in the V3.5 sketch. Where relevant, it distinguishes between:
-
-- functionality that is already active in the current stable build
-- functionality that exists in code but is currently disabled by compile-time configuration
-
