@@ -11,6 +11,10 @@
           "path": "firmware/BoxRFID_CYD_ESP32_2432S028R_V2.1.ino.merged.bin",
           "offset": 0
         }
+        {
+          "path": "firmware/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool__V3.4.ino.merged.bin",
+          "offset": 0
+        }
       ]
     }
   ]
