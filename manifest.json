@@ -1,16 +1,23 @@
 {
-  "name": "BoxRFID",
-  "version": "2.1",
+  "name": "BoxRFID-Touch",
+  "version": "3.5",
   "home_assistant_domain": "",
   "new_install_prompt_erase": true,
   "builds": [
     {
       "chipFamily": "ESP32",
+      "description": "BoxRFID Touch V2.1",
       "parts": [
         {
           "path": "firmware/BoxRFID_CYD_ESP32_2432S028R_V2.1.ino.merged.bin",
           "offset": 0
         }
+      ]
+    },
+    {
+      "chipFamily": "ESP32",
+      "description": "BoxRFID OpenSpool Edition V3.5",
+      "parts": [
         {
           "path": "firmware/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V3.5.ino.merged.bin",
           "offset": 0
