@@ -1,0 +1,17 @@
+{
+  "name": "BoxRFID-Touch V2.1",
+  "version": "2.1",
+  "home_assistant_domain": "",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        {
+          "path": "firmware/BoxRFID_CYD_ESP32_2432S028R_V2.1.ino.merged.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}
