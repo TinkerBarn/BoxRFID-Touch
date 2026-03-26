@@ -9,8 +9,14 @@
 BoxRFID-Touch is a standalone touchscreen device for reading and writing NFC/RFID filament tags used by the **QIDI Box** ecosystem.  
 It runs on an **ESP32-2432S028R CYD** together with a **PN532** RFID/NFC reader and allows you to create, read and modify tag data directly on the device — no PC required during normal use.
 
+In addition to the classic **BoxRFID-Touch** firmware, the project now also includes **BoxRFID OpenSpool Edition**, a significantly extended firmware variant with support for **OpenSpool standard tags** and dedicated support for the **Snapmaker U1** running **paxx12 extended firmware** with **OpenRFID support**.
+
+For detailed feature overviews, see:
+- [BoxRFID OpenSpool Edition documentation](https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/docs/BoxRFID-OpenSpool-Edition/BoxRFID-OpenSpool-Edition.md)
+- [BoxRFID-Touch documentation](https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/docs/BoxRFID-Touch/BoxRFID-Touch.md)
+
 - **Platform:** ESP32-2432S028R CYD + PN532 (I2C)
-- **Firmware:** Version 2.1
+- **Firmware:** BoxRFID-Touch V2.1 and BoxRFID OpenSpool Edition V3.5
 - **License:** CC BY-NC-SA 4.0
 
 ---
@@ -47,8 +53,9 @@ The Web Installer is designed for users who do **not** want to deal with:
 2. Open the Web Installer
 3. Click **Connect**
 4. Select the correct serial port
-5. Flash the firmware
-6. Start using BoxRFID-Touch
+5. Choose the desired firmware variant
+6. Flash the firmware
+7. Start using BoxRFID-Touch
 
 ### Notes
 
@@ -59,6 +66,8 @@ The Web Installer is designed for users who do **not** want to deal with:
 ---
 
 ## Features
+
+### BoxRFID-Touch
 
 - Read RFID tags in **manual mode**
 - Read RFID tags in **auto mode**
@@ -79,12 +88,29 @@ The Web Installer is designed for users who do **not** want to deal with:
 - Browser-based **Web Installer** for quick and easy installation
 - Optional **3D-printable housing**
 
+### BoxRFID OpenSpool Edition
+
+- Significantly extended firmware variant based on the BoxRFID platform
+- Support for **OpenSpool standard tags**
+- Create and write OpenSpool tags with **manufacturer**, **material**, and **color**
+- Dedicated support for **Snapmaker U1**
+- Compatible with **paxx12 extended firmware**
+- Supports **OpenRFID-enabled** Snapmaker U1 workflows
+- Extended user interface and setup options compared to the classic BoxRFID-Touch firmware
+
+### Detailed Feature Documentation
+
+- [BoxRFID OpenSpool Edition – detailed feature description](https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/docs/BoxRFID-OpenSpool-Edition/BoxRFID-OpenSpool-Edition.md)
+- [BoxRFID-Touch – detailed feature description](https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/docs/BoxRFID-Touch/BoxRFID-Touch.md)
+
 ### See details on YouTube
 [![Watch the video](https://img.youtube.com/vi/4cGLlr9Ckx4/hqdefault.jpg)](https://youtu.be/4cGLlr9Ckx4?is=iYzOwJqUVbCeVkuv)
 
 ---
 
 ## Compatibility
+
+### BoxRFID-Touch
 
 Tested with:
 
@@ -97,8 +123,17 @@ Possible compatibility with:
 - **QIDI Q2**  
   Not tested yet. Feedback is welcome.
 
+### BoxRFID OpenSpool Edition
+
+Designed for:
+
+- **OpenSpool standard tags**
+- **Snapmaker U1** with **paxx12 extended firmware**
+- **Snapmaker U1** with enabled **OpenRFID support**
+
 ### If you need a Windows program, see my other project
 https://github.com/TinkerBarn/BoxRFID
+
 ---
 
 ## Requirements
@@ -112,10 +147,14 @@ https://github.com/TinkerBarn/BoxRFID
 
 ### RFID Tags
 
-- **Mifare classic 1K tags
-  (i.e. https://www.amazon.de/dp/B07GH1P2M5
-  or
-  https://www.abcrfid.com/product/13-56mhz-mifare-classic-1ks50-wet-inlay-thin-tag-adhesive-sticker)**
+- **Mifare classic 1K tags**
+  - For the classic BoxRFID-Touch / QIDI workflow
+  - i.e. https://www.amazon.de/dp/B07GH1P2M5
+  - or
+  - https://www.abcrfid.com/product/13-56mhz-mifare-classic-1ks50-wet-inlay-thin-tag-adhesive-sticker
+
+- **NTAG215 tags**
+  - For BoxRFID OpenSpool Edition / OpenSpool workflows
 
 ### BoxRFID-Touch Case
 
