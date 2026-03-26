@@ -6,7 +6,7 @@
   "builds": [
     {
       "chipFamily": "ESP32",
-      "description": "BoxRFID Touch V2.1",
+      "description": "BoxRFID-Touch V2.1",
       "parts": [
         {
           "path": "firmware/BoxRFID_CYD_ESP32_2432S028R_V2.1.ino.merged.bin",
