@@ -201,7 +201,7 @@ The following pinout shows how to connect the PN532 RFID board to the ESP32-2432
 
 - **3.3V** → **VCC**
 - **GND** → **GND**
-- **GPIO 21** → **SDA**
+- **GPIO 27** → **SDA**
 - **GPIO 22** → **SCL**
 
 ```text
