@@ -179,19 +179,22 @@ https://github.com/TinkerBarn/BoxRFID
   - [Amazon USA ESP32-2432S028R](https://www.amazon.com/dp/B0DNM4SKSJ)
     - ASIN: B0DNM4SKSJ
 
+
 - **PN532 NFC/RFID module**
   - Used for reading and writing compatible RFID/NFC tags
   - [Amazon Germany PN532](https://www.amazon.de/dp/B0D86CPN5J)
     - ASIN: B0D86CPN5J
   - [Amazon USA PN532](https://www.amazon.com/dp/B01I1J17LC)
     - ASIN: B01I1J17LC
+
    
-- **Female to Female USB-C Data Cable **
+- **Female to Female USB-C Data Cable**
   - Used for flashing and power supply
   - [Amazon Germany USB-C cable](https://www.amazon.de/dp/B0DSLNJMDR)
     - ASIN: B0DSLNJMDR
   - [Amazon USA USB-C cable](https://www.amazon.com/dp/B0C1X7P9K2)
     - ASIN: B0C1X7P9K2
+
 
 - **USB-C switch**
   - External switch to power on/off
@@ -199,10 +202,12 @@ https://github.com/TinkerBarn/BoxRFID
     - ASIN: B0CG11Y3MD
   - [Amazon USA USB-C switch](https://www.amazon.com/dp/B0F23RKY9Z)
     - ASIN: B0F23RKY9Z
+
     
 - **Jumper wires**
   - Used to connect the CYD and PN532  
   - Often included with the ESP32-2432S028R board
+
 
 - **Mounting material**
   - Screws, spacers, adhesive pads or similar accessories
