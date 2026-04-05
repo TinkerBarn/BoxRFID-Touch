@@ -147,14 +147,18 @@ https://github.com/TinkerBarn/BoxRFID
 
 ### RFID Tags
 
-- **Mifare classic 1K tags**
+- **QIDI RFID tags: Mifare classic 1K tags**
   - For the classic BoxRFID-Touch / QIDI workflow
-  - i.e. https://www.amazon.de/dp/B07GH1P2M5
-  - or
-  - https://www.abcrfid.com/product/13-56mhz-mifare-classic-1ks50-wet-inlay-thin-tag-adhesive-sticker
+  - i.e.:
+    - https://www.amazon.de/dp/B07GH1P2M5
+    - https://www.abcrfid.com/product/13-56mhz-mifare-classic-1ks50-wet-inlay-thin-tag-adhesive-sticker
+    - https://www.amazon.com/dp/B081CFXCBJ
 
-- **NTAG215 tags**
+- **OpenSpool tags: NTAG215 tags**
   - For BoxRFID OpenSpool Edition / OpenSpool workflows
+  - i.e.:
+    - https://www.amazon.de//dp/B0GJ4T9GG2
+    - https://www.amazon.com/dp/B081CFXCBJ
 
 ### BoxRFID-Touch Case
 
@@ -169,21 +173,36 @@ https://github.com/TinkerBarn/BoxRFID
 ### Electronics
 
 - **ESP32-2432S028R CYD**
-  - Main controller with integrated display and touchscreen
+  - 2.8 inch ESP32-2432S028R ESP32 Yellow Display - 9341 Resistive Touchscreen 240x320 TFT LCD Module CYD
   - [Amazon Germany ESP32-2432S028R](https://www.amazon.de/dp/B0CG2WQGP9)
-  - ASIN: B0CG2WQGP9
+    - ASIN: B0CG2WQGP9
+  - [Amazon USA ESP32-2432S028R](https://www.amazon.com/dp/B0DNM4SKSJ)
+    - ASIN: B0DNM4SKSJ
 
 - **PN532 NFC/RFID module**
   - Used for reading and writing compatible RFID/NFC tags
   - [Amazon Germany PN532](https://www.amazon.de/dp/B0D86CPN5J)
-  - ASIN: B0D86CPN5J
+    - ASIN: B0D86CPN5J
+  - [Amazon USA PN532](https://www.amazon.com/dp/B01I1J17LC)
+    - ASIN: B01I1J17LC
+   
+- **Female to Female USB-C Data Cable **
+  - Used for flashing and power supply
+  - [Amazon Germany USB-C cable](https://www.amazon.de/dp/B0DSLNJMDR)
+    - ASIN: B0DSLNJMDR
+  - [Amazon USA USB-C cable](https://www.amazon.com/dp/B0C1X7P9K2)
+    - ASIN: B0C1X7P9K2
 
+- **USB-C switch**
+  - External switch to power on/off
+  - [Amazon Germany USB-C switch](https://www.amazon.de/dp/B0CG11Y3MD)
+    - ASIN: B0CG11Y3MD
+  - [Amazon USA USB-C switch](https://www.amazon.com/dp/B0F23RKY9Z)
+    - ASIN: B0F23RKY9Z
+    
 - **Jumper wires**
   - Used to connect the CYD and PN532  
   - Often included with the ESP32-2432S028R board
-
-- **USB cable**
-  - Used for flashing and power supply
 
 - **Mounting material**
   - Screws, spacers, adhesive pads or similar accessories
