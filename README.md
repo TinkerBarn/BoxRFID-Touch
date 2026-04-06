@@ -20,6 +20,9 @@ For detailed feature overviews, see:
 - **License:** CC BY-NC-SA 4.0
 
 ---
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/H2H41XBKJ6)
+
+---
 
 ## 🚀 WEB INSTALLER – THE EASIEST WAY TO GET STARTED
 
