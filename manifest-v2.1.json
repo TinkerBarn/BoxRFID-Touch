@@ -8,7 +8,7 @@
       "chipFamily": "ESP32",
       "parts": [
         {
-          "path": "firmware/BoxRFID_CYD_ESP32_2432S028R_V2.1.ino.merged.bin",
+          "path": "firmware/boxrfid-touch/v2.1/BoxRFID_CYD_ESP32_2432S028R_V2.1.ino.merged.bin",
           "offset": 0
         }
       ]

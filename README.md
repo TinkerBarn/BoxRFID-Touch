@@ -16,7 +16,7 @@ For detailed feature overviews, see:
 - [BoxRFID-Touch documentation](https://github.com/TinkerBarn/BoxRFID-Touch/blob/main/docs/BoxRFID-Touch/BoxRFID-Touch.md)
 
 - **Platform:** ESP32-2432S028R CYD + PN532 (I2C)
-- **Firmware:** BoxRFID-Touch V2.1 and BoxRFID OpenSpool Edition V3.5
+- **Firmware:** BoxRFID-Touch V2.0 (legacy), BoxRFID-Touch V2.1 (stable), and BoxRFID OpenSpool Edition V3.5 (stable)
 - **License:** CC BY-NC-SA 4.0
 
 ---
@@ -33,6 +33,18 @@ For detailed feature overviews, see:
 > ## **[➡ Open BoxRFID-Touch Web Installer](https://tinkerbarn.github.io/BoxRFID-Touch/)**
 
 This is the **recommended installation method for most users**, especially beginners.
+
+### Firmware versions
+
+The repository currently contains these public firmware builds:
+
+| Firmware line | Version | Status | Installer | Binary |
+| --- | --- | --- | --- | --- |
+| BoxRFID-Touch | V2.0 | Legacy | No | [`firmware/boxrfid-touch/v2.0`](./firmware/boxrfid-touch/v2.0/) |
+| BoxRFID-Touch | V2.1 | Stable | Yes | [`firmware/boxrfid-touch/v2.1`](./firmware/boxrfid-touch/v2.1/) |
+| BoxRFID OpenSpool Edition | V3.5 | Stable | Yes | [`firmware/boxrfid-openspool/v3.5`](./firmware/boxrfid-openspool/v3.5/) |
+
+For a compact overview, see also [Firmware Matrix](./docs/firmware-matrix.md).
 
 ### What you need
 
@@ -65,6 +77,8 @@ The Web Installer is designed for users who do **not** want to deal with:
 - If the board is not detected immediately, reconnect it and try again
 - If needed, keep the **BOOT** button pressed while connecting
 - During normal use, the device only needs a **USB power source**
+- The Web Installer currently offers the recommended stable builds: **BoxRFID-Touch V2.1** and **BoxRFID OpenSpool Edition V3.5**
+- **BoxRFID-Touch V2.0** remains available in the repository as a legacy binary release
 
 ---
 

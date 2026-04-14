@@ -8,7 +8,7 @@
       "chipFamily": "ESP32",
       "parts": [
         {
-          "path": "firmware/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V3.5.ino.merged.bin",
+          "path": "firmware/boxrfid-openspool/v3.5/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V3.5.ino.merged.bin",
           "offset": 0
         }
       ]
