@@ -20,6 +20,12 @@ This is the recommended installation method for most users.
 
 ---
 
+## Video
+
+[![Watch the video](https://img.youtube.com/vi/4cGLlr9Ckx4/hqdefault.jpg)](https://youtu.be/4cGLlr9Ckx4?is=iYzOwJqUVbCeVkuv)
+
+---
+
 ## Firmware Overview
 
 | Firmware line | Version | Status | Use case | Installer |
@@ -144,12 +150,6 @@ GND                 -> GND
 GPIO 27             -> SDA
 GPIO 22             -> SCL
 ```
-
----
-
-## Video
-
-[![Watch the video](https://img.youtube.com/vi/4cGLlr9Ckx4/hqdefault.jpg)](https://youtu.be/4cGLlr9Ckx4?is=iYzOwJqUVbCeVkuv)
 
 ---
 
