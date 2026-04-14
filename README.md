@@ -147,6 +147,12 @@ GPIO 22             -> SCL
 
 ---
 
+## Video
+
+[![Watch the video](https://img.youtube.com/vi/4cGLlr9Ckx4/hqdefault.jpg)](https://youtu.be/4cGLlr9Ckx4?is=iYzOwJqUVbCeVkuv)
+
+---
+
 ## Bill Of Materials
 
 Electronics:
@@ -260,12 +266,6 @@ Case:
     </td>
   </tr>
 </table>
-
----
-
-## Video
-
-[Watch on YouTube](https://youtu.be/4cGLlr9Ckx4?is=iYzOwJqUVbCeVkuv)
 
 ---
 
