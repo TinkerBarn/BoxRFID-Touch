@@ -24,6 +24,8 @@ This is the recommended installation method for most users.
 
 [![Watch the video](https://img.youtube.com/vi/4cGLlr9Ckx4/hqdefault.jpg)](https://youtu.be/4cGLlr9Ckx4?is=iYzOwJqUVbCeVkuv)
 
+> Note: This video currently shows the classic QIDI firmware workflow and not the current BoxRFID OpenSpool Edition V3.6.
+
 ---
 
 ## Firmware Overview
@@ -265,6 +267,8 @@ Case:
 </table>
 
 ### UI Screenshots
+
+> Note: The UI screenshots below currently show the classic QIDI firmware interface and not the current BoxRFID OpenSpool Edition V3.6.
 
 <table align="center">
   <tr>
