@@ -1,9 +1,9 @@
 # BoxRFID OpenSpool Edition – Feature Overview
 
 ## Version
-**BoxRFID OpenSpool Edition V3.5**
+**BoxRFID OpenSpool Edition V3.6**
 
-This document describes the feature set of the firmware version based on the actual Arduino sketch `BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V3.5.ino`.
+This document describes the feature set of the firmware version based on the actual Arduino sketch `BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V3.6.ino`.
 
 BoxRFID OpenSpool Edition is a touchscreen-based standalone RFID reader and writer for the **ESP32-2432S028R (CYD)** with **PN532 I2C**, designed to work with both **QIDI RFID tags** and **OpenSpool tags**.
 
@@ -16,8 +16,9 @@ The firmware allows the device to:
 - read RFID spool tags directly on the touchscreen
 - write new RFID spool tags without a computer or mobile app
 - switch between **QIDI mode** and **OpenSpool mode**
+- switch between **QIDI Plus 4** and **QIDI Q2** directly in the device setup
 - manage separate material and manufacturer databases for both tag systems
-- optionally use BLE in QIDI mode
+- use an optimized OpenSpool read and write workflow with reduced tag access time
 
 ---
 
@@ -31,7 +32,8 @@ Functions include:
 - reading QIDI tags
 - writing QIDI tags
 - selecting manufacturer, material, and color from internal lists
-- optional BLE support for QIDI-related workflows
+- switching between **QIDI Plus 4** and **QIDI Q2**
+- using separate default material sets for both supported QIDI printer models
 
 ### OpenSpool mode
 In OpenSpool mode, the firmware supports **OpenSpool JSON-based tags**.
@@ -51,26 +53,30 @@ Standard OpenSpool tags can be created with:
 - **brand / manufacturer**
 - **material / type**
 - **color_hex**
+- **nozzle minimum temperature**
+- **nozzle maximum temperature**
+- **slicer page** with generated filament profile name
 
 #### 2. Snapmaker U1 specific OpenSpool tags
 The firmware also includes a dedicated **OpenSpool Snapmaker U1** profile for use with **Snapmaker U1** printers running **paxx12 extended firmware** with **OpenRFID support enabled**.
 
-In the current V3.5 sketch, the U1 profile supports writing and reading the following U1-relevant OpenSpool fields:
+In the current V3.6 sketch, the U1 profile supports writing and reading the following U1-relevant OpenSpool fields:
 
 - manufacturer / brand
 - material / type
 - color
 - nozzle minimum temperature
 - nozzle maximum temperature
+- bed minimum temperature
+- bed maximum temperature
 - subtype / variant
-- alpha value
+- opacity value
+- weight
+- diameter
+- up to four additional colors
+- slicer page with generated filament profile name
 
-**Important technical note:**
-The sketch also contains code for additional U1-related OpenSpool fields such as `bed_min_temp`, `bed_max_temp`, `weight`, `diameter`, and `additional_color_hexes`, but these are currently disabled in this V3.5 build through the compile-time switch:
-
-`OPENSPOOL_U1_EXTRA_FIELDS_ENABLED = false`
-
-That means the U1 profile is present and usable, but those extra fields are not active in the currently provided stable sketch.
+The U1-specific fields are no longer controlled by a compile-time switch. Instead, they can be enabled or disabled individually in the on-device **Tag Information** settings for **OpenSpool Extended**.
 
 ---
 
@@ -101,6 +107,15 @@ Depending on the active mode, the screen displays the available tag information 
 - OpenSpool subtype / variant
 - OpenSpool temperature values
 - additional OpenSpool detail pages where applicable
+- slicer profile information as a dedicated final page
+
+In OpenSpool mode, the tag information popup now uses a dynamic multi-page layout. Depending on the content present on the tag, the device can show:
+
+- main page with manufacturer, material / variant, and color
+- temperature page with nozzle, bed, and opacity
+- detail page with weight and diameter
+- additional colors page
+- slicer page with the generated filament profile name
 
 ### Auto Read
 The firmware also includes **Auto Read**.
@@ -129,7 +144,8 @@ The write workflow supports:
 - selecting manufacturer
 - selecting material
 - selecting color
-- entering optional U1-specific values depending on the active profile and enabled fields
+- entering optional Standard or U1-specific values depending on the active profile and enabled fields
+- a dedicated final **Slicer** page with the generated filament profile name
 
 The firmware automatically chooses the best data payload size that fits on the tag.
 
@@ -152,6 +168,12 @@ The color picker includes:
 - conversion to normalized HEX color format
 
 Direct HEX entry is useful when an exact spool color value is known and should be stored precisely on the tag.
+
+For OpenSpool Extended opacity input, the firmware supports:
+
+- a percentage-based slider
+- direct HEX entry
+- exact preservation of manually entered HEX opacity values
 
 ---
 
@@ -185,6 +207,7 @@ Functions include:
 - restoring the material list to factory defaults
 
 For OpenSpool materials, the firmware also supports storing nozzle temperature presets.
+For OpenSpool materials, the firmware also supports storing bed temperature presets.
 
 The sketch already contains built-in presets for common materials such as:
 
@@ -220,6 +243,8 @@ Functions include:
 - adding new manufacturer entries
 - restoring manufacturer lists to factory defaults
 
+In QIDI mode, manufacturer and material handling follow the currently selected printer model (**Plus 4** or **Q2**).
+
 The OpenSpool default list already contains entries such as **Generic**, **QIDI**, **Snapmaker**, **Bambu Lab**, **Prusament**, **eSUN**, **Polymaker**, and others defined in the sketch.
 
 ---
@@ -250,6 +275,19 @@ The firmware can store the preferred default tag mode:
 
 - QIDI
 - OpenSpool
+
+### OpenSpool Tag Information settings
+The OpenSpool settings include dedicated configuration pages for **Standard** and **Extended** tag information handling.
+
+Available options include:
+
+- enabling or disabling nozzle information in OpenSpool Standard
+- enabling or disabling bed temperature in OpenSpool Extended
+- enabling or disabling opacity in OpenSpool Extended
+- enabling or disabling weight in OpenSpool Extended
+- enabling or disabling diameter in OpenSpool Extended
+- enabling or disabling additional colors in OpenSpool Extended
+- selecting the automatic page switch interval for OpenSpool read pages
 
 ### Display brightness
 Brightness is adjustable and stored persistently.
@@ -292,27 +330,16 @@ The firmware stores user settings in ESP32 preferences, including:
 - language
 - display inversion
 - auto read state
-- BLE enabled state
 - default tag mode
+- selected QIDI printer model
 - screensaver mode
 - brightness
+- OpenSpool tag information options
 - touch calibration
 - material lists
 - manufacturer lists
 
 This ensures the device keeps its configuration after reboot or power loss.
-
----
-
-## BLE support for iOS RFID app
-
-The sketch includes integrated **BLE support** using a UART-style service as an external RFID reader / writer device for iOS device which do not
-support MIFARE classic tags.
-
-BLE can be enabled or disabled in the settings.
-
-In the current firmware design, BLE is primarily only relevant to the **QIDI workflow** and is not the main focus of the OpenSpool feature set.
-**Currently on iOS app is available to support the device.**
 
 ---
 
@@ -340,18 +367,21 @@ The sketch is written for:
 
 ## Summary
 
-**BoxRFID OpenSpool Edition V3.5** is a standalone touchscreen RFID tool for reading and writing both **QIDI** and **OpenSpool** spool tags.
+**BoxRFID OpenSpool Edition V3.6** is a standalone touchscreen RFID tool for reading and writing both **QIDI** and **OpenSpool** spool tags.
 
 Its key strengths are:
 
 - direct on-device read and write workflow
+- support for both **QIDI Plus 4** and **QIDI Q2**
 - support for both **standard OpenSpool tags** and **Snapmaker U1 specific OpenSpool tags**
 - flexible OpenSpool color handling via predefined colors, color picker, and HEX input
+- configurable OpenSpool Standard and Extended tag information fields
+- dynamic multi-page OpenSpool tag information display
+- dedicated slicer profile page for OpenSpool tags
 - optimized keyboards for text, numbers, and hexadecimal values
 - editable material and manufacturer databases
 - multilingual interface
 - configurable screensaver and brightness system
-- optional BLE support
 - installation via the BoxRFID-Touch Web Installer
 
 ---
