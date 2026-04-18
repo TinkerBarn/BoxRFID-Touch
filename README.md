@@ -24,7 +24,7 @@ This is the recommended installation method for most users.
 
 [![Watch the video](https://img.youtube.com/vi/4cGLlr9Ckx4/hqdefault.jpg)](https://youtu.be/4cGLlr9Ckx4?is=iYzOwJqUVbCeVkuv)
 
-> Note: This video currently shows the classic QIDI firmware workflow and not the current BoxRFID OpenSpool Edition V3.6.
+> Note: This video currently shows the classic QIDI firmware workflow and not the current BoxRFID OpenSpool Edition V3.7.
 
 ---
 
@@ -33,20 +33,20 @@ This is the recommended installation method for most users.
 | Firmware line | Version | Status | Use case | Installer |
 | --- | --- | --- | --- | --- |
 | BoxRFID-Touch | V2.1 | Stable | Classic QIDI workflow with MIFARE Classic 1K tags | Yes |
-| BoxRFID OpenSpool Edition | V3.6 | Stable | QIDI plus OpenSpool plus Snapmaker U1 OpenRFID workflows | Yes |
+| BoxRFID OpenSpool Edition | V3.7 | Stable | QIDI plus OpenSpool plus Snapmaker U1 OpenRFID workflows | Yes |
 | BoxRFID-Touch | V2.0 | Legacy | Older classic QIDI release kept for compatibility | No |
 
 Public firmware binaries in this repository:
 
 - [BoxRFID-Touch V2.0](./firmware/boxrfid-touch/v2.0/)
 - [BoxRFID-Touch V2.1](./firmware/boxrfid-touch/v2.1/)
-- [BoxRFID OpenSpool Edition V3.6](./firmware/boxrfid-openspool/v3.6/)
+- [BoxRFID OpenSpool Edition V3.7](./firmware/boxrfid-openspool/v3.7/)
 
 Detailed references:
 
 - [Firmware Matrix](./docs/firmware-matrix.md)
 - [BoxRFID-Touch V2.1 documentation](./docs/BoxRFID-Touch/BoxRFID-Touch.md)
-- [BoxRFID OpenSpool Edition V3.6 documentation](./docs/BoxRFID-OpenSpool-Edition/BoxRFID-OpenSpool-Edition.md)
+- [BoxRFID OpenSpool Edition documentation](./docs/BoxRFID-OpenSpool-Edition/BoxRFID-OpenSpool-Edition.md)
 
 ---
 
@@ -71,31 +71,27 @@ Additional OpenSpool Edition capabilities:
 
 ---
 
-## What's New In V3.6
+## What's New In V3.7
 
-- Added **QIDI Plus 4** and **QIDI Q2** support with model switching directly in the device setup
-- Added separate default material handling for **Plus 4** and **Q2**
-- Improved **OpenSpool read speed**
-- Improved **OpenSpool write speed**
-- Removed **BLE support** from the OpenSpool Edition to free program storage space for the extended feature set
-- Expanded **OpenSpool Standard** tag options
-- Expanded **OpenSpool Extended** tag options
-- Added dynamic multi-page **OpenSpool tag information display**
-- Added configurable **tag information pages** for OpenSpool Standard and OpenSpool Extended
-- Improved multilingual UI labels and layout across the OpenSpool workflow
+- Added **persistent setup storage** so language, mode, and OpenSpool/QIDI options survive restart and power loss
+- Improved **list persistence** for OpenSpool variants and for QIDI Plus 4 / QIDI Q2 manufacturers and materials
+- Expanded the **OpenSpool manufacturer list** and increased free manufacturer slots up to **50**
+- Improved **OpenSpool manufacturer editing** and factory reset behavior
+- Fixed **OpenSpool Snapmaker U1** color initialization so empty color fields start with **#FFFFFF**
+- Includes the major **V3.6 platform updates** such as QIDI Plus 4 / QIDI Q2 support, faster OpenSpool read/write, configurable OpenSpool tag pages, and multilingual UI refinements
 
 ---
 
 ## Which Version Should I Use
 
 - Choose **BoxRFID-Touch V2.1** if you only need the classic QIDI workflow.
-- Choose **BoxRFID OpenSpool Edition V3.6** if you need OpenSpool support or Snapmaker U1 OpenRFID compatibility.
+- Choose **BoxRFID OpenSpool Edition V3.7** if you need OpenSpool support or Snapmaker U1 OpenRFID compatibility.
 - Use **BoxRFID-Touch V2.0** only if you specifically need the older classic firmware.
 
 Documentation:
 
 - For the classic QIDI firmware line, see [BoxRFID-Touch V2.1 documentation](./docs/BoxRFID-Touch/BoxRFID-Touch.md)
-- For the OpenSpool firmware line, see [BoxRFID OpenSpool Edition V3.6 documentation](./docs/BoxRFID-OpenSpool-Edition/BoxRFID-OpenSpool-Edition.md)
+- For the OpenSpool firmware line, see [BoxRFID OpenSpool Edition documentation](./docs/BoxRFID-OpenSpool-Edition/BoxRFID-OpenSpool-Edition.md)
 
 ---
 
@@ -268,7 +264,7 @@ Case:
 
 ### UI Screenshots
 
-> Note: The UI screenshots below currently show the classic QIDI firmware interface and not the current BoxRFID OpenSpool Edition V3.6.
+> Note: The UI screenshots below currently show the classic QIDI firmware interface and not the current BoxRFID OpenSpool Edition V3.7.
 
 <table align="center">
   <tr>
