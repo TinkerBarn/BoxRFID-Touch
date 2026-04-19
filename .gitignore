@@ -1,3 +1,16 @@
-/source/
+/source/*
+!/source/boxrfid-touch/
+!/source/boxrfid-openspool/
+/source/boxrfid-touch/*
+/source/boxrfid-openspool/*
+!/source/boxrfid-touch/v2.1/
+!/source/boxrfid-openspool/v3.7/
+!/source/boxrfid-openspool/v4.0/
+/source/boxrfid-touch/v2.1/*
+/source/boxrfid-openspool/v3.7/*
+/source/boxrfid-openspool/v4.0/*
+!/source/boxrfid-touch/v2.1/BoxRFID_CYD_ESP32_2432S028R_V2.1.ino
+!/source/boxrfid-openspool/v3.7/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V3.7.ino
+!/source/boxrfid-openspool/v4.0/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.0.ino
 /dev/
 /tmp/

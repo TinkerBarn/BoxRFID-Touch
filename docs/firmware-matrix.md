@@ -1,16 +1,23 @@
 # Firmware Matrix
 
-This repository currently provides the following public firmware builds for the `ESP32-2432S028R (CYD)` platform.
+This repository provides public firmware lines for the `ESP32-2432S028R (CYD)` platform.
 
 | Firmware line | Version | Status | Intended use | Web Installer | Binary path |
 | --- | --- | --- | --- | --- | --- |
-| BoxRFID-Touch | V2.0 | Legacy | Older classic QIDI firmware | No | `firmware/boxrfid-touch/v2.0/BoxRFID_CYD_ESP32_2432S028R_V2.0.ino.merged.bin` |
-| BoxRFID-Touch | V2.1 | Stable | Recommended classic QIDI firmware | Yes | `firmware/boxrfid-touch/v2.1/BoxRFID_CYD_ESP32_2432S028R_V2.1.ino.merged.bin` |
-| BoxRFID OpenSpool Edition | V3.7 | Stable | Recommended OpenSpool-capable firmware | Yes | `firmware/boxrfid-openspool/v3.7/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V3.7.ino.merged.bin` |
+| BoxRFID-Touch | V2.0 | Legacy | Older classic QIDI firmware kept for compatibility | No | `firmware/boxrfid-touch/v2.0/BoxRFID_CYD_ESP32_2432S028R_V2.0.ino.merged.bin` |
+| BoxRFID-Touch | V2.1 | Stable classic | Classic QIDI-only workflow | Yes | `firmware/boxrfid-touch/v2.1/BoxRFID_CYD_ESP32_2432S028R_V2.1.ino.merged.bin` |
+| BoxRFID OpenSpool Edition | V3.7 | Stable fallback | QIDI plus OpenSpool fallback release | Yes | `firmware/boxrfid-openspool/v3.7/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V3.7.ino.merged.bin` |
+| BoxRFID OpenSpool Edition | V4.0 | Current release | Latest QIDI plus OpenSpool release with Q2, Plus 4, Max 4, Wi-Fi CFG upload, and setup improvements | Yes | `firmware/boxrfid-openspool/v4.0/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.0.ino.merged.bin` |
 
-## Notes
+## Release guidance
 
-- `V2.1` is the recommended public build for the classic QIDI workflow.
-- `V3.7` is the recommended public build for users who need OpenSpool support.
-- `V2.0` remains available in the repository as a legacy binary for older setups.
-- Arduino source files are currently maintained locally and are not part of the public GitHub repository.
+- Use `V4.0` if you want the latest release and all current QIDI/OpenSpool features.
+- Use `V3.7` if you need the previous combined firmware as a fallback.
+- Use `V2.1` if you only want the classic QIDI firmware line.
+- `V2.0` remains available only for older setups.
+
+## Source paths
+
+- Classic QIDI source: `source/boxrfid-touch/v2.1/`
+- OpenSpool fallback source: `source/boxrfid-openspool/v3.7/`
+- Current OpenSpool source: `source/boxrfid-openspool/v4.0/`

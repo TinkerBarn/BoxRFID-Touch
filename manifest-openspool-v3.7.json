@@ -1,5 +1,5 @@
 {
-  "name": "BoxRFID OpenSpool Edition V3.7",
+  "name": "BoxRFID OpenSpool Edition V3.7 Fallback",
   "version": "3.7",
   "home_assistant_domain": "",
   "new_install_prompt_erase": true,

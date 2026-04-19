@@ -1,395 +1,493 @@
-# BoxRFID OpenSpool Edition – Feature Overview
+# BoxRFID OpenSpool Edition V4.0
 
-## Version
-**BoxRFID OpenSpool Edition V3.7**
+This document describes the published **BoxRFID OpenSpool Edition V4.0** firmware for the **ESP32-2432S028R (CYD)** with **PN532 via I2C**.
 
-This document describes the feature set of the firmware version based on the actual Arduino sketch `BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V3.7.ino`.
-
-BoxRFID OpenSpool Edition is a touchscreen-based standalone RFID reader and writer for the **ESP32-2432S028R (CYD)** with **PN532 I2C**, designed to work with both **QIDI RFID tags** and **OpenSpool tags**.
+V4.0 is the current all-in-one BoxRFID release. It combines QIDI support and OpenSpool support in one firmware and adds the major platform updates introduced after V3.7.
 
 ---
 
-## Main purpose
+## What is new in V4.0
 
-The firmware allows the device to:
+Compared with the public V3.7 release, V4.0 adds and refines:
 
-- read RFID spool tags directly on the touchscreen
-- write new RFID spool tags without a computer or mobile app
-- switch between **QIDI mode** and **OpenSpool mode**
-- switch between **QIDI Plus 4** and **QIDI Q2** directly in the device setup
-- manage separate material and manufacturer databases for both tag systems
-- use an optimized OpenSpool read and write workflow with reduced tag access time
+- support for **QIDI Max 4** in addition to **QIDI Q2** and **QIDI Plus 4**
+- persistent **Wi-Fi setup** with SSID and password storage
+- a built-in **browser uploader** for `officiall_filas_list.cfg`
+- `MicroSD` support for storing official QIDI configuration files
+- per-model QIDI CFG handling for `Q2`, `Plus 4`, and `Max 4`
+- setup toggles to enable or disable the official QIDI CFG for each supported printer model
+- a redesigned QIDI CFG setup page with clear status colors
+- manual MicroSD workflow support using:
+  - `/qidi/q2/officiall_filas_list.cfg`
+  - `/qidi/plus4/officiall_filas_list.cfg`
+  - `/qidi/max4/officiall_filas_list.cfg`
+- an on-device **SD card format** function that rebuilds the folder structure
+- improved text keyboard and password keyboard layouts
+- the extended keyboard now reused for general name entry
+- better touch and SPI handling for the combined touch, Wi-Fi, and SD workflow
+- QIDI model information shown in relevant read and write status text
 
 ---
 
-## Supported tag systems
+## Hardware and tag support
+
+Target hardware:
+
+- `ESP32-2432S028R (CYD)`
+- `ILI9341` display
+- `XPT2046` resistive touch
+- `PN532` in `I2C` mode
+- optional `MicroSD` card in the built-in CYD slot
+
+Supported RFID tag families:
+
+- `MIFARE Classic 1K` for QIDI mode
+- `NTAG215 / NTAG-compatible` OpenSpool tags for OpenSpool mode
+
+---
+
+## Firmware modes
+
+V4.0 contains two main operating modes.
 
 ### QIDI mode
-In QIDI mode, the firmware supports the existing QIDI-style RFID workflow.
 
-Functions include:
+QIDI mode supports:
 
-- reading QIDI tags
-- writing QIDI tags
-- selecting manufacturer, material, and color from internal lists
-- switching between **QIDI Plus 4** and **QIDI Q2**
-- using separate default material sets for both supported QIDI printer models
+- reading QIDI-style tags
+- writing QIDI-style tags
+- selecting the active printer model:
+  - `QIDI Q2`
+  - `QIDI Plus 4`
+  - `QIDI Max 4`
+- separate material and manufacturer databases for each supported QIDI printer
+- optional use of the official `officiall_filas_list.cfg` file for each printer model
 
 ### OpenSpool mode
-In OpenSpool mode, the firmware supports **OpenSpool JSON-based tags**.
 
-Functions include:
+OpenSpool mode supports:
 
-- reading OpenSpool tags from NTAG-compatible media
-- writing OpenSpool tags with `protocol: openspool` and `version: 1.0`
-- storing the main OpenSpool fields directly on the tag
-- showing the decoded tag content on screen after reading
-
-The sketch supports two OpenSpool tag profiles:
-
-#### 1. Standard OpenSpool tags
-Standard OpenSpool tags can be created with:
-
-- **brand / manufacturer**
-- **material / type**
-- **color_hex**
-- **nozzle minimum temperature**
-- **nozzle maximum temperature**
-- **slicer page** with generated filament profile name
-
-#### 2. Snapmaker U1 specific OpenSpool tags
-The firmware also includes a dedicated **OpenSpool Snapmaker U1** profile for use with **Snapmaker U1** printers running **paxx12 extended firmware** with **OpenRFID support enabled**.
-
-In the current V3.7 sketch, the U1 profile supports writing and reading the following U1-relevant OpenSpool fields:
-
-- manufacturer / brand
-- material / type
-- color
-- nozzle minimum temperature
-- nozzle maximum temperature
-- bed minimum temperature
-- bed maximum temperature
-- subtype / variant
-- opacity value
-- weight
-- diameter
-- up to four additional colors
-- slicer page with generated filament profile name
-
-The U1-specific fields are no longer controlled by a compile-time switch. Instead, they can be enabled or disabled individually in the on-device **Tag Information** settings for **OpenSpool Extended**.
+- reading OpenSpool JSON/NDEF tags
+- writing OpenSpool tags
+- standard OpenSpool workflow
+- extended `Snapmaker U1 / OpenRFID` workflow
 
 ---
 
-## Main menu functions
+## Main menu
 
-The touchscreen main menu provides direct access to the core actions:
+The main screen gives direct access to:
 
-- **Read Tag**
-- **Write Tag**
-- **Settings**
-- **Auto Read on/off**
-- **QIDI / OpenSpool mode selection**
+- `Auto Read` toggle
+- `Read Tag`
+- `Setup`
+- `Write Tag`
+- `Mode switch` between `QIDI` and `OpenSpool`
 
-The interface is optimized for a standalone workflow, so common actions are reachable directly from the main screen.
+The status bar at the bottom shows version information or live status information depending on the current action.
 
 ---
 
 ## Read functions
 
-### Manual tag reading
-The firmware can read tags manually and show the detected content on screen.
+### QIDI read
 
-Depending on the active mode, the screen displays the available tag information such as:
+In QIDI mode the firmware:
 
-- manufacturer / brand
-- material / type
-- color
-- OpenSpool subtype / variant
-- OpenSpool temperature values
-- additional OpenSpool detail pages where applicable
-- slicer profile information as a dedicated final page
+1. waits for a compatible tag
+2. authenticates MIFARE block 4
+3. reads material, color, and manufacturer IDs
+4. shows the decoded values in a popup
 
-In OpenSpool mode, the tag information popup now uses a dynamic multi-page layout. Depending on the content present on the tag, the device can show:
+The popup title includes the active printer model, for example:
 
-- main page with manufacturer, material / variant, and color
-- temperature page with nozzle, bed, and opacity
-- detail page with weight and diameter
+- `Tag Information QIDI Q2`
+- `Tag Information QIDI Plus 4`
+- `Tag Information QIDI Max 4`
+
+### OpenSpool read
+
+In OpenSpool mode the firmware reads the OpenSpool payload and shows the result in one or more pages, depending on the stored fields.
+
+Possible OpenSpool read pages include:
+
+- base page with brand, type, subtype, and color
+- temperature page
+- alpha / opacity page
+- weight / diameter page
 - additional colors page
-- slicer page with the generated filament profile name
+- slicer profile page
 
-### Auto Read
-The firmware also includes **Auto Read**.
+### Auto read
 
-When enabled, the device continuously checks for nearby tags and automatically shows the tag information when a supported tag is detected.
+Auto read is available from the main screen in both modes.
 
-This is useful for:
-
-- quickly checking spool tags without pressing buttons
-- comparing multiple tags one after another
-- fast verification of newly written tags
+When enabled, the device automatically scans for nearby supported tags and opens the information popup when a tag is detected.
 
 ---
 
 ## Write functions
 
-### QIDI tag writing
-In QIDI mode, the firmware can write supported QIDI tag data using the selected material, color, and manufacturer values.
+### QIDI write
 
-### OpenSpool tag writing
-In OpenSpool mode, the firmware can create and write OpenSpool JSON tags.
+In QIDI mode, the write screen lets the user select:
 
-The write workflow supports:
+- manufacturer
+- material
+- color
 
-- selecting the OpenSpool profile type (**Standard OpenSpool** or **OpenSpool Snapmaker U1**)
-- selecting manufacturer
-- selecting material
-- selecting color
-- entering optional Standard or U1-specific values depending on the active profile and enabled fields
-- a dedicated final **Slicer** page with the generated filament profile name
+The firmware then writes the selected values to block 4.
 
-The firmware automatically chooses the best data payload size that fits on the tag.
+The status line includes the active QIDI model while writing, which makes it clear which printer-specific database is currently in use.
 
----
+### OpenSpool write
 
-## Color handling in OpenSpool mode
+In OpenSpool mode, the write flow is multi-page and depends on the selected profile.
 
-A major feature of the OpenSpool workflow is the flexible color input system.
+#### Standard OpenSpool
 
-In OpenSpool mode, colors can be set in three different ways:
+Standard OpenSpool pages can include:
 
-1. **Predefined color list**
-2. **Integrated color picker**
-3. **Direct HEX RGB input**
+- brand
+- material / type
+- color
+- nozzle min / max
+- slicer profile preview
 
-The color picker includes:
+#### OpenSpool U1 / Extended
 
-- hue/saturation/value based color selection
-- live preview of the selected color
-- conversion to normalized HEX color format
+Extended OpenSpool pages can include:
 
-Direct HEX entry is useful when an exact spool color value is known and should be stored precisely on the tag.
+- brand
+- material / type
+- color
+- variant / subtype
+- nozzle min / max
+- optional bed min / max
+- optional opacity
+- optional weight
+- optional diameter
+- optional additional colors 1 to 4
+- slicer profile preview
 
-For OpenSpool Extended opacity input, the firmware supports:
-
-- a percentage-based slider
-- direct HEX entry
-- exact preservation of manually entered HEX opacity values
-
----
-
-## Optimized keyboard layouts
-
-The sketch includes multiple on-screen keyboard modes that are optimized for the current input type.
-
-Available keyboard layouts include:
-
-- **text keyboard** for names and labels
-- **numeric keyboard** for number-only entries
-- **numeric keyboard with decimal support** for values such as filament diameter
-- **HEX keyboard** for hexadecimal input such as RGB/alpha values
-
-This makes input easier and more reliable, especially on the 2.8-inch touchscreen.
+The firmware automatically selects the best payload tier that fits on the tag and warns the user if only a reduced payload could be stored.
 
 ---
 
-## Material management
+## Setup menu pages
 
-The firmware contains separate editable material databases for:
+V4.0 uses a five-page setup structure.
 
-- **QIDI mode**
-- **OpenSpool mode**
+### Page 1/5: Core setup
 
-Functions include:
+Depending on mode and whether an official QIDI CFG is active, page 1 contains:
 
-- selecting materials for tag writing
-- editing existing materials
-- adding new materials
-- restoring the material list to factory defaults
+- manufacturer editor
+- material editor
+- language selection
+- default startup mode
+- active QIDI printer model selector
 
-For OpenSpool materials, the firmware also supports storing nozzle temperature presets.
-For OpenSpool materials, the firmware also supports storing bed temperature presets.
+If an official QIDI CFG is active for the current model, manual QIDI material/manufacturer editing is intentionally hidden for that model.
 
-The sketch already contains built-in presets for common materials such as:
+### Page 2/5: Screensaver and brightness
 
-- PLA
-- PETG
-- ABS
-- ASA
-- TPU
-- PA
-- PA12
-- PC
-- PEEK
-- PVA
-- HIPS
-- PCTG
-- PLA-CF
-- PETG-CF
-- PA-CF
+Page 2 contains:
+
+- screensaver timeout
+- display brightness
+
+Screensaver choices:
+
+- `30 seconds`
+- `1 minute`
+- `5 minutes`
+- `10 minutes`
+- `Off`
+
+### Page 3/5
+
+The content of page 3 depends on the active tag mode.
+
+#### QIDI mode page 3
+
+If no MicroSD card is available, the page shows a clear warning.
+
+If a MicroSD card is available, the page shows one status row per supported QIDI model:
+
+- `Q2`
+- `Plus 4`
+- `Max 4`
+
+Each row contains:
+
+- a large status button
+- an enable/disable toggle
+
+Status logic:
+
+- red = CFG file missing
+- green = CFG file present
+- the right-side toggle determines whether the file is actively used
+
+The page also contains:
+
+- `Format SD card`
+
+Tapping a model row opens an info dialog explaining:
+
+- that the user should obtain `officiall_filas_list.cfg` from Klipper
+- that it can be copied manually to MicroSD
+- or uploaded from a web browser when Wi-Fi is connected
+
+#### OpenSpool mode page 3
+
+Page 3 opens the OpenSpool tag information configuration pages:
+
+- `OpenSpool Standard`
+- `OpenSpool Extended`
+
+### Page 4/5: Wi-Fi
+
+The Wi-Fi page contains:
+
+- Wi-Fi enable/disable
+- SSID field
+- password field
+- live IP address / network state button
+
+Wi-Fi data stored persistently:
+
+- Wi-Fi enabled flag
+- SSID
+- password
+
+The IP address is shown live and is not stored persistently.
+
+### Page 5/5: Device settings
+
+The final page contains:
+
+- display inversion
+- touch calibration
+- factory defaults
 
 ---
 
-## Manufacturer management
+## QIDI official CFG support
 
-The firmware contains separate editable manufacturer databases for:
+V4.0 adds per-model support for the official QIDI material list file:
 
-- **QIDI mode**
-- **OpenSpool mode**
+- `Q2` uses `/qidi/q2/officiall_filas_list.cfg`
+- `Plus 4` uses `/qidi/plus4/officiall_filas_list.cfg`
+- `Max 4` uses `/qidi/max4/officiall_filas_list.cfg`
 
-Functions include:
+### When the official CFG is enabled
 
-- selecting manufacturers for tag writing
-- editing manufacturer entries
-- adding new manufacturer entries
-- restoring manufacturer lists to factory defaults
+If a CFG file exists and its toggle is enabled for the selected model:
 
-In QIDI mode, manufacturer and material handling follow the currently selected printer model (**Plus 4** or **Q2**).
+- QIDI materials are loaded from the official file
+- QIDI manufacturers are loaded from the official file
+- manual edit/add menus for QIDI materials and manufacturers are hidden for that model
 
-The OpenSpool default list contains a larger predefined set including **Generic**, **Snapmaker**, **SUNLU**, **eSun**, **Jayo**, **QIDI**, **Bambu Lab**, **Polymaker**, **TECBEARS**, **GIANTARM**, **HATCHBOX**, **Overture**, **Prusament**, **TINMORRY**, **Kingroon**, **Elegoo**, **Creality**, **Deeplee**, **ANYCUBIC**, **FLASHFORGE**, **CC3D**, and **ZIRO**.
+### When the official CFG is disabled
 
-The OpenSpool manufacturer database now supports up to **50 manufacturer slots**.
+If the toggle is off:
+
+- the firmware falls back to the internal persistent/default QIDI lists
+- manual QIDI editing becomes available again
+
+### Browser upload
+
+When Wi-Fi is connected, the device serves a small upload page on the live IP address.
+
+The upload page allows direct upload of:
+
+- `Q2` CFG
+- `Plus 4` CFG
+- `Max 4` CFG
+
+### Manual MicroSD workflow
+
+Users can also update the CFGs without Wi-Fi by copying the files manually to the correct MicroSD folders.
 
 ---
 
-## Multilingual user interface
+## Material, manufacturer, and variant editors
 
-The firmware includes a multilingual touchscreen UI.
+### QIDI databases
 
-Languages present in the sketch are:
+QIDI databases are separated by printer model. Each model can have its own:
 
-- German
-- English
-- Spanish
-- Portuguese
-- French
-- Italian
+- material list
+- manufacturer list
 
-Language selection is available directly from the settings menu.
+### OpenSpool databases
+
+OpenSpool provides editable persistent lists for:
+
+- manufacturers
+- materials
+- variants / subtypes
+
+For OpenSpool materials, the editor supports:
+
+- name
+- nozzle min
+- nozzle max
+- bed min
+- bed max
 
 ---
 
-## Settings and UI features
+## Keyboard and input modes
 
-The settings menu includes multiple configurable system options.
+V4.0 includes multiple input keyboards chosen automatically by field type.
 
-### Default startup mode
-The firmware can store the preferred default tag mode:
+### Extended text keyboard
 
-- QIDI
-- OpenSpool
+Used for:
 
-The last selected mode is restored after reboot or power loss.
+- SSID
+- Wi-Fi password
+- material names
+- manufacturer names
+- variant names
+- other general text entry
 
-For QIDI mode, the selected printer model (**Plus 4** or **Q2**) is also stored persistently.
+It includes:
 
-### OpenSpool Tag Information settings
-The OpenSpool settings include dedicated configuration pages for **Standard** and **Extended** tag information handling.
+- uppercase page
+- lowercase page
+- numeric page
+- two symbol pages
 
-Available options include:
+### Numeric keyboard
 
-- enabling or disabling nozzle information in OpenSpool Standard
-- enabling or disabling bed temperature in OpenSpool Extended
-- enabling or disabling opacity in OpenSpool Extended
-- enabling or disabling weight in OpenSpool Extended
-- enabling or disabling diameter in OpenSpool Extended
-- enabling or disabling additional colors in OpenSpool Extended
-- selecting the automatic page switch interval for OpenSpool read pages
+Used for:
 
-### Display brightness
-Brightness is adjustable and stored persistently.
+- temperatures
+- weight
+- other numeric fields
 
-The sketch uses percentage-based brightness control and remembers the selected level across reboots.
+### Numeric with decimal support
 
-### Configurable screensaver
-The firmware includes a **configurable screensaver**.
+Used for:
 
-Available timeout options in the sketch are:
+- diameter fields
 
-- 30 seconds
-- 1 minute
-- 5 minutes
-- 10 minutes
-- off
+### HEX keyboard
 
-When the screensaver becomes active, the display brightness is reduced automatically. When activity resumes, the previous brightness is restored.
+Used for:
 
-The screensaver is also designed to react to:
-
-- touch activity
-- RFID tag presence
-
-### Display inversion
-The settings menu includes a **display inversion** toggle.
-
-### Touch calibration
-The firmware supports touchscreen calibration and stores the calibration values in preferences.
-
-### Factory reset
-A factory reset function restores the saved UI settings and internal lists to their default state.
+- color hex
+- opacity hex
 
 ---
 
 ## Persistent storage
 
-The firmware stores user settings in ESP32 preferences, including:
+V4.0 stores persistent settings in ESP32 preferences, including:
 
-- language
-- display inversion
-- auto read state
+- UI language
 - default tag mode
+- last used mode
 - selected QIDI printer model
-- screensaver mode
 - brightness
-- OpenSpool tag information options
-- OpenSpool read page interval
+- screensaver
+- display inversion
 - touch calibration
-- material lists
-- manufacturer lists
-- OpenSpool variant list
-
-This ensures the device keeps its configuration after reboot or power loss until the user changes it or restores factory defaults.
-
----
-
-## Installation
-
-This firmware can be provided through the **BoxRFID-Touch Web Installer**, allowing installation without manually compiling the sketch in the Arduino IDE.
-
-For repository documentation, this is useful because it gives end users two possible installation paths:
-
-- flashing through the **Web Installer**
-- building and uploading the sketch manually in the Arduino IDE
+- Wi-Fi enabled state
+- Wi-Fi SSID
+- Wi-Fi password
+- QIDI official CFG toggles
+- QIDI lists
+- OpenSpool lists
+- OpenSpool draft values
+- OpenSpool tag info options
 
 ---
 
-## Hardware platform
+## Typical procedures
 
-The sketch is written for:
+### Write a QIDI tag
 
-- **ESP32-2432S028R (CYD / Cheap Yellow Display)**
-- **2.8-inch ILI9341 TFT display**
-- **XPT2046 resistive touch controller**
-- **PN532 connected via I2C**
+1. Switch to `QIDI` mode.
+2. Select the correct printer model in `Setup`.
+3. Open `Write Tag`.
+4. Select manufacturer, material, and color.
+5. Tap `Write Tag`.
+6. Place the MIFARE Classic tag on the reader.
+
+### Read a QIDI tag
+
+1. Switch to `QIDI` mode.
+2. Tap `Read Tag`, or enable `Auto Read`.
+3. Place the tag on the reader.
+4. Check the popup title to confirm the active QIDI model.
+
+### Upload an official QIDI CFG over Wi-Fi
+
+1. Insert a MicroSD card.
+2. Open `Setup > Wi-Fi`.
+3. Enable Wi-Fi and enter SSID and password.
+4. Wait for the device to show an IP address.
+5. Open the shown URL in a browser.
+6. Upload the correct `officiall_filas_list.cfg` for `Q2`, `Plus 4`, or `Max 4`.
+7. Return to `Setup > QIDI CFG`.
+8. Enable the toggle for the model you want to use.
+
+### Copy an official QIDI CFG manually
+
+1. Power off the device or remove the MicroSD card safely.
+2. Copy the file to one of these paths:
+   - `/qidi/q2/officiall_filas_list.cfg`
+   - `/qidi/plus4/officiall_filas_list.cfg`
+   - `/qidi/max4/officiall_filas_list.cfg`
+3. Reinsert the MicroSD card.
+4. Open the `QIDI CFG` setup page.
+5. Enable the toggle for the matching model.
+
+### Format the SD card structure from the device
+
+1. Insert a MicroSD card.
+2. Open `Setup > QIDI CFG`.
+3. Tap `Format SD card`.
+4. Confirm the action.
+5. Let the device rebuild the required QIDI folder structure.
+
+### Write a Standard OpenSpool tag
+
+1. Switch to `OpenSpool` mode.
+2. Open `Write Tag`.
+3. Choose `OpenSpool Standard`.
+4. Set brand, type, color, and optional nozzle temperatures.
+5. Review the slicer profile preview.
+6. Tap `Write`.
+7. Place the NTAG tag on the reader.
+
+### Write an OpenSpool U1 / Extended tag
+
+1. Switch to `OpenSpool` mode.
+2. Open `Write Tag`.
+3. Choose `OpenSpool U1`.
+4. Fill in the enabled pages and optional fields.
+5. Review the slicer profile preview.
+6. Tap `Write`.
+7. Place the NTAG tag on the reader.
 
 ---
 
 ## Summary
 
-**BoxRFID OpenSpool Edition V3.7** is a standalone touchscreen RFID tool for reading and writing both **QIDI** and **OpenSpool** spool tags.
+BoxRFID OpenSpool Edition V4.0 is the current release for users who want:
 
-Its key strengths are:
+- QIDI and OpenSpool in one firmware
+- support for QIDI `Q2`, `Plus 4`, and `Max 4`
+- official QIDI CFG file support through MicroSD and browser upload
+- persistent Wi-Fi configuration
+- improved keyboard layouts and setup flow
+- editable local OpenSpool databases
+- a fallback path back to internal QIDI lists when official CFG use is disabled
 
-- direct on-device read and write workflow
-- support for both **QIDI Plus 4** and **QIDI Q2**
-- support for both **standard OpenSpool tags** and **Snapmaker U1 specific OpenSpool tags**
-- flexible OpenSpool color handling via predefined colors, color picker, and HEX input
-- configurable OpenSpool Standard and Extended tag information fields
-- dynamic multi-page OpenSpool tag information display
-- dedicated slicer profile page for OpenSpool tags
-- optimized keyboards for text, numbers, and hexadecimal values
-- editable material and manufacturer databases
-- multilingual interface
-- configurable screensaver and brightness system
-- installation via the BoxRFID-Touch Web Installer
-
----
+It is the recommended release for new installations.

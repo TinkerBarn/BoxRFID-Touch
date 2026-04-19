@@ -25,7 +25,7 @@
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: "Aptos", "Segoe UI Variable Text", "Trebuchet MS", sans-serif;
       color: var(--text);
       background:
         radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 28%),
@@ -123,7 +123,7 @@
 
     .install-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
       margin-top: 24px;
     }
@@ -184,6 +184,39 @@
       color: #dbeafe;
       font-size: 0.9rem;
       margin-bottom: 12px;
+    }
+
+    .badge-classic {
+      background: rgba(216, 166, 84, 0.18);
+      border-color: rgba(216, 166, 84, 0.28);
+      color: #ffe7bc;
+    }
+
+    .badge-fallback {
+      background: rgba(148, 163, 184, 0.18);
+      border-color: rgba(148, 163, 184, 0.28);
+      color: #e5edf7;
+    }
+
+    .badge-current {
+      background: rgba(34, 197, 94, 0.18);
+      border-color: rgba(34, 197, 94, 0.28);
+      color: #ddffe8;
+    }
+
+    .hero-note {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.42);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--muted);
+    }
+
+    .hero-note strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
     }
 
     ul {
@@ -253,12 +286,12 @@
           <div>
             <h1>BoxRFID-Touch Web Installer</h1>
             <div class="subtitle">
-              <span class="lang lang-de active">Wähle die gewünschte Firmware und installiere sie direkt aus dem Browser auf dein ESP32-Board.</span>
-              <span class="lang lang-en">Choose the firmware you want and install it directly from your browser to your ESP32 board.</span>
-              <span class="lang lang-fr">Choisissez le firmware souhaité et installez-le directement depuis votre navigateur sur votre carte ESP32.</span>
-              <span class="lang lang-es">Elige el firmware que quieras e instálalo directamente desde tu navegador en tu placa ESP32.</span>
-              <span class="lang lang-it">Scegli il firmware desiderato e installalo direttamente dal browser sulla tua scheda ESP32.</span>
-              <span class="lang lang-pt">Escolha o firmware pretendido e instale-o diretamente do navegador para a sua placa ESP32.</span>
+              <span class="lang lang-de active">Waehle die passende Release-Linie und installiere sie direkt aus dem Browser auf dein ESP32-Board.</span>
+              <span class="lang lang-en">Choose the release line that fits your workflow and install it directly from your browser to your ESP32 board.</span>
+              <span class="lang lang-fr">Choisissez la ligne de release adaptee a votre flux et installez-la directement depuis votre navigateur sur votre carte ESP32.</span>
+              <span class="lang lang-es">Elige la linea de release que mejor encaje con tu flujo e instalala directamente desde tu navegador en tu placa ESP32.</span>
+              <span class="lang lang-it">Scegli la linea di release piu adatta al tuo flusso e installala direttamente dal browser sulla tua scheda ESP32.</span>
+              <span class="lang lang-pt">Escolha a linha de release mais adequada ao seu fluxo e instale-a diretamente do navegador para a sua placa ESP32.</span>
             </div>
           </div>
         </div>
@@ -273,49 +306,94 @@
         </div>
       </div>
 
+      <div class="hero-note">
+        <span class="lang lang-de active"><strong>Wenn du unsicher bist, starte mit V4.0.</strong>Nutze V3.7 als Fallback, wenn du die vorherige kombinierte Release verwenden willst. V2.1 ist die klassische QIDI-Linie ohne OpenSpool.</span>
+        <span class="lang lang-en"><strong>If you are unsure, start with V4.0.</strong>Use V3.7 as the fallback if you want the previous combined release. V2.1 is the classic QIDI line without OpenSpool.</span>
+        <span class="lang lang-fr"><strong>En cas de doute, commencez par V4.0.</strong>Utilisez V3.7 comme fallback si vous voulez la release combinee precedente. V2.1 est la ligne QIDI classique sans OpenSpool.</span>
+        <span class="lang lang-es"><strong>Si no estas seguro, empieza con V4.0.</strong>Usa V3.7 como fallback si quieres la release combinada anterior. V2.1 es la linea QIDI clasica sin OpenSpool.</span>
+        <span class="lang lang-it"><strong>Se non sei sicuro, inizia con V4.0.</strong>Usa V3.7 come fallback se vuoi la release combinata precedente. V2.1 e la linea QIDI classica senza OpenSpool.</span>
+        <span class="lang lang-pt"><strong>Se nao tiver a certeza, comece por V4.0.</strong>Use V3.7 como fallback se quiser a release combinada anterior. V2.1 e a linha QIDI classica sem OpenSpool.</span>
+      </div>
+
       <div class="install-grid">
         <div class="card">
           <div class="install-wrap">
             <div class="lang lang-de active">
+              <div class="badge badge-classic">Classic</div>
               <div class="build-name">BoxRFID-Touch V2.1</div>
               <h2>Installation</h2>
-              <p class="muted">Klassische QIDI-Firmware für MIFARE Classic 1K Tags.</p>
+              <p class="muted">Klassische QIDI-Firmwarelinie fuer Nutzer, die nur den einfachen BoxRFID/QIDI-Workflow wollen.</p>
               <div class="supported-board">Board: ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>Nur QIDI-Workflow</li>
+                <li>MIFARE Classic 1K Tags</li>
+                <li>Stabile Classic-Release</li>
+              </ul>
             </div>
 
             <div class="lang lang-en">
+              <div class="badge badge-classic">Classic</div>
               <div class="build-name">BoxRFID-Touch V2.1</div>
               <h2>Installation</h2>
-              <p class="muted">Classic QIDI firmware for MIFARE Classic 1K tags.</p>
+              <p class="muted">Classic QIDI firmware line for users who only want the simple BoxRFID/QIDI workflow.</p>
               <div class="supported-board">Board: ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>QIDI workflow only</li>
+                <li>MIFARE Classic 1K tags</li>
+                <li>Stable classic release</li>
+              </ul>
             </div>
 
             <div class="lang lang-fr">
+              <div class="badge badge-classic">Classic</div>
               <div class="build-name">BoxRFID-Touch V2.1</div>
               <h2>Installation</h2>
-              <p class="muted">Firmware QIDI classique pour tags MIFARE Classic 1K.</p>
+              <p class="muted">Ligne classique QIDI pour les utilisateurs qui veulent uniquement le flux BoxRFID/QIDI simple.</p>
               <div class="supported-board">Carte : ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>Flux QIDI uniquement</li>
+                <li>Tags MIFARE Classic 1K</li>
+                <li>Release classique stable</li>
+              </ul>
             </div>
 
             <div class="lang lang-es">
+              <div class="badge badge-classic">Classic</div>
               <div class="build-name">BoxRFID-Touch V2.1</div>
               <h2>Instalación</h2>
-              <p class="muted">Firmware QIDI clásico para etiquetas MIFARE Classic 1K.</p>
+              <p class="muted">Linea clasica QIDI para usuarios que solo quieren el flujo simple BoxRFID/QIDI.</p>
               <div class="supported-board">Placa: ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>Solo flujo QIDI</li>
+                <li>Etiquetas MIFARE Classic 1K</li>
+                <li>Release clasica estable</li>
+              </ul>
             </div>
 
             <div class="lang lang-it">
+              <div class="badge badge-classic">Classic</div>
               <div class="build-name">BoxRFID-Touch V2.1</div>
               <h2>Installazione</h2>
-              <p class="muted">Firmware QIDI classico per tag MIFARE Classic 1K.</p>
+              <p class="muted">Linea classica QIDI per chi vuole solo il flusso semplice BoxRFID/QIDI.</p>
               <div class="supported-board">Scheda: ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>Solo flusso QIDI</li>
+                <li>Tag MIFARE Classic 1K</li>
+                <li>Release classica stabile</li>
+              </ul>
             </div>
 
             <div class="lang lang-pt">
+              <div class="badge badge-classic">Classic</div>
               <div class="build-name">BoxRFID-Touch V2.1</div>
               <h2>Instalação</h2>
-              <p class="muted">Firmware QIDI clássico para tags MIFARE Classic 1K.</p>
+              <p class="muted">Linha classica QIDI para utilizadores que querem apenas o fluxo simples BoxRFID/QIDI.</p>
               <div class="supported-board">Placa: ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>Apenas fluxo QIDI</li>
+                <li>Tags MIFARE Classic 1K</li>
+                <li>Release classica estavel</li>
+              </ul>
             </div>
 
             <esp-web-install-button manifest="manifest-v2.1.json"></esp-web-install-button>
@@ -325,60 +403,168 @@
         <div class="card">
           <div class="install-wrap">
             <div class="lang lang-de active">
+              <div class="badge badge-fallback">Fallback</div>
               <div class="build-name">BoxRFID OpenSpool Edition V3.7</div>
               <h2>Installation</h2>
-              <p class="muted">
-                Erweiterte All-in-One-Firmware mit Unterstützung für die klassische QIDI-Firmware auf Basis von MIFARE Classic 1K Tags sowie zusätzlich für OpenSpool Standard Tags und erweiterte OpenSpool Tags für Snapmaker U1 mit OpenRFID Support.
-              </p>
+              <p class="muted">Vorherige kombinierte Release fuer QIDI plus OpenSpool. Diese bleibt als Rueckfallpfad im Installer erhalten.</p>
               <div class="supported-board">Board: ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>QIDI und OpenSpool in einer Firmware</li>
+                <li>Vorherige kombinierte Release</li>
+                <li>Empfohlene Fallback-Option</li>
+              </ul>
             </div>
 
             <div class="lang lang-en">
+              <div class="badge badge-fallback">Fallback</div>
               <div class="build-name">BoxRFID OpenSpool Edition V3.7</div>
               <h2>Installation</h2>
-              <p class="muted">
-                Extended all-in-one firmware with support for the classic QIDI workflow based on MIFARE Classic 1K tags, plus OpenSpool standard tags and extended OpenSpool tags for Snapmaker U1 with OpenRFID support.
-              </p>
+              <p class="muted">Previous combined release for QIDI plus OpenSpool. It stays in the installer as the fallback option.</p>
               <div class="supported-board">Board: ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>QIDI and OpenSpool in one firmware</li>
+                <li>Previous combined release</li>
+                <li>Recommended fallback option</li>
+              </ul>
             </div>
 
             <div class="lang lang-fr">
+              <div class="badge badge-fallback">Fallback</div>
               <div class="build-name">BoxRFID OpenSpool Edition V3.7</div>
               <h2>Installation</h2>
-              <p class="muted">
-                Firmware tout-en-un étendu avec prise en charge du flux QIDI classique basé sur des tags MIFARE Classic 1K, ainsi que des tags OpenSpool standard et des tags OpenSpool étendus pour Snapmaker U1 avec support OpenRFID.
-              </p>
+              <p class="muted">Release combinee precedente pour QIDI plus OpenSpool. Elle reste dans l'installateur comme option de repli.</p>
               <div class="supported-board">Carte : ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>QIDI et OpenSpool dans un seul firmware</li>
+                <li>Release combinee precedente</li>
+                <li>Option de repli recommandee</li>
+              </ul>
             </div>
 
             <div class="lang lang-es">
+              <div class="badge badge-fallback">Fallback</div>
               <div class="build-name">BoxRFID OpenSpool Edition V3.7</div>
               <h2>Instalación</h2>
-              <p class="muted">
-                Firmware ampliado todo en uno con soporte para el flujo clásico de QIDI basado en etiquetas MIFARE Classic 1K, además de etiquetas OpenSpool estándar y etiquetas OpenSpool ampliadas para Snapmaker U1 con soporte OpenRFID.
-              </p>
+              <p class="muted">Release combinada anterior para QIDI mas OpenSpool. Permanece en el instalador como opcion de respaldo.</p>
               <div class="supported-board">Placa: ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>QIDI y OpenSpool en una sola firmware</li>
+                <li>Release combinada anterior</li>
+                <li>Opcion de respaldo recomendada</li>
+              </ul>
             </div>
 
             <div class="lang lang-it">
+              <div class="badge badge-fallback">Fallback</div>
               <div class="build-name">BoxRFID OpenSpool Edition V3.7</div>
               <h2>Installazione</h2>
-              <p class="muted">
-                Firmware all-in-one esteso con supporto per il classico flusso QIDI basato su tag MIFARE Classic 1K, oltre a tag OpenSpool standard e tag OpenSpool estesi per Snapmaker U1 con supporto OpenRFID.
-              </p>
+              <p class="muted">Release combinata precedente per QIDI piu OpenSpool. Resta nell'installer come opzione di fallback.</p>
               <div class="supported-board">Scheda: ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>QIDI e OpenSpool in una sola firmware</li>
+                <li>Release combinata precedente</li>
+                <li>Opzione di fallback consigliata</li>
+              </ul>
             </div>
 
             <div class="lang lang-pt">
+              <div class="badge badge-fallback">Fallback</div>
               <div class="build-name">BoxRFID OpenSpool Edition V3.7</div>
               <h2>Instalação</h2>
-              <p class="muted">
-                Firmware all-in-one expandido com suporte para o fluxo clássico QIDI baseado em tags MIFARE Classic 1K, além de tags OpenSpool standard e tags OpenSpool expandidas para Snapmaker U1 com suporte OpenRFID.
-              </p>
+              <p class="muted">Release combinada anterior para QIDI mais OpenSpool. Mantem-se no instalador como opcao de fallback.</p>
               <div class="supported-board">Placa: ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>QIDI e OpenSpool numa so firmware</li>
+                <li>Release combinada anterior</li>
+                <li>Opcao de fallback recomendada</li>
+              </ul>
             </div>
 
             <esp-web-install-button manifest="manifest-openspool-v3.7.json"></esp-web-install-button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="install-wrap">
+            <div class="lang lang-de active">
+              <div class="badge badge-current">Aktuelle Release</div>
+              <div class="build-name">BoxRFID OpenSpool Edition V4.0</div>
+              <h2>Installation</h2>
+              <p class="muted">Aktuelle All-in-One-Release mit QIDI plus OpenSpool, Wi-Fi-Setup, Browser-Upload fuer `officiall_filas_list.cfg` und allen neueren UI-Verbesserungen.</p>
+              <div class="supported-board">Board: ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>QIDI Q2, Plus 4 und Max 4</li>
+                <li>Browser-Upload und MicroSD fuer officiall_filas_list.cfg</li>
+                <li>Verbesserte Tastatur-, Touch- und Setup-Workflows</li>
+              </ul>
+            </div>
+
+            <div class="lang lang-en">
+              <div class="badge badge-current">Current Release</div>
+              <div class="build-name">BoxRFID OpenSpool Edition V4.0</div>
+              <h2>Installation</h2>
+              <p class="muted">Current all-in-one release with QIDI plus OpenSpool, Wi-Fi setup, browser upload for `officiall_filas_list.cfg`, and the newer UI improvements.</p>
+              <div class="supported-board">Board: ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>QIDI Q2, Plus 4, and Max 4</li>
+                <li>Browser upload and MicroSD support for officiall_filas_list.cfg</li>
+                <li>Improved keyboard, touch, and setup workflows</li>
+              </ul>
+            </div>
+
+            <div class="lang lang-fr">
+              <div class="badge badge-current">Release actuelle</div>
+              <div class="build-name">BoxRFID OpenSpool Edition V4.0</div>
+              <h2>Installation</h2>
+              <p class="muted">Release actuelle tout-en-un avec QIDI plus OpenSpool, configuration Wi-Fi, upload navigateur pour `officiall_filas_list.cfg` et nouvelles ameliorations UI.</p>
+              <div class="supported-board">Carte : ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>QIDI Q2, Plus 4 et Max 4</li>
+                <li>Upload navigateur et support MicroSD pour officiall_filas_list.cfg</li>
+                <li>Clavier, touch et setup ameliores</li>
+              </ul>
+            </div>
+
+            <div class="lang lang-es">
+              <div class="badge badge-current">Release actual</div>
+              <div class="build-name">BoxRFID OpenSpool Edition V4.0</div>
+              <h2>Instalación</h2>
+              <p class="muted">Release actual todo en uno con QIDI mas OpenSpool, configuracion Wi-Fi, carga desde navegador para `officiall_filas_list.cfg` y mejoras recientes de la UI.</p>
+              <div class="supported-board">Placa: ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>QIDI Q2, Plus 4 y Max 4</li>
+                <li>Carga por navegador y soporte MicroSD para officiall_filas_list.cfg</li>
+                <li>Teclado, touch y setup mejorados</li>
+              </ul>
+            </div>
+
+            <div class="lang lang-it">
+              <div class="badge badge-current">Release attuale</div>
+              <div class="build-name">BoxRFID OpenSpool Edition V4.0</div>
+              <h2>Installazione</h2>
+              <p class="muted">Release attuale all-in-one con QIDI piu OpenSpool, configurazione Wi-Fi, upload browser per `officiall_filas_list.cfg` e le nuove migliorie UI.</p>
+              <div class="supported-board">Scheda: ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>QIDI Q2, Plus 4 e Max 4</li>
+                <li>Upload browser e supporto MicroSD per officiall_filas_list.cfg</li>
+                <li>Tastiera, touch e setup migliorati</li>
+              </ul>
+            </div>
+
+            <div class="lang lang-pt">
+              <div class="badge badge-current">Release atual</div>
+              <div class="build-name">BoxRFID OpenSpool Edition V4.0</div>
+              <h2>Instalação</h2>
+              <p class="muted">Release atual all-in-one com QIDI mais OpenSpool, configuracao Wi-Fi, upload pelo navegador para `officiall_filas_list.cfg` e melhorias recentes da UI.</p>
+              <div class="supported-board">Placa: ESP32-2432S028R (CYD)</div>
+              <ul>
+                <li>QIDI Q2, Plus 4 e Max 4</li>
+                <li>Upload por navegador e suporte MicroSD para officiall_filas_list.cfg</li>
+                <li>Teclado, touch e setup melhorados</li>
+              </ul>
+            </div>
+
+            <esp-web-install-button manifest="manifest-openspool-v4.0.json"></esp-web-install-button>
           </div>
         </div>
       </div>
@@ -466,12 +652,16 @@
           <div class="lang lang-de active">
             <h2>Verfügbare Builds</h2>
             <p class="muted">
-              <strong>BoxRFID-Touch V2.1</strong> <span class="muted">(Stable)</span><br>
+              <strong>BoxRFID-Touch V2.1</strong> <span class="muted">(Classic)</span><br>
               <code>firmware/boxrfid-touch/v2.1/BoxRFID_CYD_ESP32_2432S028R_V2.1.ino.merged.bin</code>
             </p>
             <p class="muted">
-              <strong>BoxRFID OpenSpool Edition V3.7</strong> <span class="muted">(Stable)</span><br>
+              <strong>BoxRFID OpenSpool Edition V3.7</strong> <span class="muted">(Fallback)</span><br>
               <code>firmware/boxrfid-openspool/v3.7/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V3.7.ino.merged.bin</code>
+            </p>
+            <p class="muted">
+              <strong>BoxRFID OpenSpool Edition V4.0</strong> <span class="muted">(Aktuell)</span><br>
+              <code>firmware/boxrfid-openspool/v4.0/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.0.ino.merged.bin</code>
             </p>
             <p class="muted">
               <strong>BoxRFID-Touch V2.0</strong> <span class="muted">(Legacy binary in repository)</span>
@@ -481,12 +671,16 @@
           <div class="lang lang-en">
             <h2>Available Builds</h2>
             <p class="muted">
-              <strong>BoxRFID-Touch V2.1</strong> <span class="muted">(Stable)</span><br>
+              <strong>BoxRFID-Touch V2.1</strong> <span class="muted">(Classic)</span><br>
               <code>firmware/boxrfid-touch/v2.1/BoxRFID_CYD_ESP32_2432S028R_V2.1.ino.merged.bin</code>
             </p>
             <p class="muted">
-              <strong>BoxRFID OpenSpool Edition V3.7</strong> <span class="muted">(Stable)</span><br>
+              <strong>BoxRFID OpenSpool Edition V3.7</strong> <span class="muted">(Fallback)</span><br>
               <code>firmware/boxrfid-openspool/v3.7/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V3.7.ino.merged.bin</code>
+            </p>
+            <p class="muted">
+              <strong>BoxRFID OpenSpool Edition V4.0</strong> <span class="muted">(Current)</span><br>
+              <code>firmware/boxrfid-openspool/v4.0/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.0.ino.merged.bin</code>
             </p>
             <p class="muted">
               <strong>BoxRFID-Touch V2.0</strong> <span class="muted">(Legacy binary in repository)</span>
@@ -496,12 +690,16 @@
           <div class="lang lang-fr">
             <h2>Builds disponibles</h2>
             <p class="muted">
-              <strong>BoxRFID-Touch V2.1</strong> <span class="muted">(Stable)</span><br>
+              <strong>BoxRFID-Touch V2.1</strong> <span class="muted">(Classic)</span><br>
               <code>firmware/boxrfid-touch/v2.1/BoxRFID_CYD_ESP32_2432S028R_V2.1.ino.merged.bin</code>
             </p>
             <p class="muted">
-              <strong>BoxRFID OpenSpool Edition V3.7</strong> <span class="muted">(Stable)</span><br>
+              <strong>BoxRFID OpenSpool Edition V3.7</strong> <span class="muted">(Fallback)</span><br>
               <code>firmware/boxrfid-openspool/v3.7/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V3.7.ino.merged.bin</code>
+            </p>
+            <p class="muted">
+              <strong>BoxRFID OpenSpool Edition V4.0</strong> <span class="muted">(Actuelle)</span><br>
+              <code>firmware/boxrfid-openspool/v4.0/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.0.ino.merged.bin</code>
             </p>
             <p class="muted">
               <strong>BoxRFID-Touch V2.0</strong> <span class="muted">(Binaire legacy dans le depot)</span>
@@ -511,12 +709,16 @@
           <div class="lang lang-es">
             <h2>Builds disponibles</h2>
             <p class="muted">
-              <strong>BoxRFID-Touch V2.1</strong> <span class="muted">(Stable)</span><br>
+              <strong>BoxRFID-Touch V2.1</strong> <span class="muted">(Classic)</span><br>
               <code>firmware/boxrfid-touch/v2.1/BoxRFID_CYD_ESP32_2432S028R_V2.1.ino.merged.bin</code>
             </p>
             <p class="muted">
-              <strong>BoxRFID OpenSpool Edition V3.7</strong> <span class="muted">(Stable)</span><br>
+              <strong>BoxRFID OpenSpool Edition V3.7</strong> <span class="muted">(Fallback)</span><br>
               <code>firmware/boxrfid-openspool/v3.7/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V3.7.ino.merged.bin</code>
+            </p>
+            <p class="muted">
+              <strong>BoxRFID OpenSpool Edition V4.0</strong> <span class="muted">(Actual)</span><br>
+              <code>firmware/boxrfid-openspool/v4.0/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.0.ino.merged.bin</code>
             </p>
             <p class="muted">
               <strong>BoxRFID-Touch V2.0</strong> <span class="muted">(Binario heredado en el repositorio)</span>
@@ -526,12 +728,16 @@
           <div class="lang lang-it">
             <h2>Build disponibili</h2>
             <p class="muted">
-              <strong>BoxRFID-Touch V2.1</strong> <span class="muted">(Stable)</span><br>
+              <strong>BoxRFID-Touch V2.1</strong> <span class="muted">(Classic)</span><br>
               <code>firmware/boxrfid-touch/v2.1/BoxRFID_CYD_ESP32_2432S028R_V2.1.ino.merged.bin</code>
             </p>
             <p class="muted">
-              <strong>BoxRFID OpenSpool Edition V3.7</strong> <span class="muted">(Stable)</span><br>
+              <strong>BoxRFID OpenSpool Edition V3.7</strong> <span class="muted">(Fallback)</span><br>
               <code>firmware/boxrfid-openspool/v3.7/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V3.7.ino.merged.bin</code>
+            </p>
+            <p class="muted">
+              <strong>BoxRFID OpenSpool Edition V4.0</strong> <span class="muted">(Attuale)</span><br>
+              <code>firmware/boxrfid-openspool/v4.0/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.0.ino.merged.bin</code>
             </p>
             <p class="muted">
               <strong>BoxRFID-Touch V2.0</strong> <span class="muted">(Binario legacy nel repository)</span>
@@ -541,12 +747,16 @@
           <div class="lang lang-pt">
             <h2>Builds disponíveis</h2>
             <p class="muted">
-              <strong>BoxRFID-Touch V2.1</strong> <span class="muted">(Stable)</span><br>
+              <strong>BoxRFID-Touch V2.1</strong> <span class="muted">(Classic)</span><br>
               <code>firmware/boxrfid-touch/v2.1/BoxRFID_CYD_ESP32_2432S028R_V2.1.ino.merged.bin</code>
             </p>
             <p class="muted">
-              <strong>BoxRFID OpenSpool Edition V3.7</strong> <span class="muted">(Stable)</span><br>
+              <strong>BoxRFID OpenSpool Edition V3.7</strong> <span class="muted">(Fallback)</span><br>
               <code>firmware/boxrfid-openspool/v3.7/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V3.7.ino.merged.bin</code>
+            </p>
+            <p class="muted">
+              <strong>BoxRFID OpenSpool Edition V4.0</strong> <span class="muted">(Atual)</span><br>
+              <code>firmware/boxrfid-openspool/v4.0/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.0.ino.merged.bin</code>
             </p>
             <p class="muted">
               <strong>BoxRFID-Touch V2.0</strong> <span class="muted">(Binary legacy no repositorio)</span>
@@ -560,42 +770,42 @@
           <div class="lang lang-de active">
             <h2>Hinweis</h2>
             <p class="muted">
-              BoxRFID-Touch V2.1 ist die klassische QIDI-Version. BoxRFID OpenSpool Edition V3.7 kombiniert die klassische QIDI-Funktionalität mit zusätzlicher Unterstützung für OpenSpool Standard Tags und Snapmaker U1 OpenRFID Workflows.
+              V2.1 ist die klassische QIDI-Linie. V3.7 bleibt als kombinierte Fallback-Release erhalten. V4.0 ist die aktuelle All-in-One-Release mit QIDI Q2, Plus 4, Max 4 sowie OpenSpool.
             </p>
           </div>
 
           <div class="lang lang-en">
             <h2>Note</h2>
             <p class="muted">
-              BoxRFID-Touch V2.1 is the classic QIDI version. BoxRFID OpenSpool Edition V3.7 combines the classic QIDI functionality with additional support for OpenSpool standard tags and Snapmaker U1 OpenRFID workflows.
+              V2.1 is the classic QIDI line. V3.7 stays available as the combined fallback release. V4.0 is the current all-in-one release with QIDI Q2, Plus 4, Max 4, and OpenSpool.
             </p>
           </div>
 
           <div class="lang lang-fr">
             <h2>Remarque</h2>
             <p class="muted">
-              BoxRFID-Touch V2.1 est la version QIDI classique. BoxRFID OpenSpool Edition V3.7 combine la fonctionnalité QIDI classique avec une prise en charge supplémentaire des tags OpenSpool standard et des workflows OpenRFID pour Snapmaker U1.
+              V2.1 est la ligne QIDI classique. V3.7 reste disponible comme release combinee de repli. V4.0 est la release actuelle tout-en-un avec QIDI Q2, Plus 4, Max 4 et OpenSpool.
             </p>
           </div>
 
           <div class="lang lang-es">
             <h2>Nota</h2>
             <p class="muted">
-              BoxRFID-Touch V2.1 es la versión clásica de QIDI. BoxRFID OpenSpool Edition V3.7 combina la funcionalidad clásica de QIDI con soporte adicional para etiquetas OpenSpool estándar y flujos OpenRFID de Snapmaker U1.
+              V2.1 es la linea QIDI clasica. V3.7 sigue disponible como release combinada de respaldo. V4.0 es la release actual todo en uno con QIDI Q2, Plus 4, Max 4 y OpenSpool.
             </p>
           </div>
 
           <div class="lang lang-it">
             <h2>Nota</h2>
             <p class="muted">
-              BoxRFID-Touch V2.1 è la versione QIDI classica. BoxRFID OpenSpool Edition V3.7 combina la funzionalità QIDI classica con supporto aggiuntivo per tag OpenSpool standard e workflow OpenRFID per Snapmaker U1.
+              V2.1 e la linea QIDI classica. V3.7 resta disponibile come release combinata di fallback. V4.0 e la release attuale all-in-one con QIDI Q2, Plus 4, Max 4 e OpenSpool.
             </p>
           </div>
 
           <div class="lang lang-pt">
             <h2>Nota</h2>
             <p class="muted">
-              BoxRFID-Touch V2.1 é a versão QIDI clássica. BoxRFID OpenSpool Edition V3.7 combina a funcionalidade clássica do QIDI com suporte adicional para tags OpenSpool standard e fluxos OpenRFID do Snapmaker U1.
+              V2.1 e a linha QIDI classica. V3.7 continua disponivel como release combinada de fallback. V4.0 e a release atual all-in-one com QIDI Q2, Plus 4, Max 4 e OpenSpool.
             </p>
           </div>
         </div>
