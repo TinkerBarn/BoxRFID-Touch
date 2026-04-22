@@ -18,7 +18,7 @@ The web installer now offers three clear choices:
 
 - **V2.1 Classic QIDI** for the classic firmware line
 - **V3.7 Fallback** for the previous combined QIDI + OpenSpool release
-- **V4.0 Current Release** for the latest combined firmware
+- **V4.0.1 Current Release** for the latest combined firmware
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/H2H41XBKJ6)
 
@@ -28,7 +28,7 @@ The web installer now offers three clear choices:
 
 [![Watch the video](https://img.youtube.com/vi/4cGLlr9Ckx4/hqdefault.jpg)](https://youtu.be/4cGLlr9Ckx4?is=iYzOwJqUVbCeVkuv)
 
-> Note: This video shows an older workflow and does not yet reflect the current V4.0 release.
+> Note: This video shows an older workflow and does not yet reflect the current V4.0.1 release.
 
 ---
 
@@ -36,8 +36,8 @@ The web installer now offers three clear choices:
 
 | Firmware line | Version | Status | Best use case | Installer |
 | --- | --- | --- | --- | --- |
-| BoxRFID OpenSpool Edition | V4.0 | Current release | Recommended for most users who want QIDI + OpenSpool in one firmware | Yes |
-| BoxRFID OpenSpool Edition | V3.7 | Stable fallback | Previous combined release kept as fallback if you want to step back from V4.0 | Yes |
+| BoxRFID OpenSpool Edition | V4.0.1 | Current release | Recommended for most users who want QIDI + OpenSpool in one firmware | Yes |
+| BoxRFID OpenSpool Edition | V3.7 | Stable fallback | Previous combined release kept as fallback if you want to step back from V4.0.1 | Yes |
 | BoxRFID-Touch | V2.1 | Stable classic | Classic QIDI-only workflow | Yes |
 | BoxRFID-Touch | V2.0 | Legacy | Older classic QIDI release kept only for compatibility | No |
 
@@ -47,18 +47,21 @@ Public firmware folders in this repository:
 - [BoxRFID-Touch V2.1](./firmware/boxrfid-touch/v2.1/)
 - [BoxRFID OpenSpool Edition V3.7](./firmware/boxrfid-openspool/v3.7/)
 - [BoxRFID OpenSpool Edition V4.0](./firmware/boxrfid-openspool/v4.0/)
+- [BoxRFID OpenSpool Edition V4.0.1](./firmware/boxrfid-openspool/v4.0.1/)
 
 Source folders:
 
 - [BoxRFID-Touch V2.1 source](./source/boxrfid-touch/v2.1/)
 - [BoxRFID OpenSpool Edition V3.7 source](./source/boxrfid-openspool/v3.7/)
 - [BoxRFID OpenSpool Edition V4.0 source](./source/boxrfid-openspool/v4.0/)
+- [BoxRFID OpenSpool Edition V4.0.1 source](./source/boxrfid-openspool/v4.0.1/)
 
 Documentation:
 
 - [Firmware Matrix](./docs/firmware-matrix.md)
+- [Version History](./docs/version-history.md)
 - [BoxRFID-Touch V2.1 documentation](./docs/BoxRFID-Touch/BoxRFID-Touch.md)
-- [BoxRFID OpenSpool Edition V4.0 documentation](./docs/BoxRFID-OpenSpool-Edition/BoxRFID-OpenSpool-Edition.md)
+- [BoxRFID OpenSpool Edition V4.0 / V4.0.1 documentation](./docs/BoxRFID-OpenSpool-Edition/BoxRFID-OpenSpool-Edition.md)
 
 ---
 
@@ -81,31 +84,30 @@ Additional capabilities in the OpenSpool Edition:
 - OpenSpool Standard and OpenSpool U1 / Extended workflows
 - flexible color, HEX, numeric, and variant inputs
 - per-model QIDI databases
-- MicroSD and Wi-Fi based official QIDI CFG support in V4.0
+- MicroSD and Wi-Fi based official QIDI CFG support in the V4.x release line
 
 ---
 
-## What's New In V4.0
+## What's New In V4.0.1
 
-Major changes since the public V3.7 release:
+Latest release highlights:
 
-- added **QIDI Max 4** support alongside **QIDI Q2** and **QIDI Plus 4**
-- added **Wi-Fi setup** with persistent SSID and password storage
-- added a simple **web browser upload page** for `officiall_filas_list.cfg`
-- added **MicroSD-based official QIDI CFG support** for all three QIDI printer models
-- added **per-model enable toggles** for the official QIDI CFG files
-- redesigned the **QIDI CFG setup page** with clear model status buttons and toggles
-- added **on-device SD card formatting** that recreates the required QIDI folder structure
-- improved the **password keyboard** and reused the extended keyboard for general text entry
-- improved **touch, SD, and Wi-Fi interaction stability**
-- improved **status text** so the active QIDI model is visible during read and write workflows
-- kept **V3.7** in the installer as a fallback path if users want to step back from V4.0
+- current **QIDI + OpenSpool all-in-one release**
+- support for **QIDI Q2**, **QIDI Plus 4**, and **QIDI Max 4**
+- **Wi-Fi setup** and **browser upload** for `officiall_filas_list.cfg`
+- **MicroSD-based official QIDI CFG support** for all three QIDI printer models
+- improved **keyboard layouts**, **touch handling**, and **setup flow**
+- improved **OpenSpool write defaults** after reading tags with missing optional values
+- added **on-device Wi-Fi debug tools** with reconnect support
+- kept **V3.7** in the installer as a fallback path if users want to step back from the latest release
+
+For the full ongoing release history, see [Version History](./docs/version-history.md).
 
 ---
 
 ## Which Version Should I Use
 
-- Choose **BoxRFID OpenSpool Edition V4.0** if you want the latest release with QIDI + OpenSpool support and all current improvements.
+- Choose **BoxRFID OpenSpool Edition V4.0.1** if you want the latest release with QIDI + OpenSpool support and all current improvements.
 - Choose **BoxRFID OpenSpool Edition V3.7** if you want the previous combined release as a fallback.
 - Choose **BoxRFID-Touch V2.1** if you only need the classic QIDI firmware line.
 - Use **BoxRFID-Touch V2.0** only if you specifically need the older classic firmware.
@@ -121,7 +123,7 @@ Major changes since the public V3.7 release:
 3. Click **Connect**.
 4. Select the correct serial port.
 5. Choose the desired firmware:
-   - `V4.0` for the latest combined release
+   - `V4.0.1` for the latest combined release
    - `V3.7` for the combined fallback release
    - `V2.1` for the classic QIDI release
 6. Flash the firmware.
@@ -154,7 +156,7 @@ Supported tag types:
 
 ## Compatibility
 
-### BoxRFID OpenSpool Edition V4.0
+### BoxRFID OpenSpool Edition V4.0.1
 
 QIDI support:
 
@@ -285,7 +287,7 @@ Case:
 
 ### UI Screenshots
 
-> Note: The UI screenshots below currently show an older interface and not the current BoxRFID OpenSpool Edition V4.0 release.
+> Note: The UI screenshots below currently show an older interface and not the current BoxRFID OpenSpool Edition V4.0.1 release.
 
 <table align="center">
   <tr>

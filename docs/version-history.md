@@ -1,0 +1,56 @@
+# Version History
+
+This file is the ongoing release history for the public BoxRFID firmware lines.
+
+## BoxRFID OpenSpool Edition V4.0.1
+
+- Status: Current release
+- Firmware: [firmware/boxrfid-openspool/v4.0.1/](../firmware/boxrfid-openspool/v4.0.1/)
+- Source: [source/boxrfid-openspool/v4.0.1/](../source/boxrfid-openspool/v4.0.1/)
+
+Highlights:
+
+- improved Wi-Fi debugging directly on the device
+- improved Wi-Fi icon handling and header integration
+- fixed multiple OpenSpool write-field defaults after reading tags with missing optional fields
+- fixed OpenSpool touch areas for temperature, HEX, weight, and diameter fields
+- improved reconnect diagnostics, DHCP visibility, and live Wi-Fi status logging
+- continued stability fixes for touch, SD card, Wi-Fi, and QIDI CFG workflows
+
+## BoxRFID OpenSpool Edition V4.0
+
+- Status: Previous public release
+- Firmware: [firmware/boxrfid-openspool/v4.0/](../firmware/boxrfid-openspool/v4.0/)
+- Source: [source/boxrfid-openspool/v4.0/](../source/boxrfid-openspool/v4.0/)
+
+Highlights:
+
+- added QIDI Max 4 support alongside QIDI Q2 and QIDI Plus 4
+- added persistent Wi-Fi setup with stored SSID and password
+- added browser upload for `officiall_filas_list.cfg`
+- added MicroSD-based official QIDI CFG handling for Q2, Plus 4, and Max 4
+- added per-model CFG activation toggles in setup
+- added SD card formatting with automatic QIDI folder structure creation
+- improved keyboards, setup flow, and overall usability
+
+## BoxRFID OpenSpool Edition V3.7
+
+- Status: Stable fallback
+- Firmware: [firmware/boxrfid-openspool/v3.7/](../firmware/boxrfid-openspool/v3.7/)
+- Source: [source/boxrfid-openspool/v3.7/](../source/boxrfid-openspool/v3.7/)
+
+Highlights:
+
+- public fallback release for the combined QIDI + OpenSpool firmware line
+- kept available in the web installer as the fallback path if a newer release causes issues
+
+## BoxRFID-Touch V2.1
+
+- Status: Stable classic
+- Firmware: [firmware/boxrfid-touch/v2.1/](../firmware/boxrfid-touch/v2.1/)
+- Source: [source/boxrfid-touch/v2.1/](../source/boxrfid-touch/v2.1/)
+
+Highlights:
+
+- classic QIDI-only firmware line
+- kept available in the web installer for users who do not need OpenSpool features
