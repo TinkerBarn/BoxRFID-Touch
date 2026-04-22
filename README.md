@@ -1,6 +1,12 @@
 # BoxRFID-Touch
 
-Standalone RFID/NFC touchscreen tool for **QIDI** and **OpenSpool** workflows on **ESP32-2432S028R (CYD)** with **PN532**.
+Standalone RFID/NFC touchscreen tool for multiple filament ecosystems on **ESP32-2432S028R (CYD)** with **PN532**.
+
+Supported standalone workflows:
+
+- **OpenSpool Standard** RFID/NFC tags
+- **Snapmaker U1** with **paxx12 Extended Firmware** for the extended OpenSpool workflow
+- **QIDI Q2**, **QIDI Plus 4**, and **QIDI Max 4** with **QIDI Box**
 
 <p align="center">
   <a href="https://tinkerbarn.github.io/BoxRFID-Touch/">
@@ -67,7 +73,13 @@ Documentation:
 
 ## What It Does
 
-BoxRFID-Touch lets you read and write compatible filament RFID/NFC tags directly on the device without needing a PC during normal use.
+BoxRFID-Touch is a standalone reader/writer for compatible filament RFID/NFC tags and boxes, so normal day-to-day use does not require a PC.
+
+It is designed for three clearly separated workflow groups:
+
+- **OpenSpool Standard** RFID/NFC tags
+- **Snapmaker U1** with **paxx12 Extended Firmware** using the extended OpenSpool data model
+- **QIDI Q2 / Plus 4 / Max 4** used together with **QIDI Box**
 
 Core capabilities across the firmware lines:
 
@@ -81,7 +93,7 @@ Core capabilities across the firmware lines:
 Additional capabilities in the OpenSpool Edition:
 
 - QIDI mode and OpenSpool mode in one firmware
-- OpenSpool Standard and OpenSpool U1 / Extended workflows
+- OpenSpool Standard and **Snapmaker U1 / paxx12 Extended Firmware** workflows
 - flexible color, HEX, numeric, and variant inputs
 - per-model QIDI databases
 - MicroSD and Wi-Fi based official QIDI CFG support in the V4.x release line
@@ -92,8 +104,8 @@ Additional capabilities in the OpenSpool Edition:
 
 Latest release highlights:
 
-- current **QIDI + OpenSpool all-in-one release**
-- support for **QIDI Q2**, **QIDI Plus 4**, and **QIDI Max 4**
+- current **QIDI Box + OpenSpool all-in-one release**
+- support for **QIDI Q2**, **QIDI Plus 4**, and **QIDI Max 4** with **QIDI Box**
 - **Wi-Fi setup** and **browser upload** for `officiall_filas_list.cfg`
 - **MicroSD-based official QIDI CFG support** for all three QIDI printer models
 - improved **keyboard layouts**, **touch handling**, and **setup flow**
@@ -107,7 +119,7 @@ For the full ongoing release history, see [Version History](./docs/version-histo
 
 ## Which Version Should I Use
 
-- Choose **BoxRFID OpenSpool Edition V4.0.1** if you want the latest release with QIDI + OpenSpool support and all current improvements.
+- Choose **BoxRFID OpenSpool Edition V4.0.1** if you want the latest release for **QIDI Box**, **OpenSpool Standard**, and **Snapmaker U1 with paxx12 Extended Firmware**.
 - Choose **BoxRFID OpenSpool Edition V3.7** if you want the previous combined release as a fallback.
 - Choose **BoxRFID-Touch V2.1** if you only need the classic QIDI firmware line.
 - Use **BoxRFID-Touch V2.0** only if you specifically need the older classic firmware.
@@ -160,14 +172,14 @@ Supported tag types:
 
 QIDI support:
 
-- **QIDI Q2**
-- **QIDI Plus 4**
-- **QIDI Max 4**
+- **QIDI Q2** with **QIDI Box**
+- **QIDI Plus 4** with **QIDI Box**
+- **QIDI Max 4** with **QIDI Box**
 
 OpenSpool support:
 
-- **OpenSpool standard tags**
-- **Snapmaker U1** with **paxx12 extended firmware**
+- **OpenSpool Standard** RFID/NFC tags
+- **Snapmaker U1** with **paxx12 Extended Firmware**
 - **Snapmaker U1** with **OpenRFID support**
 
 ### BoxRFID-Touch V2.1

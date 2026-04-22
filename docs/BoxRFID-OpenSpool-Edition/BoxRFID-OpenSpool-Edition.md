@@ -2,7 +2,7 @@
 
 This document describes the published **BoxRFID OpenSpool Edition V4.0** firmware for the **ESP32-2432S028R (CYD)** with **PN532 via I2C**.
 
-V4.0 is the current all-in-one BoxRFID release. It combines QIDI support and OpenSpool support in one firmware and adds the major platform updates introduced after V3.7.
+V4.0 is the current all-in-one BoxRFID release. It combines QIDI Box support and OpenSpool support in one firmware and adds the major platform updates introduced after V3.7.
 
 ---
 
@@ -31,6 +31,12 @@ Compared with the public V3.7 release, V4.0 adds and refines:
 
 ## Hardware and tag support
 
+Supported standalone workflows:
+
+- `OpenSpool Standard` RFID/NFC tags
+- `Snapmaker U1` with `paxx12 Extended Firmware`
+- `QIDI Q2`, `QIDI Plus 4`, and `QIDI Max 4` with `QIDI Box`
+
 Target hardware:
 
 - `ESP32-2432S028R (CYD)`
@@ -56,6 +62,7 @@ QIDI mode supports:
 
 - reading QIDI-style tags
 - writing QIDI-style tags
+- working with `QIDI Box` on supported QIDI printers
 - selecting the active printer model:
   - `QIDI Q2`
   - `QIDI Plus 4`
@@ -69,8 +76,9 @@ OpenSpool mode supports:
 
 - reading OpenSpool JSON/NDEF tags
 - writing OpenSpool tags
-- standard OpenSpool workflow
-- extended `Snapmaker U1 / OpenRFID` workflow
+- `OpenSpool Standard` workflow
+- extended `Snapmaker U1 / paxx12 Extended Firmware` workflow
+- `Snapmaker U1 / OpenRFID` workflow
 
 ---
 
