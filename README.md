@@ -44,7 +44,7 @@ The web installer now offers three clear choices:
 | --- | --- | --- | --- | --- |
 | BoxRFID OpenSpool Edition | V4.1 | Current release | Recommended for most users who want QIDI + OpenSpool in one firmware | Yes |
 | BoxRFID OpenSpool Edition | V4.0.1 | Stable fallback | Previous combined release kept as fallback if you want to step back from V4.1 | Yes |
-| BoxRFID OpenSpool Edition | V3.7 | Older combined release | Earlier combined release kept for compatibility and reference | Yes |
+| BoxRFID OpenSpool Edition | V3.7 | Older combined release | Earlier combined release kept for compatibility and reference | No |
 | BoxRFID-Touch | V2.1 | Stable classic | Classic QIDI-only workflow | Yes |
 | BoxRFID-Touch | V2.0 | Legacy | Older classic QIDI release kept only for compatibility | No |
 
