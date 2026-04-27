@@ -17,15 +17,18 @@ Compared with the public V3.7 release, V4.1 adds and refines:
 - per-model QIDI CFG handling for `Q2`, `Plus 4`, and `Max 4`
 - setup toggles to enable or disable the official QIDI CFG for each supported printer model
 - a redesigned QIDI CFG setup page with clear status colors
+- automatic backup of user setup and edited lists to MicroSD when a card is present
+- automatic restore after firmware updates or when moving the MicroSD card to another BoxRFID device
+- mDNS access for the web interface via `http://boxrfid.local`
 - manual MicroSD workflow support using:
   - `/qidi/q2/officiall_filas_list.cfg`
   - `/qidi/plus4/officiall_filas_list.cfg`
   - `/qidi/max4/officiall_filas_list.cfg`
 - an on-device **SD card format** function that rebuilds the folder structure
-- MicroSD-based backup and restore for setup, material, manufacturer, and variant changes
-- a dedicated SD tools page with card content view
-- improved web CFG upload and CFG content viewing
+- an SD tools page with on-device content view
+- improved web CFG page with file status, card-content listing, and direct CFG content viewing
 - runtime MicroSD hotplug detection on the relevant setup pages
+- MicroSD-based backup and restore for setup, material, manufacturer, and variant changes
 - improved text keyboard and password keyboard layouts
 - the extended keyboard now reused for general name entry
 - better touch and SPI handling for the combined touch, Wi-Fi, and SD workflow

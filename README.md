@@ -109,15 +109,17 @@ Latest release highlights:
 
 - current **QIDI Box + OpenSpool all-in-one release**
 - support for **QIDI Q2**, **QIDI Plus 4**, and **QIDI Max 4** with **QIDI Box**
+- automatic **backup of user settings and edited lists to MicroSD**, when a card is present
+- automatic **restore after firmware updates or device changes**, so setup, materials, manufacturers, and variants can move with the card
+- improved **web interface** for `officiall_filas_list.cfg` with English UI, upload status, stored-file detection, card-content listing, and direct CFG content viewing
+- added **mDNS access** so the web interface can also be reached via `http://boxrfid.local`
+- improved **MicroSD status updates** with runtime hotplug detection on the relevant setup pages
+- dedicated **SD card tools** including content view and formatting with folder structure rebuild
 - **Wi-Fi setup** and **browser upload** for `officiall_filas_list.cfg`
 - **MicroSD-based official QIDI CFG support** for all three QIDI printer models
-- improved **keyboard layouts**, **touch handling**, and **setup flow**
 - improved **OpenSpool write defaults** after reading tags with missing optional values
+- improved **keyboard layouts**, **touch handling**, and **setup flow**
 - added **on-device Wi-Fi debug tools** with reconnect support
-- added **setup/list backup on MicroSD** for easier firmware updates or device migration
-- added dedicated **SD card tools** including content view, formatting, and richer web CFG handling
-- added improved **web upload page** with content viewing and stored-file status
-- added **runtime MicroSD hotplug detection** on the relevant setup pages
 - kept **V4.0.1** in the installer as a fallback path if users want to step back from the latest release
 
 For the full ongoing release history, see [Version History](./docs/version-history.md).

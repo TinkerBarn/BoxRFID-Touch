@@ -8,7 +8,7 @@ This repository provides public firmware lines for the `ESP32-2432S028R (CYD)` p
 | BoxRFID-Touch | V2.1 | Stable classic | Classic QIDI-only workflow | Yes | `firmware/boxrfid-touch/v2.1/BoxRFID_CYD_ESP32_2432S028R_V2.1.ino.merged.bin` |
 | BoxRFID OpenSpool Edition | V4.0.1 | Stable fallback | Previous QIDI plus OpenSpool release kept as fallback | Yes | `firmware/boxrfid-openspool/v4.0.1/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.0.1.ino.merged.bin` |
 | BoxRFID OpenSpool Edition | V3.7 | Older combined release | Earlier combined release kept for compatibility | Yes | `firmware/boxrfid-openspool/v3.7/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V3.7.ino.merged.bin` |
-| BoxRFID OpenSpool Edition | V4.1 | Current release | Latest QIDI plus OpenSpool release with Q2, Plus 4, Max 4, Wi-Fi CFG upload, SD backup/restore, improved web CFG tools, and setup improvements | Yes | `firmware/boxrfid-openspool/v4.1/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.1.ino.merged.bin` |
+| BoxRFID OpenSpool Edition | V4.1 | Current release | Latest QIDI plus OpenSpool release with Q2, Plus 4, Max 4, automatic SD backup/restore, improved web CFG tools, mDNS access via `boxrfid.local`, SD hotplug status updates, and setup improvements | Yes | `firmware/boxrfid-openspool/v4.1/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.1.ino.merged.bin` |
 
 ## Release guidance
 

@@ -10,11 +10,13 @@ This file is the ongoing release history for the public BoxRFID firmware lines.
 
 Highlights:
 
-- improved release based on the V4.0.x development line and published as the new current version
-- added MicroSD-backed setup and list backup / restore for easier firmware reinstallation or device migration
-- added dedicated SD card tools page with card content view and formatting workflow
-- improved web CFG uploader with English UI, stored-file state, content viewing, and content listing
-- added runtime MicroSD hotplug detection on relevant setup pages
+- published release based on the V4.0.x development line as the new current version
+- automatic backup of user setup and edited lists to MicroSD when a card is present
+- automatic restore after firmware updates or device migration when the same MicroSD card is reused
+- dedicated SD card tools page with card content view and formatting workflow
+- improved web CFG interface with English UI, stored-file state, card-content listing, and direct CFG content viewing
+- added mDNS access so the web interface can also be reached via `http://boxrfid.local`
+- improved runtime MicroSD status handling with hotplug detection on the relevant setup pages
 - continued fixes for touch alignment, OpenSpool defaults, Wi-Fi diagnostics, and general usability
 - current combined standalone release for OpenSpool Standard, Snapmaker U1 with paxx12 Extended Firmware, and QIDI Box with Q2 / Plus 4 / Max 4
 
