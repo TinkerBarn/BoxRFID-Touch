@@ -1,14 +1,14 @@
-# BoxRFID OpenSpool Edition V4.0
+# BoxRFID OpenSpool Edition V4.1
 
-This document describes the published **BoxRFID OpenSpool Edition V4.0** firmware for the **ESP32-2432S028R (CYD)** with **PN532 via I2C**.
+This document describes the published **BoxRFID OpenSpool Edition V4.1** firmware for the **ESP32-2432S028R (CYD)** with **PN532 via I2C**.
 
-V4.0 is the current all-in-one BoxRFID release. It combines QIDI Box support and OpenSpool support in one firmware and adds the major platform updates introduced after V3.7.
+V4.1 is the current all-in-one BoxRFID release. It combines QIDI Box support and OpenSpool support in one firmware and adds the major platform updates introduced after V3.7 and refined across the V4.0.x development line.
 
 ---
 
-## What is new in V4.0
+## What is new in V4.1
 
-Compared with the public V3.7 release, V4.0 adds and refines:
+Compared with the public V3.7 release, V4.1 adds and refines:
 
 - support for **QIDI Max 4** in addition to **QIDI Q2** and **QIDI Plus 4**
 - persistent **Wi-Fi setup** with SSID and password storage
@@ -22,6 +22,10 @@ Compared with the public V3.7 release, V4.0 adds and refines:
   - `/qidi/plus4/officiall_filas_list.cfg`
   - `/qidi/max4/officiall_filas_list.cfg`
 - an on-device **SD card format** function that rebuilds the folder structure
+- MicroSD-based backup and restore for setup, material, manufacturer, and variant changes
+- a dedicated SD tools page with card content view
+- improved web CFG upload and CFG content viewing
+- runtime MicroSD hotplug detection on the relevant setup pages
 - improved text keyboard and password keyboard layouts
 - the extended keyboard now reused for general name entry
 - better touch and SPI handling for the combined touch, Wi-Fi, and SD workflow
@@ -54,7 +58,7 @@ Supported RFID tag families:
 
 ## Firmware modes
 
-V4.0 contains two main operating modes.
+V4.1 contains two main operating modes.
 
 ### QIDI mode
 
@@ -184,9 +188,9 @@ The firmware automatically selects the best payload tier that fits on the tag an
 
 ## Setup menu pages
 
-V4.0 uses a five-page setup structure.
+V4.1 uses a six-page setup structure.
 
-### Page 1/5: Core setup
+### Page 1/6: Core setup
 
 Depending on mode and whether an official QIDI CFG is active, page 1 contains:
 
@@ -198,7 +202,7 @@ Depending on mode and whether an official QIDI CFG is active, page 1 contains:
 
 If an official QIDI CFG is active for the current model, manual QIDI material/manufacturer editing is intentionally hidden for that model.
 
-### Page 2/5: Screensaver and brightness
+### Page 2/6: Screensaver and brightness
 
 Page 2 contains:
 
@@ -213,7 +217,7 @@ Screensaver choices:
 - `10 minutes`
 - `Off`
 
-### Page 3/5
+### Page 3/6
 
 The content of page 3 depends on the active tag mode.
 
@@ -238,10 +242,6 @@ Status logic:
 - green = CFG file present
 - the right-side toggle determines whether the file is actively used
 
-The page also contains:
-
-- `Format SD card`
-
 Tapping a model row opens an info dialog explaining:
 
 - that the user should obtain `officiall_filas_list.cfg` from Klipper
@@ -255,7 +255,7 @@ Page 3 opens the OpenSpool tag information configuration pages:
 - `OpenSpool Standard`
 - `OpenSpool Extended`
 
-### Page 4/5: Wi-Fi
+### Page 4/6: Wi-Fi
 
 The Wi-Fi page contains:
 
@@ -272,7 +272,15 @@ Wi-Fi data stored persistently:
 
 The IP address is shown live and is not stored persistently.
 
-### Page 5/5: Device settings
+### Page 5/6: SD tools
+
+The SD tools page contains:
+
+- `Show SD card content`
+- `Format SD card`
+- live MicroSD status information
+
+### Page 6/6: Device settings
 
 The final page contains:
 
@@ -284,7 +292,7 @@ The final page contains:
 
 ## QIDI official CFG support
 
-V4.0 adds per-model support for the official QIDI material list file:
+V4.1 adds per-model support for the official QIDI material list file:
 
 - `Q2` uses `/qidi/q2/officiall_filas_list.cfg`
 - `Plus 4` uses `/qidi/plus4/officiall_filas_list.cfg`
@@ -350,7 +358,7 @@ For OpenSpool materials, the editor supports:
 
 ## Keyboard and input modes
 
-V4.0 includes multiple input keyboards chosen automatically by field type.
+V4.1 includes multiple input keyboards chosen automatically by field type.
 
 ### Extended text keyboard
 
@@ -395,7 +403,7 @@ Used for:
 
 ## Persistent storage
 
-V4.0 stores persistent settings in ESP32 preferences, including:
+V4.1 stores persistent settings in ESP32 preferences, including:
 
 - UI language
 - default tag mode
@@ -488,7 +496,7 @@ V4.0 stores persistent settings in ESP32 preferences, including:
 
 ## Summary
 
-BoxRFID OpenSpool Edition V4.0 is the current release for users who want:
+BoxRFID OpenSpool Edition V4.1 is the current release for users who want:
 
 - QIDI and OpenSpool in one firmware
 - support for QIDI `Q2`, `Plus 4`, and `Max 4`

@@ -1,0 +1,17 @@
+{
+  "name": "BoxRFID OpenSpool Edition V4.1",
+  "version": "4.1",
+  "home_assistant_domain": "",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        {
+          "path": "firmware/boxrfid-openspool/v4.1/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.1.ino.merged.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}
