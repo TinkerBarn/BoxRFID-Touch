@@ -308,6 +308,27 @@ Case:
   </tr>
 </table>
 
+### Animated V4.1 Workflows
+
+The animations below show the current **BoxRFID OpenSpool Edition V4.1** write workflows directly on the device UI.
+
+<table align="center">
+  <tr>
+    <td align="center" width="33%">
+      <img src="./screenshots/gifs/qidi-write-flow-v4.1.gif" width="260" alt="QIDI write workflow animation"><br>
+      <sub><strong>QIDI write workflow</strong><br>Write flow for QIDI mode with manufacturer, material, color selection, and successful tag writing.</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="./screenshots/gifs/openspool-standard-write-flow-v4.1.gif" width="260" alt="OpenSpool Standard write workflow animation"><br>
+      <sub><strong>OpenSpool Standard write workflow</strong><br>Standard OpenSpool tag writing with color picker, HEX input, temperature editing, and successful tag writing.</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="./screenshots/gifs/openspool-snapmaker-u1-write-flow-v4.1.gif" width="260" alt="Snapmaker U1 write workflow animation"><br>
+      <sub><strong>Snapmaker U1 write workflow</strong><br>Extended OpenSpool workflow for Snapmaker U1 including advanced material fields, multiple colors, and successful tag writing.</sub>
+    </td>
+  </tr>
+</table>
+
 ### UI Screenshots
 
 > Note: The UI screenshots below currently show an older interface and not the current BoxRFID OpenSpool Edition V4.1 release.
