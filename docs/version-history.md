@@ -20,7 +20,7 @@ Highlights:
 
 ## BoxRFID OpenSpool Edition V4.0.1
 
-- Status: Previous public release
+- Status: Stable fallback
 - Firmware: [firmware/boxrfid-openspool/v4.0.1/](../firmware/boxrfid-openspool/v4.0.1/)
 - Source: [source/boxrfid-openspool/v4.0.1/](../source/boxrfid-openspool/v4.0.1/)
 
@@ -52,14 +52,14 @@ Highlights:
 
 ## BoxRFID OpenSpool Edition V3.7
 
-- Status: Stable fallback
+- Status: Older combined release
 - Firmware: [firmware/boxrfid-openspool/v3.7/](../firmware/boxrfid-openspool/v3.7/)
 - Source: [source/boxrfid-openspool/v3.7/](../source/boxrfid-openspool/v3.7/)
 
 Highlights:
 
-- public fallback release for the combined QIDI + OpenSpool firmware line
-- kept available in the web installer as the fallback path if a newer release causes issues
+- older public combined release for the QIDI + OpenSpool firmware line
+- kept available in the web installer for compatibility and reference
 
 ## BoxRFID-Touch V2.1
 

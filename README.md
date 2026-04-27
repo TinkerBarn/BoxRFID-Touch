@@ -23,7 +23,7 @@ Supported standalone workflows:
 The web installer now offers three clear choices:
 
 - **V2.1 Classic QIDI** for the classic firmware line
-- **V3.7 Fallback** for the previous combined QIDI + OpenSpool release
+- **V4.0.1 Fallback** for the previous combined QIDI + OpenSpool release
 - **V4.1 Current Release** for the latest combined firmware
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/H2H41XBKJ6)
@@ -43,7 +43,8 @@ The web installer now offers three clear choices:
 | Firmware line | Version | Status | Best use case | Installer |
 | --- | --- | --- | --- | --- |
 | BoxRFID OpenSpool Edition | V4.1 | Current release | Recommended for most users who want QIDI + OpenSpool in one firmware | Yes |
-| BoxRFID OpenSpool Edition | V3.7 | Stable fallback | Previous combined release kept as fallback if you want to step back from V4.1 | Yes |
+| BoxRFID OpenSpool Edition | V4.0.1 | Stable fallback | Previous combined release kept as fallback if you want to step back from V4.1 | Yes |
+| BoxRFID OpenSpool Edition | V3.7 | Older combined release | Earlier combined release kept for compatibility and reference | Yes |
 | BoxRFID-Touch | V2.1 | Stable classic | Classic QIDI-only workflow | Yes |
 | BoxRFID-Touch | V2.0 | Legacy | Older classic QIDI release kept only for compatibility | No |
 
@@ -117,7 +118,7 @@ Latest release highlights:
 - added dedicated **SD card tools** including content view, formatting, and richer web CFG handling
 - added improved **web upload page** with content viewing and stored-file status
 - added **runtime MicroSD hotplug detection** on the relevant setup pages
-- kept **V3.7** in the installer as a fallback path if users want to step back from the latest release
+- kept **V4.0.1** in the installer as a fallback path if users want to step back from the latest release
 
 For the full ongoing release history, see [Version History](./docs/version-history.md).
 
@@ -126,7 +127,8 @@ For the full ongoing release history, see [Version History](./docs/version-histo
 ## Which Version Should I Use
 
 - Choose **BoxRFID OpenSpool Edition V4.1** if you want the latest release for **QIDI Box**, **OpenSpool Standard**, and **Snapmaker U1 with paxx12 Extended Firmware**.
-- Choose **BoxRFID OpenSpool Edition V3.7** if you want the previous combined release as a fallback.
+- Choose **BoxRFID OpenSpool Edition V4.0.1** if you want the previous combined release as a fallback.
+- Choose **BoxRFID OpenSpool Edition V3.7** only if you specifically want the older combined release.
 - Choose **BoxRFID-Touch V2.1** if you only need the classic QIDI firmware line.
 - Use **BoxRFID-Touch V2.0** only if you specifically need the older classic firmware.
 
@@ -142,7 +144,8 @@ For the full ongoing release history, see [Version History](./docs/version-histo
 4. Select the correct serial port.
 5. Choose the desired firmware:
    - `V4.1` for the latest combined release
-   - `V3.7` for the combined fallback release
+   - `V4.0.1` for the combined fallback release
+   - `V3.7` for the older combined release
    - `V2.1` for the classic QIDI release
 6. Flash the firmware.
 
