@@ -21,3 +21,14 @@
 /dev/
 /tmp/
 /screenshots/UI/
+/.build/
+
+# macOS metadata
+.DS_Store
+._*
+.AppleDouble
+.LSOverride
+Icon?
+.Spotlight-V100/
+.Trashes/
+.fseventsd/
