@@ -594,6 +594,8 @@ static const char* const TXT_SLICER[LANG_COUNT]             = {"Slicer","Slicer"
 static const char* const TXT_FILAMENT_PROFILE[LANG_COUNT]   = {"Filamentprofil Name","Filament profile name","Nombre perfil filamento","Nome perfil filamento","Nom profil filament","Nome profilo filamento"};
 static const char* const TXT_WRITE[LANG_COUNT]              = {"Schreiben","Write","Escribir","Escrever","Ecrire","Scrivi"};
 static const char* const TXT_TAG_CLEAR[LANG_COUNT]          = {"Tag loeschen","Clear tag","Borrar tag","Limpar tag","Effacer tag","Cancella tag"};
+static const char* const TXT_SEND_TAG[LANG_COUNT]           = {"Tag senden","Send tag","Enviar tag","Enviar tag","Envoyer tag","Invia tag"};
+static const char* const TXT_SEND_TO_U1[LANG_COUNT]         = {"Tag an Snapmaker U1 senden","Send tag to Snapmaker U1","Enviar tag a Snapmaker U1","Enviar tag para Snapmaker U1","Envoyer tag vers Snapmaker U1","Invia tag a Snapmaker U1"};
 static const char* const TXT_NUMPAD[LANG_COUNT]             = {"Zahlen","Numbers","Numeros","Numeros","Nombres","Numeri"};
 static const char* const TXT_TAG_DETECTED[LANG_COUNT]       = {"Tag erkannt","Tag detected","Tag detectado","Tag detectado","Tag detecte","Tag rilevato"};
 static const char* const TXT_READING_TAG[LANG_COUNT]       = {"Tag lesen...","Reading Tag...","Leyendo tag...","Lendo tag...","Lecture du tag...","Lettura tag..."};
@@ -2234,6 +2236,13 @@ static void normalizeOpenSpoolSubtypeBuffer(char* value, size_t valueSize) {
   String subtype = String(value);
   subtype.trim();
   safeCopy(value, subtype.c_str(), valueSize);
+}
+
+static String normalizedOpenSpoolSubtypeString(const char* value) {
+  String subtype = String(value ? value : "");
+  subtype.trim();
+  if (isUnsetOpenSpoolSubtype(subtype.c_str())) return String("");
+  return subtype;
 }
 
 static void setOpenSpoolDraftDefaults(OpenSpoolDraft& draft, uint8_t manufacturerVal, uint8_t materialVal, int colorIdx, const char* colorOverride) {
@@ -4649,7 +4658,7 @@ static bool parseColor565FromHex(const char* s, uint16_t& out565) {
 static String openSpoolOrcaNamePreview() {
   String brand = manufacturerNameByVal(selMfg);
   String type = materialNameByVal(selMatVal);
-  String subtype = String(osSubtype);
+  String subtype = normalizedOpenSpoolSubtypeString(osSubtype);
   brand.trim(); type.trim(); subtype.trim();
   String s = brand;
   if (type.length()) { if (s.length()) s += " "; s += type; }
@@ -5030,8 +5039,9 @@ static void buildOpenSpoolDoc(JsonDocument& doc, OpenSpoolSaveTier tier) {
 
   if (openSpoolProfileU1 && tier >= OS_TIER_STANDARD) {
     int iv = 0;
-    String subtype = String(osSubtype); subtype.trim();
-    if (!isUnsetOpenSpoolSubtype(subtype.c_str())) doc["subtype"] = subtype;
+    normalizeOpenSpoolSubtypeBuffer(osSubtype, sizeof(osSubtype));
+    String subtype = normalizedOpenSpoolSubtypeString(osSubtype);
+    if (subtype.length()) doc["subtype"] = subtype;
     if (osInfoU1AlphaEnabled) {
       String alpha = normalizeAlphaHex(osAlpha);
       if (!alpha.length()) alpha = "FF";
@@ -6171,7 +6181,7 @@ static void drawMainScreen() {
   tft.fillScreen(TFT_BLACK);
   drawHeader(TR(STR_MAIN_TITLE));
 
-  fillButton(20, 50, 140, 50, TFT_DARKGREEN, TFT_WHITE, "Tag senden", TFT_WHITE, 2);
+  fillButton(20, 50, 140, 50, TFT_DARKGREEN, TFT_WHITE, LTXT(TXT_SEND_TAG), TFT_WHITE, 2);
   fillButton(160, 50, 140, 50, TFT_MAROON, TFT_WHITE, TR(STR_WRITE_TAG), TFT_WHITE, 2);
   fillButton(20, 110, 140, 50, TFT_DARKCYAN, TFT_WHITE, TR(STR_SETUP), TFT_WHITE, 2);
   fillButton(160, 110, 140, 50, (currentTagMode == TAGMODE_QIDI) ? TFT_DARKGREEN : TFT_NAVY, TFT_WHITE,
@@ -6187,13 +6197,13 @@ static void drawOpenSpoolReadDetailsPanel() {
 
 static void drawReadScreen() {
   tft.fillScreen(TFT_BLACK);
-  drawHeader("Tag senden");
+  drawHeader(LTXT(TXT_SEND_TAG));
   fillButton(10, 50, 100, 40, TFT_DARKGREY, TFT_WHITE, TR(STR_BACK), TFT_WHITE, 2);
   tft.setTextColor(TFT_WHITE, TFT_BLACK);
 
   bool readyToSend = wifiEnabled && WiFi.status() == WL_CONNECTED && strlen(snapmakerHost) > 0;
   if (readyToSend) {
-    fillButton(194, 50, 116, 40, TFT_DARKGREEN, TFT_WHITE, "Tag senden", TFT_WHITE, 2);
+    fillButton(194, 50, 116, 40, TFT_DARKGREEN, TFT_WHITE, LTXT(TXT_SEND_TAG), TFT_WHITE, 2);
   }
 
   if (currentTagMode == TAGMODE_OPENSPOOL && readOpenSpoolDetailsVisible) {
@@ -6237,11 +6247,11 @@ static void drawToolHeadSendButton(uint8_t idx, int x, int y, int w, int h) {
 
 static void drawSendSelectScreen() {
   tft.fillScreen(TFT_BLACK);
-  drawHeader("Tag senden an Snapmaker U1");
+  drawHeader(LTXT(TXT_SEND_TO_U1));
 
   fillButton(8, 40, 84, 28, TFT_DARKGREY, TFT_WHITE, TR(STR_BACK), TFT_WHITE, 2);
   bool readyToRead = wifiEnabled && WiFi.status() == WL_CONNECTED && strlen(snapmakerHost) > 0;
-  fillButton(210, 40, 100, 28, readyToRead ? TFT_DARKGREEN : TFT_DARKGREY, TFT_WHITE, "Tag lesen", TFT_WHITE, 2);
+  fillButton(210, 40, 100, 28, readyToRead ? TFT_DARKGREEN : TFT_DARKGREY, TFT_WHITE, TR(STR_READ_TAG), TFT_WHITE, 2);
 
   tft.setTextColor(TFT_WHITE, TFT_BLACK);
   if (sendTag.valid) {
@@ -7808,7 +7818,7 @@ static void uiHandleTouch(int x, int y) {
         hit(210, 40, 100, 28, x, y)) { performReadForSend(); return; }
     if (!sendTag.valid && (hit(16, 158, 66, 44, x, y) || hit(92, 158, 66, 44, x, y) ||
                            hit(168, 158, 66, 44, x, y) || hit(244, 158, 66, 44, x, y))) {
-      showSimpleMessage("Tag senden", "Bitte zuerst", "einen Tag lesen", "", "", UI_SEND_SELECT);
+      showSimpleMessage(LTXT(TXT_SEND_TAG), "Bitte zuerst", "einen Tag lesen", "", "", UI_SEND_SELECT);
       return;
     }
     if (hit(16, 158, 66, 44, x, y)) { requestSendTagToSnapmaker(1); return; }
@@ -8115,6 +8125,7 @@ static void uiHandleTouch(int x, int y) {
         if (hit(x0 + c*(w+gapX), y0 + r*(h+gapY), w, h, x, y)) {
           if (idx == 0) osSubtype[0] = '\0';
           else safeCopy(osSubtype, variantNameByVal(getActiveVariantByIndex(idx - 1)).c_str(), sizeof(osSubtype));
+          normalizeOpenSpoolSubtypeBuffer(osSubtype, sizeof(osSubtype));
           ui = UI_WRITE;
           needRedraw = true;
           return;

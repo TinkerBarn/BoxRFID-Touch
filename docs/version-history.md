@@ -11,8 +11,8 @@ This file is the ongoing release history for the public BoxRFID firmware lines.
 Highlights:
 
 - direct `Tag senden` workflow for Snapmaker U1 ToolHeads
-- ToolHead send menu opens directly and uses the title `Tag senden an Snapmaker U1`
-- top-right `Tag lesen` action in the ToolHead send menu
+- ToolHead send menu opens directly and uses a localized title
+- localized read-tag action in the ToolHead send menu
 - QIDI and OpenSpool tags are detected automatically when reading a tag for sending, independent of the currently selected firmware mode
 - tag information is shown for 3 seconds before the ToolHead send menu is displayed
 - Snapmaker U1 ToolHead status is queried through GET requests and displayed with material type and color
@@ -22,6 +22,7 @@ Highlights:
 - after a successful send, the ToolHead status is refreshed so the user can verify the result immediately
 - Snapmaker host and port setup is stored persistently
 - safer preference loading for user-edited material/manufacturer/variant lists and Wi-Fi/Snapmaker settings to avoid crashes after custom QIDI list edits
+- OpenSpool U1 tag writing now clears the subtype correctly when `None` / `Keine` is selected again
 - web installer changed to a release selector instead of separate install cards
 
 ## BoxRFID OpenSpool Edition V4.1

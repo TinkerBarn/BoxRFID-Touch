@@ -113,7 +113,7 @@ Latest release highlights:
 
 - current **QIDI Box + OpenSpool + Snapmaker U1 all-in-one release**
 - redesigned **Tag senden** workflow for sending tag data directly to **Snapmaker U1 ToolHeads**
-- direct ToolHead menu with a top-right **Tag lesen** action and the title **Tag senden an Snapmaker U1**
+- direct ToolHead menu with localized UI text
 - mixed-format tag reading for send mode: QIDI and OpenSpool tags are detected automatically, independent of the active firmware mode
 - ToolHead status refresh through Snapmaker U1 GET requests, including filament type and color display
 - clear `Leer` / `Empty` ToolHead state when no filament data is reported
@@ -161,6 +161,27 @@ Notes:
 - Reconnect the board if it is not detected immediately
 - If needed, hold the **BOOT** button while connecting
 - Flashing will overwrite the existing firmware on the device
+
+### Arduino IDE Settings
+
+The web installer is recommended. If you compile V4.2 manually in Arduino IDE, use these settings:
+
+- Board: **ESP32-2432S028R CYD**
+- CPU Frequency: **240MHz (WiFi/BT)**
+- Flash Frequency: **80MHz**
+- Flash Mode: **QIO**
+- Flash Size: **4MB**
+- Partition Scheme: **Default 4MB with spiffs (1.2MB APP/1.5MB SPIFFS)**
+- Arduino Runs On: **Core 1**
+- Events Run On: **Core 1**
+- Core Debug Level: **None**
+- Zigbee Mode: **Disabled**
+
+Upload speed:
+
+- `921600` can work on many boards.
+- If upload stops responding, use `460800` or `115200`.
+- Use a data-capable USB cable and hold `BOOT` while connecting if the board is not detected.
 
 ---
 

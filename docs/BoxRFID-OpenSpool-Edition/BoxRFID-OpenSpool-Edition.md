@@ -12,8 +12,8 @@ Compared with V4.1, V4.2 adds and refines:
 
 - direct **Tag senden** workflow for Snapmaker U1 ToolHeads
 - direct entry into the ToolHead send menu instead of an intermediate send page
-- title bar text `Tag senden an Snapmaker U1`
-- top-right green `Tag lesen` action inside the ToolHead send menu
+- localized title text for the Snapmaker U1 send menu
+- localized read-tag action inside the ToolHead send menu
 - QIDI and OpenSpool tag auto-detection while reading a tag for sending
 - 3 second tag information popup before returning to the ToolHead send menu
 - Snapmaker U1 ToolHead status refresh through GET requests
@@ -25,6 +25,7 @@ Compared with V4.1, V4.2 adds and refines:
 - automatic ToolHead status refresh after a successful send
 - persistent Snapmaker host and port setup
 - safer loading of stored lists and network settings to avoid crashes after custom material/manufacturer edits
+- OpenSpool U1 tag writing clears the subtype field when `None` / `Keine` is selected again, so no `subtype` is written
 - web installer release selection list
 
 Compared with the older V3.7 release line, V4.x also includes:
@@ -121,7 +122,7 @@ The main screen gives direct access to:
 
 The status bar at the bottom shows version information or live status information depending on the current action.
 
-## Tag senden an Snapmaker U1
+## Snapmaker U1 send workflow
 
 V4.2 adds a dedicated send workflow for transferring the currently read tag data to a Snapmaker U1 ToolHead.
 
@@ -138,15 +139,11 @@ If Wi-Fi is disabled or the U1 connection data is missing, the ToolHead menu sho
 
 ### ToolHead menu
 
-Tapping `Tag senden` on the main screen opens the ToolHead menu directly.
+Tapping the send action on the main screen opens the ToolHead menu directly.
 
-The menu title is:
+The menu title follows the selected UI language.
 
-- `Tag senden an Snapmaker U1`
-
-The top-right button is:
-
-- `Tag lesen`
+The read action in this menu also follows the selected UI language.
 
 The four ToolHead buttons show the latest known status from the Snapmaker U1. Each ToolHead can display:
 
@@ -605,9 +602,35 @@ V4.2 stores persistent settings in ESP32 preferences, including:
 2. Open `Write Tag`.
 3. Choose `OpenSpool U1`.
 4. Fill in the enabled pages and optional fields.
-5. Review the slicer profile preview.
-6. Tap `Write`.
-7. Place the NTAG tag on the reader.
+5. Choose a variant only when it should be written to the tag.
+6. Select `None` / `Keine` to remove the variant again. In that case the tag is written without a subtype field.
+7. Review the slicer profile preview.
+8. Tap `Write`.
+9. Place the NTAG tag on the reader.
+
+## Arduino IDE settings
+
+The web installer is the preferred installation method. Manual Arduino IDE builds are useful for development and troubleshooting.
+
+Recommended Arduino IDE settings for V4.2:
+
+- Board: `ESP32-2432S028R CYD`
+- CPU Frequency: `240MHz (WiFi/BT)`
+- Flash Frequency: `80MHz`
+- Flash Mode: `QIO`
+- Flash Size: `4MB`
+- Partition Scheme: `Default 4MB with spiffs (1.2MB APP/1.5MB SPIFFS)`
+- Arduino Runs On: `Core 1`
+- Events Run On: `Core 1`
+- Core Debug Level: `None`
+- Zigbee Mode: `Disabled`
+
+Upload notes:
+
+- `921600` can work, but some USB adapters or cables are unstable at that speed.
+- If upload fails with a stopped-responding error, lower upload speed to `460800` or `115200`.
+- Use a data-capable USB cable.
+- If the board is not detected, reconnect it and hold `BOOT` while connecting.
 
 ---
 
