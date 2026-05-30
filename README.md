@@ -20,11 +20,12 @@ Supported standalone workflows:
 
 ## [Open BoxRFID-Touch Web Installer](https://tinkerbarn.github.io/BoxRFID-Touch/)
 
-The web installer now offers three clear choices:
+The web installer now uses one release selector for the public firmware builds:
 
+- **V4.2 Current Release** for the latest combined firmware
+- **V4.1 Stable Previous** if you want the previous combined release
 - **V2.1 Classic QIDI** for the classic firmware line
 - **V4.0.1 Fallback** for the previous combined QIDI + OpenSpool release
-- **V4.1 Current Release** for the latest combined firmware
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/H2H41XBKJ6)
 
@@ -34,7 +35,7 @@ The web installer now offers three clear choices:
 
 [![Watch the video](https://img.youtube.com/vi/4cGLlr9Ckx4/hqdefault.jpg)](https://youtu.be/4cGLlr9Ckx4?is=iYzOwJqUVbCeVkuv)
 
-> Note: This video shows an older workflow and does not yet reflect the current V4.1 release.
+> Note: This video shows an older workflow and does not yet reflect the current V4.2 release.
 
 ---
 
@@ -42,8 +43,9 @@ The web installer now offers three clear choices:
 
 | Firmware line | Version | Status | Best use case | Installer |
 | --- | --- | --- | --- | --- |
-| BoxRFID OpenSpool Edition | V4.1 | Current release | Recommended for most users who want QIDI + OpenSpool in one firmware | Yes |
-| BoxRFID OpenSpool Edition | V4.0.1 | Stable fallback | Previous combined release kept as fallback if you want to step back from V4.1 | Yes |
+| BoxRFID OpenSpool Edition | V4.2 | Current release | Recommended for most users who want QIDI + OpenSpool, Snapmaker U1 sending, and the newest stability fixes | Yes |
+| BoxRFID OpenSpool Edition | V4.1 | Stable previous | Previous combined release with QIDI CFG, MicroSD backup/restore, and Wi-Fi tools | Yes |
+| BoxRFID OpenSpool Edition | V4.0.1 | Stable fallback | Older combined release kept as fallback if you want to step back from the current release line | Yes |
 | BoxRFID OpenSpool Edition | V3.7 | Older combined release | Earlier combined release kept for compatibility and reference | No |
 | BoxRFID-Touch | V2.1 | Stable classic | Classic QIDI-only workflow | Yes |
 | BoxRFID-Touch | V2.0 | Legacy | Older classic QIDI release kept only for compatibility | No |
@@ -56,6 +58,7 @@ Public firmware folders in this repository:
 - [BoxRFID OpenSpool Edition V4.0](./firmware/boxrfid-openspool/v4.0/)
 - [BoxRFID OpenSpool Edition V4.0.1](./firmware/boxrfid-openspool/v4.0.1/)
 - [BoxRFID OpenSpool Edition V4.1](./firmware/boxrfid-openspool/v4.1/)
+- [BoxRFID OpenSpool Edition V4.2](./firmware/boxrfid-openspool/v4.2/)
 
 Source folders:
 
@@ -64,13 +67,14 @@ Source folders:
 - [BoxRFID OpenSpool Edition V4.0 source](./source/boxrfid-openspool/v4.0/)
 - [BoxRFID OpenSpool Edition V4.0.1 source](./source/boxrfid-openspool/v4.0.1/)
 - [BoxRFID OpenSpool Edition V4.1 source](./source/boxrfid-openspool/v4.1/)
+- [BoxRFID OpenSpool Edition V4.2 source](./source/boxrfid-openspool/v4.2/)
 
 Documentation:
 
 - [Firmware Matrix](./docs/firmware-matrix.md)
 - [Version History](./docs/version-history.md)
 - [BoxRFID-Touch V2.1 documentation](./docs/BoxRFID-Touch/BoxRFID-Touch.md)
-- [BoxRFID OpenSpool Edition V4.0 / V4.0.1 / V4.1 documentation](./docs/BoxRFID-OpenSpool-Edition/BoxRFID-OpenSpool-Edition.md)
+- [BoxRFID OpenSpool Edition V4.x documentation](./docs/BoxRFID-OpenSpool-Edition/BoxRFID-OpenSpool-Edition.md)
 
 ---
 
@@ -103,24 +107,22 @@ Additional capabilities in the OpenSpool Edition:
 
 ---
 
-## What's New In V4.1
+## What's New In V4.2
 
 Latest release highlights:
 
-- current **QIDI Box + OpenSpool all-in-one release**
-- support for **QIDI Q2**, **QIDI Plus 4**, and **QIDI Max 4** with **QIDI Box**
-- automatic **backup of user settings and edited lists to MicroSD**, when a card is present
-- automatic **restore after firmware updates or device changes**, so setup, materials, manufacturers, and variants can move with the card
-- improved **web interface** for `officiall_filas_list.cfg` with English UI, upload status, stored-file detection, card-content listing, and direct CFG content viewing
-- added **mDNS access** so the web interface can also be reached via `http://boxrfid.local`
-- improved **MicroSD status updates** with runtime hotplug detection on the relevant setup pages
-- dedicated **SD card tools** including content view and formatting with folder structure rebuild
-- **Wi-Fi setup** and **browser upload** for `officiall_filas_list.cfg`
-- **MicroSD-based official QIDI CFG support** for all three QIDI printer models
-- improved **OpenSpool write defaults** after reading tags with missing optional values
-- improved **keyboard layouts**, **touch handling**, and **setup flow**
-- added **on-device Wi-Fi debug tools** with reconnect support
-- kept **V4.0.1** in the installer as a fallback path if users want to step back from the latest release
+- current **QIDI Box + OpenSpool + Snapmaker U1 all-in-one release**
+- redesigned **Tag senden** workflow for sending tag data directly to **Snapmaker U1 ToolHeads**
+- direct ToolHead menu with a top-right **Tag lesen** action and the title **Tag senden an Snapmaker U1**
+- mixed-format tag reading for send mode: QIDI and OpenSpool tags are detected automatically, independent of the active firmware mode
+- ToolHead status refresh through Snapmaker U1 GET requests, including filament type and color display
+- clear `Leer` / `Empty` ToolHead state when no filament data is reported
+- automatic contrast selection for ToolHead buttons so text remains readable on light and dark filament colors
+- filament-sensor safety check before sending: if filament is detected in the target ToolHead, the firmware asks for confirmation before overwriting
+- 3 second tag information popup before returning to the ToolHead send menu
+- refreshed ToolHead status after sending so the user can immediately see whether the update arrived
+- safer preference loading for edited lists and Wi-Fi/Snapmaker settings to avoid crashes after user-defined QIDI materials/manufacturers
+- kept **V4.1**, **V4.0.1**, and **V2.1** in the installer as selectable fallback paths
 
 For the full ongoing release history, see [Version History](./docs/version-history.md).
 
@@ -128,7 +130,8 @@ For the full ongoing release history, see [Version History](./docs/version-histo
 
 ## Which Version Should I Use
 
-- Choose **BoxRFID OpenSpool Edition V4.1** if you want the latest release for **QIDI Box**, **OpenSpool Standard**, and **Snapmaker U1 with paxx12 Extended Firmware**.
+- Choose **BoxRFID OpenSpool Edition V4.2** if you want the latest release for **QIDI Box**, **OpenSpool Standard**, and **Snapmaker U1 with paxx12 Extended Firmware**, including direct ToolHead sending.
+- Choose **BoxRFID OpenSpool Edition V4.1** if you want the previous combined release.
 - Choose **BoxRFID OpenSpool Edition V4.0.1** if you want the previous combined release as a fallback.
 - Choose **BoxRFID OpenSpool Edition V3.7** only if you specifically want the older combined release.
 - Choose **BoxRFID-Touch V2.1** if you only need the classic QIDI firmware line.
@@ -144,10 +147,10 @@ For the full ongoing release history, see [Version History](./docs/version-histo
 2. Open the [Web Installer](https://tinkerbarn.github.io/BoxRFID-Touch/).
 3. Click **Connect**.
 4. Select the correct serial port.
-5. Choose the desired firmware:
-   - `V4.1` for the latest combined release
+5. Choose the desired firmware from the release selector:
+   - `V4.2` for the latest combined release
+   - `V4.1` for the previous combined release
    - `V4.0.1` for the combined fallback release
-   - `V3.7` for the older combined release
    - `V2.1` for the classic QIDI release
 6. Flash the firmware.
 
@@ -179,7 +182,7 @@ Supported tag types:
 
 ## Compatibility
 
-### BoxRFID OpenSpool Edition V4.1
+### BoxRFID OpenSpool Edition V4.2
 
 QIDI support:
 
@@ -192,6 +195,7 @@ OpenSpool support:
 - **OpenSpool Standard** RFID/NFC tags
 - **Snapmaker U1** with **paxx12 Extended Firmware**
 - **Snapmaker U1** with **OpenRFID support**
+- direct **Snapmaker U1 ToolHead sending** over Wi-Fi when the U1 host and port are configured
 
 ### BoxRFID-Touch V2.1
 
@@ -308,9 +312,9 @@ Case:
   </tr>
 </table>
 
-### Animated V4.1 Workflows
+### Animated V4.x Workflows
 
-The animations below show the current **BoxRFID OpenSpool Edition V4.1** write workflows directly on the device UI.
+The animations below show the **BoxRFID OpenSpool Edition V4.x** write workflows directly on the device UI.
 
 <table align="center">
   <tr>
@@ -331,7 +335,7 @@ The animations below show the current **BoxRFID OpenSpool Edition V4.1** write w
 
 ### UI Screenshots
 
-> Note: The UI screenshots below currently show an older interface and not the current BoxRFID OpenSpool Edition V4.1 release.
+> Note: The UI screenshots below currently show an older interface and not the current BoxRFID OpenSpool Edition V4.2 release.
 
 <table align="center">
   <tr>

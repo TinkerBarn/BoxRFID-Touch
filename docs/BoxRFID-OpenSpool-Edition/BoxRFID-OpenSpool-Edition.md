@@ -1,14 +1,33 @@
-# BoxRFID OpenSpool Edition V4.1
+# BoxRFID OpenSpool Edition V4.2
 
-This document describes the published **BoxRFID OpenSpool Edition V4.1** firmware for the **ESP32-2432S028R (CYD)** with **PN532 via I2C**.
+This document describes the published **BoxRFID OpenSpool Edition V4.2** firmware for the **ESP32-2432S028R (CYD)** with **PN532 via I2C**.
 
-V4.1 is the current all-in-one BoxRFID release. It combines QIDI Box support and OpenSpool support in one firmware and adds the major platform updates introduced after V3.7 and refined across the V4.0.x development line.
+V4.2 is the current all-in-one BoxRFID release. It combines QIDI Box support, OpenSpool support, and the Snapmaker U1 send workflow in one firmware. It builds on the V4.1 platform release and adds direct ToolHead sending, live ToolHead status display, and safer persistent preference handling.
 
 ---
 
-## What is new in V4.1
+## What is new in V4.2
 
-Compared with the public V3.7 release, V4.1 adds and refines:
+Compared with V4.1, V4.2 adds and refines:
+
+- direct **Tag senden** workflow for Snapmaker U1 ToolHeads
+- direct entry into the ToolHead send menu instead of an intermediate send page
+- title bar text `Tag senden an Snapmaker U1`
+- top-right green `Tag lesen` action inside the ToolHead send menu
+- QIDI and OpenSpool tag auto-detection while reading a tag for sending
+- 3 second tag information popup before returning to the ToolHead send menu
+- Snapmaker U1 ToolHead status refresh through GET requests
+- ToolHead display with filament type and color, or `Leer` / `Empty` when no filament data is present
+- automatic black/white text contrast on ToolHead buttons based on the displayed filament color
+- filament-sensor check before sending to a ToolHead
+- overwrite confirmation when filament is already detected in the selected ToolHead
+- direct write without confirmation when no filament is detected
+- automatic ToolHead status refresh after a successful send
+- persistent Snapmaker host and port setup
+- safer loading of stored lists and network settings to avoid crashes after custom material/manufacturer edits
+- web installer release selection list
+
+Compared with the older V3.7 release line, V4.x also includes:
 
 - support for **QIDI Max 4** in addition to **QIDI Q2** and **QIDI Plus 4**
 - persistent **Wi-Fi setup** with SSID and password storage
@@ -61,7 +80,7 @@ Supported RFID tag families:
 
 ## Firmware modes
 
-V4.1 contains two main operating modes.
+V4.2 contains two main operating modes plus a Snapmaker U1 send workflow.
 
 ### QIDI mode
 
@@ -97,9 +116,76 @@ The main screen gives direct access to:
 - `Read Tag`
 - `Setup`
 - `Write Tag`
+- `Tag senden`
 - `Mode switch` between `QIDI` and `OpenSpool`
 
 The status bar at the bottom shows version information or live status information depending on the current action.
+
+## Tag senden an Snapmaker U1
+
+V4.2 adds a dedicated send workflow for transferring the currently read tag data to a Snapmaker U1 ToolHead.
+
+### Requirements
+
+The send workflow requires:
+
+- Wi-Fi enabled on BoxRFID
+- BoxRFID connected to the same network as the Snapmaker U1
+- Snapmaker host and port configured in setup
+- Snapmaker U1 running firmware/API support that accepts the filament GET and SET requests used by the workflow
+
+If Wi-Fi is disabled or the U1 connection data is missing, the ToolHead menu shows the connection state and does not offer a tag-read/send path.
+
+### ToolHead menu
+
+Tapping `Tag senden` on the main screen opens the ToolHead menu directly.
+
+The menu title is:
+
+- `Tag senden an Snapmaker U1`
+
+The top-right button is:
+
+- `Tag lesen`
+
+The four ToolHead buttons show the latest known status from the Snapmaker U1. Each ToolHead can display:
+
+- filament type
+- color
+- `Leer` / `Empty` when no filament is reported
+
+The button background uses the reported filament color when available. The text color is chosen automatically as black or white, depending on which gives the best contrast.
+
+### Reading a tag for sending
+
+The `Tag lesen` action is independent of the currently selected QIDI/OpenSpool mode.
+
+When a tag is placed on the reader, the firmware tries to identify the tag format automatically:
+
+- QIDI tags are read as MIFARE Classic tag data
+- OpenSpool tags are read as OpenSpool/NDEF data
+
+After a valid tag is read, the decoded information is shown for 3 seconds. The device then returns to the ToolHead send menu so the user can choose the target ToolHead.
+
+### Sending to a ToolHead
+
+When a ToolHead is selected, the firmware first checks the target ToolHead filament sensor through a GET request.
+
+If no filament is detected:
+
+1. the tag data is sent directly
+2. the result message is shown
+3. the firmware returns to the ToolHead menu
+4. the ToolHead status is queried again so the new value is visible
+
+If filament is already detected:
+
+1. a safety confirmation is shown
+2. the user must explicitly confirm overwriting the ToolHead data
+3. only then is the SET request sent
+4. the ToolHead status is refreshed after the result screen
+
+If the sensor state cannot be read, the firmware aborts the send action instead of silently overwriting data.
 
 ---
 
@@ -191,9 +277,9 @@ The firmware automatically selects the best payload tier that fits on the tag an
 
 ## Setup menu pages
 
-V4.1 uses a six-page setup structure.
+V4.2 uses a seven-page setup structure.
 
-### Page 1/6: Core setup
+### Page 1/7: Core setup
 
 Depending on mode and whether an official QIDI CFG is active, page 1 contains:
 
@@ -205,7 +291,7 @@ Depending on mode and whether an official QIDI CFG is active, page 1 contains:
 
 If an official QIDI CFG is active for the current model, manual QIDI material/manufacturer editing is intentionally hidden for that model.
 
-### Page 2/6: Screensaver and brightness
+### Page 2/7: Screensaver and brightness
 
 Page 2 contains:
 
@@ -220,7 +306,7 @@ Screensaver choices:
 - `10 minutes`
 - `Off`
 
-### Page 3/6
+### Page 3/7
 
 The content of page 3 depends on the active tag mode.
 
@@ -258,7 +344,7 @@ Page 3 opens the OpenSpool tag information configuration pages:
 - `OpenSpool Standard`
 - `OpenSpool Extended`
 
-### Page 4/6: Wi-Fi
+### Page 4/7: Wi-Fi
 
 The Wi-Fi page contains:
 
@@ -275,7 +361,18 @@ Wi-Fi data stored persistently:
 
 The IP address is shown live and is not stored persistently.
 
-### Page 5/6: SD tools
+### Page 5/7: Snapmaker U1
+
+The Snapmaker U1 setup page stores:
+
+- Snapmaker host or IP address
+- Snapmaker API port
+
+The default port is `7125`.
+
+These values are used by the `Tag senden` workflow for ToolHead status GET requests, filament-sensor checks, and filament-data SET requests.
+
+### Page 6/7: SD tools
 
 The SD tools page contains:
 
@@ -283,7 +380,7 @@ The SD tools page contains:
 - `Format SD card`
 - live MicroSD status information
 
-### Page 6/6: Device settings
+### Page 7/7: Device settings
 
 The final page contains:
 
@@ -295,7 +392,7 @@ The final page contains:
 
 ## QIDI official CFG support
 
-V4.1 adds per-model support for the official QIDI material list file:
+V4.x adds per-model support for the official QIDI material list file:
 
 - `Q2` uses `/qidi/q2/officiall_filas_list.cfg`
 - `Plus 4` uses `/qidi/plus4/officiall_filas_list.cfg`
@@ -361,7 +458,7 @@ For OpenSpool materials, the editor supports:
 
 ## Keyboard and input modes
 
-V4.1 includes multiple input keyboards chosen automatically by field type.
+V4.2 includes multiple input keyboards chosen automatically by field type.
 
 ### Extended text keyboard
 
@@ -406,7 +503,7 @@ Used for:
 
 ## Persistent storage
 
-V4.1 stores persistent settings in ESP32 preferences, including:
+V4.2 stores persistent settings in ESP32 preferences, including:
 
 - UI language
 - default tag mode
@@ -419,6 +516,8 @@ V4.1 stores persistent settings in ESP32 preferences, including:
 - Wi-Fi enabled state
 - Wi-Fi SSID
 - Wi-Fi password
+- Snapmaker U1 host
+- Snapmaker U1 port
 - QIDI official CFG toggles
 - QIDI lists
 - OpenSpool lists
@@ -444,6 +543,21 @@ V4.1 stores persistent settings in ESP32 preferences, including:
 2. Tap `Read Tag`, or enable `Auto Read`.
 3. Place the tag on the reader.
 4. Check the popup title to confirm the active QIDI model.
+
+### Send a tag to Snapmaker U1
+
+1. Open `Setup > Wi-Fi`.
+2. Enable Wi-Fi and connect BoxRFID to the same network as the Snapmaker U1.
+3. Open the Snapmaker U1 setup page.
+4. Enter the Snapmaker host/IP and port.
+5. Return to the main menu.
+6. Tap `Tag senden`.
+7. Tap `Tag lesen`.
+8. Place a QIDI or OpenSpool tag on the reader.
+9. Wait for the 3 second tag information popup.
+10. Select the target ToolHead.
+11. Confirm the overwrite warning only if filament is already detected in that ToolHead.
+12. Check the refreshed ToolHead menu to verify the sent filament type and color.
 
 ### Upload an official QIDI CFG over Wi-Fi
 
@@ -499,12 +613,14 @@ V4.1 stores persistent settings in ESP32 preferences, including:
 
 ## Summary
 
-BoxRFID OpenSpool Edition V4.1 is the current release for users who want:
+BoxRFID OpenSpool Edition V4.2 is the current release for users who want:
 
 - QIDI and OpenSpool in one firmware
 - support for QIDI `Q2`, `Plus 4`, and `Max 4`
 - official QIDI CFG file support through MicroSD and browser upload
 - persistent Wi-Fi configuration
+- direct Snapmaker U1 ToolHead sending
+- live ToolHead status and filament-sensor overwrite protection
 - improved keyboard layouts and setup flow
 - editable local OpenSpool databases
 - a fallback path back to internal QIDI lists when official CFG use is disabled

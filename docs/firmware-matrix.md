@@ -8,11 +8,13 @@ This repository provides public firmware lines for the `ESP32-2432S028R (CYD)` p
 | BoxRFID-Touch | V2.1 | Stable classic | Classic QIDI-only workflow | Yes | `firmware/boxrfid-touch/v2.1/BoxRFID_CYD_ESP32_2432S028R_V2.1.ino.merged.bin` |
 | BoxRFID OpenSpool Edition | V4.0.1 | Stable fallback | Previous QIDI plus OpenSpool release kept as fallback | Yes | `firmware/boxrfid-openspool/v4.0.1/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.0.1.ino.merged.bin` |
 | BoxRFID OpenSpool Edition | V3.7 | Older combined release | Earlier combined release kept for compatibility | Yes | `firmware/boxrfid-openspool/v3.7/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V3.7.ino.merged.bin` |
-| BoxRFID OpenSpool Edition | V4.1 | Current release | Latest QIDI plus OpenSpool release with Q2, Plus 4, Max 4, automatic SD backup/restore, improved web CFG tools, mDNS access via `boxrfid.local`, SD hotplug status updates, and setup improvements | Yes | `firmware/boxrfid-openspool/v4.1/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.1.ino.merged.bin` |
+| BoxRFID OpenSpool Edition | V4.1 | Stable previous | Previous QIDI plus OpenSpool release with Q2, Plus 4, Max 4, automatic SD backup/restore, improved web CFG tools, mDNS access via `boxrfid.local`, SD hotplug status updates, and setup improvements | Yes | `firmware/boxrfid-openspool/v4.1/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.1.ino.merged.bin` |
+| BoxRFID OpenSpool Edition | V4.2 | Current release | Latest QIDI plus OpenSpool release with direct Snapmaker U1 ToolHead sending, automatic QIDI/OpenSpool send-mode tag detection, ToolHead GET status display, filament-sensor overwrite safety, refreshed send results, and safer preference loading | Yes | `firmware/boxrfid-openspool/v4.2/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.2.ino.merged.bin` |
 
 ## Release guidance
 
-- Use `V4.1` if you want the latest release and all current QIDI/OpenSpool features.
+- Use `V4.2` if you want the latest release and all current QIDI/OpenSpool/Snapmaker U1 sending features.
+- Use `V4.1` if you want the previous combined release.
 - Use `V4.0.1` if you need the previous combined firmware as a fallback.
 - Use `V3.7` only if you specifically need the older combined release.
 - Use `V2.1` if you only want the classic QIDI firmware line.
@@ -25,4 +27,5 @@ This repository provides public firmware lines for the `ESP32-2432S028R (CYD)` p
 - Older combined OpenSpool source: `source/boxrfid-openspool/v3.7/`
 - OpenSpool V4.0 source: `source/boxrfid-openspool/v4.0/`
 - OpenSpool V4.0.1 source: `source/boxrfid-openspool/v4.0.1/`
-- Current OpenSpool source: `source/boxrfid-openspool/v4.1/`
+- OpenSpool V4.1 source: `source/boxrfid-openspool/v4.1/`
+- Current OpenSpool source: `source/boxrfid-openspool/v4.2/`
