@@ -22,7 +22,7 @@ Highlights:
 - ToolHead button text automatically switches between black and white for best contrast against the filament color
 - before sending, the target ToolHead filament sensor is checked; if filament is detected, the firmware asks for confirmation before overwriting
 - after a successful send, the ToolHead status is refreshed so the user can verify the result immediately
-- Snapmaker host and port setup is stored persistently
+- Snapmaker host and port setup is stored persistently and accepts IP addresses, hostnames, or URLs such as `http://u1.local`
 - safer preference loading for user-edited material/manufacturer/variant lists and Wi-Fi/Snapmaker settings to avoid crashes after custom QIDI list edits
 - OpenSpool U1 tag writing now clears the subtype correctly when `None` / `Keine` is selected again
 - web installer changed to a release selector instead of separate install cards

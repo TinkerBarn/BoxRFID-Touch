@@ -121,6 +121,7 @@ Latest release highlights:
 - clear `Leer` / `Empty` ToolHead state when no filament data is reported
 - automatic contrast selection for ToolHead buttons so text remains readable on light and dark filament colors
 - filament-sensor safety check before sending: if filament is detected in the target ToolHead, the firmware asks for confirmation before overwriting
+- Snapmaker U1 setup accepts an IP address, hostname, or URL such as `http://u1.local`
 - 3 second tag information popup before returning to the ToolHead send menu
 - refreshed ToolHead status after sending so the user can immediately see whether the update arrived
 - safer preference loading for edited lists and Wi-Fi/Snapmaker settings to avoid crashes after user-defined QIDI materials/manufacturers

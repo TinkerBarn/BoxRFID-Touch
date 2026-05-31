@@ -387,10 +387,10 @@ The IP address is shown live and is not stored persistently.
 
 The Snapmaker U1 setup page stores:
 
-- Snapmaker host or IP address
+- Snapmaker host, IP address, or URL such as `http://u1.local`
 - Snapmaker API port
 
-The default port is `7125`.
+The default port is `7125`. If the URL contains a port, for example `http://u1.local:7125`, that port is used. Otherwise the separate port field is used.
 
 These values are used by the `Tag senden` workflow for ToolHead status GET requests, filament-sensor checks, and filament-data SET requests.
 
@@ -571,7 +571,7 @@ V4.2 stores persistent settings in ESP32 preferences, including:
 1. Open `Setup > Wi-Fi`.
 2. Enable Wi-Fi and connect BoxRFID to the same network as the Snapmaker U1.
 3. Open the Snapmaker U1 setup page.
-4. Enter the Snapmaker host/IP and port.
+4. Enter the Snapmaker host, IP address, or URL and port.
 5. Return to the main menu.
 6. Tap `Tag senden`.
 7. Tap `Tag lesen`.
@@ -586,7 +586,7 @@ V4.2 stores persistent settings in ESP32 preferences, including:
 1. Open the QIDI, OpenSpool Standard, or OpenSpool Snapmaker U1 write screen.
 2. Select the manufacturer, material, color, variant, and temperature data as needed.
 3. Tap the send action in the top menu.
-4. If Wi-Fi or the U1 host is missing, enable Wi-Fi and configure the U1 IP/host first.
+4. If Wi-Fi or the U1 host is missing, enable Wi-Fi and configure the U1 host, IP address, or URL first.
 5. Select the target ToolHead.
 6. Confirm the overwrite warning only if filament is already detected in that ToolHead.
 7. Use back to return to the originating write screen.

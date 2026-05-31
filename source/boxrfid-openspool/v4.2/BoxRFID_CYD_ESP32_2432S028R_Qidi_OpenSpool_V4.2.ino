@@ -598,7 +598,7 @@ static const char* const TXT_SEND_TAG[LANG_COUNT]           = {"Tag senden","Sen
 static const char* const TXT_SEND_SHORT[LANG_COUNT]         = {"Senden","Send","Enviar","Enviar","Envoyer","Invia"};
 static const char* const TXT_SEND_TO_U1[LANG_COUNT]         = {"Tag an Snapmaker U1 senden","Send tag to Snapmaker U1","Enviar tag a Snapmaker U1","Enviar tag para Snapmaker U1","Envoyer tag vers Snapmaker U1","Invia tag a Snapmaker U1"};
 static const char* const TXT_SEND_NEEDS_WIFI1[LANG_COUNT]   = {"Zuerst WLAN aktivieren","Enable Wi-Fi first","Active primero Wi-Fi","Ative primeiro Wi-Fi","Activez d'abord Wi-Fi","Attiva prima Wi-Fi"};
-static const char* const TXT_SEND_NEEDS_WIFI2[LANG_COUNT]   = {"und U1 IP konfigurieren","and configure U1 IP","y configure IP U1","e configure IP U1","et configurez IP U1","e configura IP U1"};
+static const char* const TXT_SEND_NEEDS_WIFI2[LANG_COUNT]   = {"und U1 Host konfigurieren","and configure U1 host","y configure host U1","e configure host U1","et configurez hote U1","e configura host U1"};
 static const char* const TXT_NUMPAD[LANG_COUNT]             = {"Zahlen","Numbers","Numeros","Numeros","Nombres","Numeri"};
 static const char* const TXT_TAG_DETECTED[LANG_COUNT]       = {"Tag erkannt","Tag detected","Tag detectado","Tag detectado","Tag detecte","Tag rilevato"};
 static const char* const TXT_READING_TAG[LANG_COUNT]       = {"Tag lesen...","Reading Tag...","Leyendo tag...","Lendo tag...","Lecture du tag...","Lettura tag..."};
@@ -821,7 +821,7 @@ static UIState uiBeforeKeyboard = UI_MAIN;
 static bool wifiEnabled = false;
 static char wifiSsid[33] = "";
 static char wifiPassword[65] = "";
-static char snapmakerHost[40] = "192.168.1.10";
+static char snapmakerHost[65] = "192.168.1.10";
 static char snapmakerPort[6] = "7125";
 static bool useOfficialListPlus4 = false;
 static bool useOfficialListQ2 = false;
@@ -1178,6 +1178,9 @@ static void drawWifiDebugScreen();
 static const char* wifiAuthModeLabel(wifi_auth_mode_t mode);
 static void logWifiScanResults();
 static void logWifiDhcpInfo();
+static String snapmakerHostOnly();
+static uint16_t snapmakerPortValue();
+static bool connectSnapmakerClient(WiFiClient& client, const String& host, uint16_t port);
 static String colorHexFrom565(uint16_t c);
 static String normalizeHexColor(const char* s, bool withHash);
 static int findColorIndexByHex(const char* value);
@@ -5249,7 +5252,7 @@ static bool skipHttpHeaders(WiFiClient& client, uint32_t timeoutMs) {
 }
 
 static bool isSnapmakerSendReady() {
-  return wifiEnabled && WiFi.status() == WL_CONNECTED && strlen(snapmakerHost) > 0;
+  return wifiEnabled && WiFi.status() == WL_CONNECTED && snapmakerHostOnly().length() > 0;
 }
 
 static void showSnapmakerSendSetupRequired(int nextState) {
@@ -5353,6 +5356,7 @@ static void openSendMenuFromCurrentWriteSelection(int returnState) {
 static String snapmakerHostOnly() {
   String host = String(snapmakerHost);
   host.trim();
+  host.replace(" ", "");
   if (host.startsWith("http://")) host = host.substring(7);
   if (host.startsWith("https://")) host = host.substring(8);
   int slash = host.indexOf('/');
@@ -5363,9 +5367,32 @@ static String snapmakerHostOnly() {
 }
 
 static uint16_t snapmakerPortValue() {
+  String host = String(snapmakerHost);
+  host.trim();
+  host.replace(" ", "");
+  if (host.startsWith("http://")) host = host.substring(7);
+  if (host.startsWith("https://")) host = host.substring(8);
+  int slash = host.indexOf('/');
+  if (slash >= 0) host = host.substring(0, slash);
+  int colon = host.lastIndexOf(':');
+  if (colon > 0 && colon < (int)host.length() - 1) {
+    int urlPort = host.substring(colon + 1).toInt();
+    if (urlPort > 0 && urlPort <= 65535) return (uint16_t)urlPort;
+  }
   int port = atoi(snapmakerPort);
   if (port <= 0 || port > 65535) port = 7125;
   return (uint16_t)port;
+}
+
+static bool connectSnapmakerClient(WiFiClient& client, const String& host, uint16_t port) {
+  if (client.connect(host.c_str(), port)) return true;
+  if (!host.endsWith(".local")) return false;
+
+  String mdnsName = host.substring(0, host.length() - 6);
+  IPAddress ip = MDNS.queryHost(mdnsName.c_str(), 2500);
+  if (ip == IPAddress(0, 0, 0, 0)) ip = MDNS.queryHost(host.c_str(), 2500);
+  if (ip == IPAddress(0, 0, 0, 0)) return false;
+  return client.connect(ip, port);
 }
 
 static bool refreshSnapmakerToolHeadInfo() {
@@ -5374,7 +5401,7 @@ static bool refreshSnapmakerToolHeadInfo() {
     safeCopy(snapToolHeadStatus, "WLAN deaktiviert", sizeof(snapToolHeadStatus));
     return false;
   }
-  if (WiFi.status() != WL_CONNECTED || strlen(snapmakerHost) == 0) {
+  if (WiFi.status() != WL_CONNECTED || snapmakerHostOnly().length() == 0) {
     safeCopy(snapToolHeadStatus, "U1 nicht erreichbar", sizeof(snapToolHeadStatus));
     return false;
   }
@@ -5383,7 +5410,7 @@ static bool refreshSnapmakerToolHeadInfo() {
   uint16_t port = snapmakerPortValue();
   WiFiClient client;
   client.setTimeout(3000);
-  if (!client.connect(host.c_str(), port)) {
+  if (!connectSnapmakerClient(client, host, port)) {
     safeCopy(snapToolHeadStatus, "U1 Status nicht erreichbar", sizeof(snapToolHeadStatus));
     return false;
   }
@@ -5453,13 +5480,13 @@ static bool refreshSnapmakerToolHeadInfo() {
 static bool fetchSnapmakerFilamentSensor(uint8_t toolHead, bool& detected) {
   detected = false;
   if (toolHead < 1 || toolHead > 4) return false;
-  if (!wifiEnabled || WiFi.status() != WL_CONNECTED || strlen(snapmakerHost) == 0) return false;
+  if (!wifiEnabled || WiFi.status() != WL_CONNECTED || snapmakerHostOnly().length() == 0) return false;
 
   String host = snapmakerHostOnly();
   uint16_t port = snapmakerPortValue();
   WiFiClient client;
   client.setTimeout(3000);
-  if (!client.connect(host.c_str(), port)) return false;
+  if (!connectSnapmakerClient(client, host, port)) return false;
 
   String sensorKey = String("filament_motion_sensor e") + String(toolHead - 1) + "_filament";
   String path = String("/printer/objects/query?filament_motion_sensor%20e") + String(toolHead - 1) + "_filament=filament_detected";
@@ -5512,7 +5539,7 @@ static bool buildSnapmakerPayload(uint8_t toolHead, String& outPayload) {
 
 static bool sendPendingTagToSnapmaker(uint8_t toolHead) {
   if (!sendTag.valid) return false;
-  if (!wifiEnabled || WiFi.status() != WL_CONNECTED || strlen(snapmakerHost) == 0) {
+  if (!wifiEnabled || WiFi.status() != WL_CONNECTED || snapmakerHostOnly().length() == 0) {
     showSimpleMessage("Snapmaker U1", "Wi-Fi/Printer nicht bereit", "Check Wi-Fi and target", "", "", UI_SEND_SELECT);
     return false;
   }
@@ -5523,7 +5550,7 @@ static bool sendPendingTagToSnapmaker(uint8_t toolHead) {
   uint16_t port = snapmakerPortValue();
   WiFiClient client;
   client.setTimeout(3000);
-  if (!client.connect(host.c_str(), port)) {
+  if (!connectSnapmakerClient(client, host, port)) {
     showSimpleMessage("Snapmaker U1", "Webhook start failed", "", "", "", UI_SEND_SELECT);
     return false;
   }
@@ -5609,7 +5636,7 @@ static bool tryReadOpenSpoolSendTag(const uint8_t* uid, uint8_t uidLen) {
 }
 
 static void performReadForSend() {
-  if (!wifiEnabled || WiFi.status() != WL_CONNECTED || strlen(snapmakerHost) == 0) {
+  if (!wifiEnabled || WiFi.status() != WL_CONNECTED || snapmakerHostOnly().length() == 0) {
     showSimpleMessage("Snapmaker U1", "WLAN/Printer nicht bereit", "Senden nicht moeglich", "", "", UI_SEND_SELECT);
     return;
   }
@@ -6271,7 +6298,7 @@ static void drawReadScreen() {
   fillButton(10, 50, 100, 40, TFT_DARKGREY, TFT_WHITE, TR(STR_BACK), TFT_WHITE, 2);
   tft.setTextColor(TFT_WHITE, TFT_BLACK);
 
-  bool readyToSend = wifiEnabled && WiFi.status() == WL_CONNECTED && strlen(snapmakerHost) > 0;
+  bool readyToSend = isSnapmakerSendReady();
   if (readyToSend) {
     fillButton(194, 50, 116, 40, TFT_DARKGREEN, TFT_WHITE, LTXT(TXT_SEND_TAG), TFT_WHITE, 2);
   }
@@ -6709,7 +6736,7 @@ static void drawSetupScreen() {
   } else if (setupPage == 4) {
     tft.setTextColor(TFT_YELLOW, TFT_BLACK);
     tft.drawCentreString("Snapmaker U1", TFT_W / 2, 76, 2);
-    fillButton(21, 106, 278, 32, TFT_NAVY, TFT_WHITE, String("Host ") + trimName18(String(strlen(snapmakerHost) ? snapmakerHost : "-")), TFT_WHITE, 2);
+    fillButton(21, 106, 278, 32, TFT_NAVY, TFT_WHITE, String("Host/URL ") + trimName18(String(strlen(snapmakerHost) ? snapmakerHost : "-")), TFT_WHITE, 2);
     fillButton(21, 142, 278, 32, TFT_NAVY, TFT_WHITE, String("Port ") + trimName18(String(strlen(snapmakerPort) ? snapmakerPort : "7125")), TFT_WHITE, 2);
     fillButton(21, 178, 278, 28, WiFi.status() == WL_CONNECTED ? TFT_DARKGREEN : TFT_DARKGREY, TFT_WHITE,
                WiFi.status() == WL_CONNECTED ? "Wi-Fi ready" : "Wi-Fi not connected", TFT_WHITE, 2);
@@ -7883,7 +7910,7 @@ static void uiHandleTouch(int x, int y) {
 
   if (ui == UI_READ) {
     if (hit(10, 50, 100, 40, x, y))  { ui = UI_MAIN; needRedraw = true; return; }
-    if (wifiEnabled && WiFi.status() == WL_CONNECTED && strlen(snapmakerHost) > 0 &&
+    if (isSnapmakerSendReady() &&
         hit(194, 50, 116, 40, x, y)) { performReadForSend(); return; }
     return;
   }
