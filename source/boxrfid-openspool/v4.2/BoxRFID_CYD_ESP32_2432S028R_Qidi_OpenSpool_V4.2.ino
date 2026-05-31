@@ -595,7 +595,10 @@ static const char* const TXT_FILAMENT_PROFILE[LANG_COUNT]   = {"Filamentprofil N
 static const char* const TXT_WRITE[LANG_COUNT]              = {"Schreiben","Write","Escribir","Escrever","Ecrire","Scrivi"};
 static const char* const TXT_TAG_CLEAR[LANG_COUNT]          = {"Tag loeschen","Clear tag","Borrar tag","Limpar tag","Effacer tag","Cancella tag"};
 static const char* const TXT_SEND_TAG[LANG_COUNT]           = {"Tag senden","Send tag","Enviar tag","Enviar tag","Envoyer tag","Invia tag"};
+static const char* const TXT_SEND_SHORT[LANG_COUNT]         = {"Senden","Send","Enviar","Enviar","Envoyer","Invia"};
 static const char* const TXT_SEND_TO_U1[LANG_COUNT]         = {"Tag an Snapmaker U1 senden","Send tag to Snapmaker U1","Enviar tag a Snapmaker U1","Enviar tag para Snapmaker U1","Envoyer tag vers Snapmaker U1","Invia tag a Snapmaker U1"};
+static const char* const TXT_SEND_NEEDS_WIFI1[LANG_COUNT]   = {"Zuerst WLAN aktivieren","Enable Wi-Fi first","Active primero Wi-Fi","Ative primeiro Wi-Fi","Activez d'abord Wi-Fi","Attiva prima Wi-Fi"};
+static const char* const TXT_SEND_NEEDS_WIFI2[LANG_COUNT]   = {"und U1 IP konfigurieren","and configure U1 IP","y configure IP U1","e configure IP U1","et configurez IP U1","e configura IP U1"};
 static const char* const TXT_NUMPAD[LANG_COUNT]             = {"Zahlen","Numbers","Numeros","Numeros","Nombres","Numeri"};
 static const char* const TXT_TAG_DETECTED[LANG_COUNT]       = {"Tag erkannt","Tag detected","Tag detectado","Tag detectado","Tag detecte","Tag rilevato"};
 static const char* const TXT_READING_TAG[LANG_COUNT]       = {"Tag lesen...","Reading Tag...","Leyendo tag...","Lendo tag...","Lecture du tag...","Lettura tag..."};
@@ -927,6 +930,8 @@ struct SnapmakerSendTag {
 
 static SnapmakerSendTag sendTag = {};
 static uint8_t pendingSendToolHead = 0;
+static bool sendFromWriteMode = false;
+static UIState sendReturnState = UI_MAIN;
 
 struct SnapmakerToolHeadState {
   bool known;
@@ -5243,6 +5248,17 @@ static bool skipHttpHeaders(WiFiClient& client, uint32_t timeoutMs) {
   return false;
 }
 
+static bool isSnapmakerSendReady() {
+  return wifiEnabled && WiFi.status() == WL_CONNECTED && strlen(snapmakerHost) > 0;
+}
+
+static void showSnapmakerSendSetupRequired(int nextState) {
+  showSimpleMessage(LTXT(TXT_SEND_TAG),
+                    LTXT(TXT_SEND_NEEDS_WIFI1),
+                    LTXT(TXT_SEND_NEEDS_WIFI2),
+                    "", "", nextState);
+}
+
 static void fillSendTagFromQidi(uint8_t matID, uint8_t colID, uint8_t mfgID, const uint8_t* uid, uint8_t uidLen) {
   clearSendTag();
   sendTag.valid = true;
@@ -5258,7 +5274,8 @@ static void fillSendTagFromQidi(uint8_t matID, uint8_t colID, uint8_t mfgID, con
     else if (gMaterials[matID].bedMin > 0) sendTag.bedTemp = gMaterials[matID].bedMin;
   }
   sendTag.uidLen = min<uint8_t>(uidLen, sizeof(sendTag.uid));
-  memcpy(sendTag.uid, uid, sendTag.uidLen);
+  if (uid && sendTag.uidLen > 0) memcpy(sendTag.uid, uid, sendTag.uidLen);
+  else sendTag.uidLen = 0;
 }
 
 static void fillSendTagFromOpenSpool(const uint8_t* uid, uint8_t uidLen) {
@@ -5277,7 +5294,60 @@ static void fillSendTagFromOpenSpool(const uint8_t* uid, uint8_t uidLen) {
   int bedMin = parseSendInt(openSpoolReadBedMinTemp);
   sendTag.bedTemp = (bedMax >= 0) ? bedMax : bedMin;
   sendTag.uidLen = min<uint8_t>(uidLen, sizeof(sendTag.uid));
-  memcpy(sendTag.uid, uid, sendTag.uidLen);
+  if (uid && sendTag.uidLen > 0) memcpy(sendTag.uid, uid, sendTag.uidLen);
+  else sendTag.uidLen = 0;
+}
+
+static void fillSendTagFromOpenSpoolWriteSelection() {
+  clearSendTag();
+  sendTag.valid = true;
+  safeCopy(sendTag.source, "OpenSpool", sizeof(sendTag.source));
+  safeCopy(sendTag.vendor, manufacturerNameByVal(selMfg).c_str(), sizeof(sendTag.vendor));
+  safeCopy(sendTag.mainType, materialNameByVal(selMatVal).c_str(), sizeof(sendTag.mainType));
+
+  char subtype[ITEM_NAME_MAX + 1];
+  safeCopy(subtype, osSubtype, sizeof(subtype));
+  normalizeOpenSpoolSubtypeBuffer(subtype, sizeof(subtype));
+  safeCopy(sendTag.subType, subtype, sizeof(sendTag.subType));
+
+  safeCopy(sendTag.colorHex, normalizeHexColor(osColorHex, true).c_str(), sizeof(sendTag.colorHex));
+  uint8_t alpha = 0;
+  if (openSpoolProfileU1 && parseAlphaByte(osAlpha, alpha)) sendTag.alpha = alpha;
+  sendTag.minTemp = parseSendInt(osMinTemp);
+  sendTag.maxTemp = parseSendInt(osMaxTemp);
+  int bedMax = parseSendInt(osBedMaxTemp);
+  int bedMin = parseSendInt(osBedMinTemp);
+  sendTag.bedTemp = (bedMax >= 0) ? bedMax : bedMin;
+  sendTag.uidLen = 0;
+}
+
+static void fillSendTagFromCurrentWriteSelection() {
+  if (currentTagMode == TAGMODE_QIDI) {
+    fillSendTagFromQidi(selMatVal, COLORS[selColIdx].id, selMfg, nullptr, 0);
+    return;
+  }
+
+  normalizeOpenSpoolSubtypeBuffer(osSubtype, sizeof(osSubtype));
+  fillSendTagFromOpenSpoolWriteSelection();
+}
+
+static void openSendMenuFromCurrentWriteSelection(int returnState) {
+  if (!isSnapmakerSendReady()) {
+    showSnapmakerSendSetupRequired(returnState);
+    return;
+  }
+
+  if (currentTagMode == TAGMODE_OPENSPOOL) {
+    if (!osDraftsInitialized) initOpenSpoolDrafts();
+    saveCurrentOpenSpoolDraft();
+  }
+
+  fillSendTagFromCurrentWriteSelection();
+  sendFromWriteMode = true;
+  sendReturnState = (UIState)returnState;
+  refreshSnapmakerToolHeadInfo();
+  ui = UI_SEND_SELECT;
+  needRedraw = true;
 }
 
 static String snapmakerHostOnly() {
@@ -6250,8 +6320,10 @@ static void drawSendSelectScreen() {
   drawHeader(LTXT(TXT_SEND_TO_U1));
 
   fillButton(8, 40, 84, 28, TFT_DARKGREY, TFT_WHITE, TR(STR_BACK), TFT_WHITE, 2);
-  bool readyToRead = wifiEnabled && WiFi.status() == WL_CONNECTED && strlen(snapmakerHost) > 0;
-  fillButton(210, 40, 100, 28, readyToRead ? TFT_DARKGREEN : TFT_DARKGREY, TFT_WHITE, TR(STR_READ_TAG), TFT_WHITE, 2);
+  bool readyToSend = isSnapmakerSendReady();
+  if (!sendFromWriteMode) {
+    fillButton(210, 40, 100, 28, readyToSend ? TFT_DARKGREEN : TFT_DARKGREY, TFT_WHITE, TR(STR_READ_TAG), TFT_WHITE, 2);
+  }
 
   tft.setTextColor(TFT_WHITE, TFT_BLACK);
   if (sendTag.valid) {
@@ -6270,7 +6342,7 @@ static void drawSendSelectScreen() {
   } else {
     tft.drawCentreString("Bitte Tag lesen", TFT_W / 2, 82, 2);
     tft.drawCentreString("QIDI/OpenSpool Auto", TFT_W / 2, 106, 2);
-    if (!readyToRead) {
+    if (!readyToSend) {
       tft.setTextColor(TFT_YELLOW, TFT_BLACK);
       if (!wifiEnabled) tft.drawCentreString("WLAN ist deaktiviert", TFT_W / 2, 126, 2);
       else if (WiFi.status() != WL_CONNECTED) tft.drawCentreString("WLAN nicht verbunden", TFT_W / 2, 126, 2);
@@ -6287,7 +6359,7 @@ static void drawSendSelectScreen() {
   drawToolHeadSendButton(3, 244, 158, 66, 44);
 
   drawStatusBarFrame();
-  if (!readyToRead) drawStatus("Senden nicht moeglich", TFT_YELLOW);
+  if (!readyToSend) drawStatus("Senden nicht moeglich", TFT_YELLOW);
   else if (!sendTag.valid) drawStatus("Tag lesen zum Senden", TFT_WHITE);
   else drawStatus(strlen(snapToolHeadStatus) ? snapToolHeadStatus : "ToolHead waehlen", snapToolHeadsKnown ? TFT_WHITE : TFT_YELLOW);
 }
@@ -6428,8 +6500,9 @@ static void drawWriteScreen() {
   const int topH = 28;
 
   if (currentTagMode == TAGMODE_QIDI) {
-    fillButton(8, topY, 80, topH, TFT_DARKGREY, TFT_WHITE, TR(STR_BACK), TFT_WHITE, 2);
-    fillButton(TFT_W - 8 - 110, topY, 110, topH, TFT_DARKGREEN, TFT_WHITE, TR(STR_WRITE_TAG), TFT_WHITE, 2);
+    fillButton(8, topY, 72, topH, TFT_DARKGREY, TFT_WHITE, TR(STR_BACK), TFT_WHITE, 2);
+    fillButton(88, topY, 82, topH, isSnapmakerSendReady() ? TFT_NAVY : TFT_DARKGREY, TFT_WHITE, LTXT(TXT_SEND_SHORT), TFT_WHITE, 2);
+    fillButton(178, topY, 134, topH, TFT_DARKGREEN, TFT_WHITE, TR(STR_WRITE_TAG), TFT_WHITE, 2);
     const int labelX = 12;
     const int btnX = 122;
     const int btnW = TFT_W - btnX - 12;
@@ -6458,10 +6531,12 @@ static void drawWriteScreen() {
   const int navY = UI_HEADER_H + 3;
   const int navH = 28;
   const int backX = 8;
-  const int backW = 80;
-  const int writeW = 92;
+  const int backW = 72;
+  const int sendX = 88;
+  const int sendW = 68;
+  const int writeW = 72;
   const int writeX = TFT_W - 8 - writeW;
-  const int arrowW = 42;
+  const int arrowW = 32;
   const uint8_t osPages = getOpenSpoolWritePageCount();
   const uint8_t osDisplayPages = getOpenSpoolDisplayPageCount();
   if (openSpoolWritePage >= osPages) openSpoolWritePage = 0;
@@ -6469,14 +6544,13 @@ static void drawWriteScreen() {
 
   fillButton(backX, navY, backW, navH, TFT_DARKGREY, TFT_WHITE, TR(STR_BACK), TFT_WHITE, 2);
   if (openSpoolWritePage > 0) {
+    fillButton(sendX, navY, sendW, navH, isSnapmakerSendReady() ? TFT_NAVY : TFT_DARKGREY, TFT_WHITE, LTXT(TXT_SEND_SHORT), TFT_WHITE, 2);
     fillButton(writeX, navY, writeW, navH, TFT_DARKGREEN, TFT_WHITE, LTXT(TXT_WRITE), TFT_WHITE, 2);
     if (osDisplayPages > 1) {
-      const int leftX = 96;
-      const int rightX = writeX - arrowW - 8;
+      const int leftX = 164;
+      const int rightX = 202;
       fillButton(leftX, navY, arrowW, navH, TFT_DARKGREY, TFT_WHITE, "<", TFT_WHITE, 2);
       fillButton(rightX, navY, arrowW, navH, TFT_DARKGREY, TFT_WHITE, ">", TFT_WHITE, 2);
-      tft.setTextColor(TFT_WHITE, TFT_BLACK);
-      tft.drawCentreString(String(openSpoolWritePage) + "/" + String(osDisplayPages), (leftX + arrowW + rightX) / 2, navY + 6, 2);
     }
   }
 
@@ -7642,7 +7716,9 @@ static void uiHandleTouch(int x, int y) {
       readResultPending = false;
       readPopupMisses = 0;
       autoPanelVisible = false;
-      if (wifiEnabled && WiFi.status() == WL_CONNECTED && strlen(snapmakerHost) > 0) refreshSnapmakerToolHeadInfo();
+      sendFromWriteMode = false;
+      sendReturnState = UI_MAIN;
+      if (isSnapmakerSendReady()) refreshSnapmakerToolHeadInfo();
       else clearSnapmakerToolHeads(!wifiEnabled ? "WLAN deaktiviert" : "U1 nicht erreichbar");
       ui = UI_SEND_SELECT;
       needRedraw = true;
@@ -7813,12 +7889,22 @@ static void uiHandleTouch(int x, int y) {
   }
 
   if (ui == UI_SEND_SELECT) {
-    if (hit(8, 40, 84, 28, x, y)) { clearSendTag(); ui = UI_MAIN; needRedraw = true; return; }
-    if (wifiEnabled && WiFi.status() == WL_CONNECTED && strlen(snapmakerHost) > 0 &&
+    if (hit(8, 40, 84, 28, x, y)) {
+      UIState target = sendReturnState;
+      bool wasWriteMode = sendFromWriteMode;
+      clearSendTag();
+      sendFromWriteMode = false;
+      sendReturnState = UI_MAIN;
+      ui = wasWriteMode ? target : UI_MAIN;
+      needRedraw = true;
+      return;
+    }
+    if (!sendFromWriteMode && isSnapmakerSendReady() &&
         hit(210, 40, 100, 28, x, y)) { performReadForSend(); return; }
     if (!sendTag.valid && (hit(16, 158, 66, 44, x, y) || hit(92, 158, 66, 44, x, y) ||
                            hit(168, 158, 66, 44, x, y) || hit(244, 158, 66, 44, x, y))) {
-      showSimpleMessage(LTXT(TXT_SEND_TAG), "Bitte zuerst", "einen Tag lesen", "", "", UI_SEND_SELECT);
+      if (!isSnapmakerSendReady()) showSnapmakerSendSetupRequired(UI_SEND_SELECT);
+      else showSimpleMessage(LTXT(TXT_SEND_TAG), "Bitte zuerst", "einen Tag lesen", "", "", UI_SEND_SELECT);
       return;
     }
     if (hit(16, 158, 66, 44, x, y)) { requestSendTagToSnapmaker(1); return; }
@@ -7849,7 +7935,7 @@ static void uiHandleTouch(int x, int y) {
   if (ui == UI_WRITE) {
     const int topY = UI_HEADER_H + 3;
     if (currentTagMode == TAGMODE_OPENSPOOL) {
-      if (hit(8, topY, 80, 28, x, y)) {
+      if (hit(8, topY, 72, 28, x, y)) {
         if (!osDraftsInitialized) initOpenSpoolDrafts();
         saveCurrentOpenSpoolDraft();
         if (openSpoolWritePage == 0) ui = UI_MAIN;
@@ -7858,20 +7944,30 @@ static void uiHandleTouch(int x, int y) {
         return;
       }
     } else {
-      if (hit(8, topY, 80, 28, x, y)) { ui = UI_MAIN; needRedraw = true; return; }
+      if (hit(8, topY, 72, 28, x, y)) { ui = UI_MAIN; needRedraw = true; return; }
     }
     uint8_t osPages = getOpenSpoolWritePageCount();
     uint8_t osDisplayPages = getOpenSpoolDisplayPageCount();
     OpenSpoolWritePageKind pageKind = getOpenSpoolWritePageKind(openSpoolWritePage);
 
+    if (currentTagMode == TAGMODE_QIDI && hit(88, topY, 82, 28, x, y)) {
+      openSendMenuFromCurrentWriteSelection(UI_WRITE);
+      return;
+    }
+    if (currentTagMode == TAGMODE_OPENSPOOL && openSpoolWritePage > 0 && hit(88, topY, 68, 28, x, y)) {
+      openSendMenuFromCurrentWriteSelection(UI_WRITE);
+      return;
+    }
+
     // Check nav arrows BEFORE write button to avoid touch-area overlap
     if (osDisplayPages > 1 && openSpoolWritePage > 0) {
       const int navY2 = UI_HEADER_H + 3; // = 35
-      if (hit(96, navY2, 42, 28, x, y)) { openSpoolWritePage = (openSpoolWritePage + osPages - 1) % osPages; if (openSpoolWritePage == 0) openSpoolWritePage = osPages - 1; needRedraw = true; return; }
-      if (hit(170, navY2, 42, 28, x, y)) { openSpoolWritePage = (openSpoolWritePage + 1) % osPages; if (openSpoolWritePage == 0) openSpoolWritePage = 1; needRedraw = true; return; }
+      if (hit(164, navY2, 32, 28, x, y)) { openSpoolWritePage = (openSpoolWritePage + osPages - 1) % osPages; if (openSpoolWritePage == 0) openSpoolWritePage = osPages - 1; needRedraw = true; return; }
+      if (hit(202, navY2, 32, 28, x, y)) { openSpoolWritePage = (openSpoolWritePage + 1) % osPages; if (openSpoolWritePage == 0) openSpoolWritePage = 1; needRedraw = true; return; }
     }
 
-    if (!(currentTagMode == TAGMODE_OPENSPOOL && openSpoolWritePage == 0) && hit(TFT_W - 118, topY, 110, 28, x, y)) { performWrite(); return; }
+    if (currentTagMode == TAGMODE_QIDI && hit(178, topY, 134, 28, x, y)) { performWrite(); return; }
+    if (currentTagMode == TAGMODE_OPENSPOOL && openSpoolWritePage > 0 && hit(TFT_W - 80, topY, 72, 28, x, y)) { performWrite(); return; }
 
     if (currentTagMode == TAGMODE_QIDI) {
       const int btnX = 122;

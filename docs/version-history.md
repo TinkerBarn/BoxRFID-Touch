@@ -13,6 +13,8 @@ Highlights:
 - direct `Tag senden` workflow for Snapmaker U1 ToolHeads
 - ToolHead send menu opens directly and uses a localized title
 - localized read-tag action in the ToolHead send menu
+- QIDI, OpenSpool Standard, and OpenSpool Snapmaker U1 write screens now include a send action that transfers the selected write data to a Snapmaker U1 ToolHead instead of requiring a physical tag write/read roundtrip
+- the write-screen send action is greyed out when Wi-Fi or U1 host setup is missing and explains the required setup when tapped
 - QIDI and OpenSpool tags are detected automatically when reading a tag for sending, independent of the currently selected firmware mode
 - tag information is shown for 3 seconds before the ToolHead send menu is displayed
 - Snapmaker U1 ToolHead status is queried through GET requests and displayed with material type and color

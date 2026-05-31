@@ -14,6 +14,8 @@ Compared with V4.1, V4.2 adds and refines:
 - direct entry into the ToolHead send menu instead of an intermediate send page
 - localized title text for the Snapmaker U1 send menu
 - localized read-tag action inside the ToolHead send menu
+- send actions in the QIDI, OpenSpool Standard, and OpenSpool Snapmaker U1 write screens for sending the selected write data directly to a Snapmaker U1 ToolHead
+- disabled-state feedback when Wi-Fi or U1 host setup is missing
 - QIDI and OpenSpool tag auto-detection while reading a tag for sending
 - 3 second tag information popup before returning to the ToolHead send menu
 - Snapmaker U1 ToolHead status refresh through GET requests
@@ -124,7 +126,7 @@ The status bar at the bottom shows version information or live status informatio
 
 ## Snapmaker U1 send workflow
 
-V4.2 adds a dedicated send workflow for transferring the currently read tag data to a Snapmaker U1 ToolHead.
+V4.2 adds a dedicated send workflow for transferring tag data to a Snapmaker U1 ToolHead. Data can come from a physical RFID tag read in the send menu, or directly from the current QIDI/OpenSpool write screen selection.
 
 ### Requirements
 
@@ -135,7 +137,7 @@ The send workflow requires:
 - Snapmaker host and port configured in setup
 - Snapmaker U1 running firmware/API support that accepts the filament GET and SET requests used by the workflow
 
-If Wi-Fi is disabled or the U1 connection data is missing, the ToolHead menu shows the connection state and does not offer a tag-read/send path.
+If Wi-Fi is disabled or the U1 connection data is missing, the ToolHead menu shows the connection state and does not offer a tag-read/send path. Write-screen send buttons are shown in a disabled color and display a setup reminder when tapped.
 
 ### ToolHead menu
 
@@ -163,6 +165,29 @@ When a tag is placed on the reader, the firmware tries to identify the tag forma
 - OpenSpool tags are read as OpenSpool/NDEF data
 
 After a valid tag is read, the decoded information is shown for 3 seconds. The device then returns to the ToolHead send menu so the user can choose the target ToolHead.
+
+### Sending selected write data
+
+The QIDI, OpenSpool Standard, and OpenSpool Snapmaker U1 write screens include a send action in the top menu.
+
+This action does not write to the RFID tag. Instead, it takes the currently selected write fields and opens the ToolHead send menu with those values already prepared.
+
+The back action returns to the write screen that opened the send menu.
+
+For QIDI, the prepared send data contains:
+
+- manufacturer
+- material
+- selected color
+- configured nozzle and bed data when available
+
+For OpenSpool Standard and OpenSpool Snapmaker U1, the prepared send data contains:
+
+- brand/manufacturer
+- material type
+- subtype only when a real variant is selected
+- selected color
+- opacity and bed/nozzle data when enabled and available
 
 ### Sending to a ToolHead
 
@@ -555,6 +580,16 @@ V4.2 stores persistent settings in ESP32 preferences, including:
 10. Select the target ToolHead.
 11. Confirm the overwrite warning only if filament is already detected in that ToolHead.
 12. Check the refreshed ToolHead menu to verify the sent filament type and color.
+
+### Send selected write data to Snapmaker U1
+
+1. Open the QIDI, OpenSpool Standard, or OpenSpool Snapmaker U1 write screen.
+2. Select the manufacturer, material, color, variant, and temperature data as needed.
+3. Tap the send action in the top menu.
+4. If Wi-Fi or the U1 host is missing, enable Wi-Fi and configure the U1 IP/host first.
+5. Select the target ToolHead.
+6. Confirm the overwrite warning only if filament is already detected in that ToolHead.
+7. Use back to return to the originating write screen.
 
 ### Upload an official QIDI CFG over Wi-Fi
 

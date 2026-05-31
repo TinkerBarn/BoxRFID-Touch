@@ -114,6 +114,8 @@ Latest release highlights:
 - current **QIDI Box + OpenSpool + Snapmaker U1 all-in-one release**
 - redesigned **Tag senden** workflow for sending tag data directly to **Snapmaker U1 ToolHeads**
 - direct ToolHead menu with localized UI text
+- send the currently selected QIDI, OpenSpool Standard, or OpenSpool Snapmaker U1 write data directly to a Snapmaker U1 ToolHead from the write screens
+- send buttons are disabled visually when Wi-Fi/U1 setup is incomplete and show a setup reminder when tapped
 - mixed-format tag reading for send mode: QIDI and OpenSpool tags are detected automatically, independent of the active firmware mode
 - ToolHead status refresh through Snapmaker U1 GET requests, including filament type and color display
 - clear `Leer` / `Empty` ToolHead state when no filament data is reported
