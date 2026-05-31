@@ -2,9 +2,23 @@
 
 This file is the ongoing release history for the public BoxRFID firmware lines.
 
-## BoxRFID OpenSpool Edition V4.2
+## BoxRFID OpenSpool Edition V4.2.1
 
 - Status: Current release
+- Firmware: [firmware/boxrfid-openspool/v4.2.1/](../firmware/boxrfid-openspool/v4.2.1/)
+- Source: [source/boxrfid-openspool/v4.2.1/](../source/boxrfid-openspool/v4.2.1/)
+
+Highlights:
+
+- ToolHead send buttons display filament material and real variants on two lines when a variant is present
+- empty, `None`, and `Keine` variants are hidden in the ToolHead send menu, matching tag-write behavior
+- Snapmaker U1 setup accepts IP addresses, hostnames, and URLs such as `http://u1.local`
+- QIDI, OpenSpool Standard, and OpenSpool Snapmaker U1 write screens include a send action that transfers selected write data to a Snapmaker U1 ToolHead
+- direct `Tag senden` workflow for Snapmaker U1 ToolHeads remains available for reading and forwarding physical tags
+
+## BoxRFID OpenSpool Edition V4.2
+
+- Status: Stable previous release
 - Firmware: [firmware/boxrfid-openspool/v4.2/](../firmware/boxrfid-openspool/v4.2/)
 - Source: [source/boxrfid-openspool/v4.2/](../source/boxrfid-openspool/v4.2/)
 

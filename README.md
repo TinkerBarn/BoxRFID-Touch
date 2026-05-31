@@ -22,7 +22,8 @@ Supported standalone workflows:
 
 The web installer now uses one release selector for the public firmware builds:
 
-- **V4.2 Current Release** for the latest combined firmware
+- **V4.2.1 Current Release** for the latest combined firmware
+- **V4.2 Stable Previous** if you want the previous combined release
 - **V4.1 Stable Previous** if you want the previous combined release
 - **V2.1 Classic QIDI** for the classic firmware line
 - **V4.0.1 Fallback** for the previous combined QIDI + OpenSpool release
@@ -35,7 +36,7 @@ The web installer now uses one release selector for the public firmware builds:
 
 [![Watch the video](https://img.youtube.com/vi/4cGLlr9Ckx4/hqdefault.jpg)](https://youtu.be/4cGLlr9Ckx4?is=iYzOwJqUVbCeVkuv)
 
-> Note: This video shows an older workflow and does not yet reflect the current V4.2 release.
+> Note: This video shows an older workflow and does not yet reflect the current V4.2.1 release.
 
 ---
 
@@ -43,7 +44,8 @@ The web installer now uses one release selector for the public firmware builds:
 
 | Firmware line | Version | Status | Best use case | Installer |
 | --- | --- | --- | --- | --- |
-| BoxRFID OpenSpool Edition | V4.2 | Current release | Recommended for most users who want QIDI + OpenSpool, Snapmaker U1 sending, and the newest stability fixes | Yes |
+| BoxRFID OpenSpool Edition | V4.2.1 | Current release | Recommended for most users who want QIDI + OpenSpool, Snapmaker U1 sending, URL/hostname U1 setup, and improved ToolHead variant display | Yes |
+| BoxRFID OpenSpool Edition | V4.2 | Stable previous | Previous V4.2 combined release with direct Snapmaker U1 sending and safer storage | Yes |
 | BoxRFID OpenSpool Edition | V4.1 | Stable previous | Previous combined release with QIDI CFG, MicroSD backup/restore, and Wi-Fi tools | Yes |
 | BoxRFID OpenSpool Edition | V4.0.1 | Stable fallback | Older combined release kept as fallback if you want to step back from the current release line | Yes |
 | BoxRFID OpenSpool Edition | V3.7 | Older combined release | Earlier combined release kept for compatibility and reference | No |
@@ -59,6 +61,7 @@ Public firmware folders in this repository:
 - [BoxRFID OpenSpool Edition V4.0.1](./firmware/boxrfid-openspool/v4.0.1/)
 - [BoxRFID OpenSpool Edition V4.1](./firmware/boxrfid-openspool/v4.1/)
 - [BoxRFID OpenSpool Edition V4.2](./firmware/boxrfid-openspool/v4.2/)
+- [BoxRFID OpenSpool Edition V4.2.1](./firmware/boxrfid-openspool/v4.2.1/)
 
 Source folders:
 
@@ -68,6 +71,7 @@ Source folders:
 - [BoxRFID OpenSpool Edition V4.0.1 source](./source/boxrfid-openspool/v4.0.1/)
 - [BoxRFID OpenSpool Edition V4.1 source](./source/boxrfid-openspool/v4.1/)
 - [BoxRFID OpenSpool Edition V4.2 source](./source/boxrfid-openspool/v4.2/)
+- [BoxRFID OpenSpool Edition V4.2.1 source](./source/boxrfid-openspool/v4.2.1/)
 
 Documentation:
 
@@ -107,7 +111,7 @@ Additional capabilities in the OpenSpool Edition:
 
 ---
 
-## What's New In V4.2
+## What's New In V4.2.1
 
 Latest release highlights:
 
@@ -118,6 +122,7 @@ Latest release highlights:
 - send buttons are disabled visually when Wi-Fi/U1 setup is incomplete and show a setup reminder when tapped
 - mixed-format tag reading for send mode: QIDI and OpenSpool tags are detected automatically, independent of the active firmware mode
 - ToolHead status refresh through Snapmaker U1 GET requests, including filament type and color display
+- ToolHead filament variants are shown on a second line when present; empty, `None`, and `Keine` variants are hidden
 - clear `Leer` / `Empty` ToolHead state when no filament data is reported
 - automatic contrast selection for ToolHead buttons so text remains readable on light and dark filament colors
 - filament-sensor safety check before sending: if filament is detected in the target ToolHead, the firmware asks for confirmation before overwriting
@@ -125,7 +130,7 @@ Latest release highlights:
 - 3 second tag information popup before returning to the ToolHead send menu
 - refreshed ToolHead status after sending so the user can immediately see whether the update arrived
 - safer preference loading for edited lists and Wi-Fi/Snapmaker settings to avoid crashes after user-defined QIDI materials/manufacturers
-- kept **V4.1**, **V4.0.1**, and **V2.1** in the installer as selectable fallback paths
+- kept **V4.2**, **V4.1**, **V4.0.1**, and **V2.1** in the installer as selectable fallback paths
 
 For the full ongoing release history, see [Version History](./docs/version-history.md).
 
@@ -133,7 +138,8 @@ For the full ongoing release history, see [Version History](./docs/version-histo
 
 ## Which Version Should I Use
 
-- Choose **BoxRFID OpenSpool Edition V4.2** if you want the latest release for **QIDI Box**, **OpenSpool Standard**, and **Snapmaker U1 with paxx12 Extended Firmware**, including direct ToolHead sending.
+- Choose **BoxRFID OpenSpool Edition V4.2.1** if you want the latest release for **QIDI Box**, **OpenSpool Standard**, and **Snapmaker U1 with paxx12 Extended Firmware**, including direct ToolHead sending and improved ToolHead variant display.
+- Choose **BoxRFID OpenSpool Edition V4.2** if you want the previous V4.2 combined release.
 - Choose **BoxRFID OpenSpool Edition V4.1** if you want the previous combined release.
 - Choose **BoxRFID OpenSpool Edition V4.0.1** if you want the previous combined release as a fallback.
 - Choose **BoxRFID OpenSpool Edition V3.7** only if you specifically want the older combined release.
@@ -151,7 +157,8 @@ For the full ongoing release history, see [Version History](./docs/version-histo
 3. Click **Connect**.
 4. Select the correct serial port.
 5. Choose the desired firmware from the release selector:
-   - `V4.2` for the latest combined release
+   - `V4.2.1` for the latest combined release
+   - `V4.2` for the previous combined release
    - `V4.1` for the previous combined release
    - `V4.0.1` for the combined fallback release
    - `V2.1` for the classic QIDI release
@@ -167,7 +174,7 @@ Notes:
 
 ### Arduino IDE Settings
 
-The web installer is recommended. If you compile V4.2 manually in Arduino IDE, use these settings:
+The web installer is recommended. If you compile V4.2.1 manually in Arduino IDE, use these settings:
 
 - Board: **ESP32-2432S028R CYD**
 - CPU Frequency: **240MHz (WiFi/BT)**
@@ -206,7 +213,7 @@ Supported tag types:
 
 ## Compatibility
 
-### BoxRFID OpenSpool Edition V4.2
+### BoxRFID OpenSpool Edition V4.2.1
 
 QIDI support:
 

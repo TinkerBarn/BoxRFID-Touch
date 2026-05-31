@@ -1,15 +1,18 @@
-# BoxRFID OpenSpool Edition V4.2
+# BoxRFID OpenSpool Edition V4.2.1
 
-This document describes the published **BoxRFID OpenSpool Edition V4.2** firmware for the **ESP32-2432S028R (CYD)** with **PN532 via I2C**.
+This document describes the published **BoxRFID OpenSpool Edition V4.2.1** firmware for the **ESP32-2432S028R (CYD)** with **PN532 via I2C**.
 
-V4.2 is the current all-in-one BoxRFID release. It combines QIDI Box support, OpenSpool support, and the Snapmaker U1 send workflow in one firmware. It builds on the V4.1 platform release and adds direct ToolHead sending, live ToolHead status display, and safer persistent preference handling.
+V4.2.1 is the current all-in-one BoxRFID release. It combines QIDI Box support, OpenSpool support, and the Snapmaker U1 send workflow in one firmware. It builds on the V4.2 release and adds improved ToolHead variant display plus Snapmaker U1 URL/hostname setup.
 
 ---
 
-## What is new in V4.2
+## What is new in V4.2.1
 
-Compared with V4.1, V4.2 adds and refines:
+Compared with V4.2, V4.2.1 adds and refines:
 
+- ToolHead filament variants are shown on a second line when present
+- empty, `None`, and `Keine` variants are hidden in the ToolHead send menu, matching tag-write behavior
+- Snapmaker U1 setup accepts IP addresses, hostnames, and URLs such as `http://u1.local`
 - direct **Tag senden** workflow for Snapmaker U1 ToolHeads
 - direct entry into the ToolHead send menu instead of an intermediate send page
 - localized title text for the Snapmaker U1 send menu
@@ -647,7 +650,7 @@ V4.2 stores persistent settings in ESP32 preferences, including:
 
 The web installer is the preferred installation method. Manual Arduino IDE builds are useful for development and troubleshooting.
 
-Recommended Arduino IDE settings for V4.2:
+Recommended Arduino IDE settings for V4.2.1:
 
 - Board: `ESP32-2432S028R CYD`
 - CPU Frequency: `240MHz (WiFi/BT)`
@@ -671,7 +674,7 @@ Upload notes:
 
 ## Summary
 
-BoxRFID OpenSpool Edition V4.2 is the current release for users who want:
+BoxRFID OpenSpool Edition V4.2.1 is the current release for users who want:
 
 - QIDI and OpenSpool in one firmware
 - support for QIDI `Q2`, `Plus 4`, and `Max 4`

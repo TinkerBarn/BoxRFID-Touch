@@ -346,12 +346,12 @@
       </div>
 
       <div class="hero-note">
-        <span class="lang lang-de active"><strong>Wenn du unsicher bist, starte mit V4.2.</strong>Nutze V4.1 oder V4.0.1 als Fallback, wenn du zu einer vorherigen kombinierten Release zurück willst. V2.1 ist die klassische QIDI-Linie ohne OpenSpool.</span>
-        <span class="lang lang-en"><strong>If you are unsure, start with V4.2.</strong>Use V4.1 or V4.0.1 as a fallback if you want to return to an earlier combined release. V2.1 is the classic QIDI line without OpenSpool.</span>
-        <span class="lang lang-fr"><strong>En cas de doute, commencez par V4.2.</strong>Utilisez V4.1 ou V4.0.1 comme fallback si vous voulez revenir à une release combinee precedente. V2.1 est la ligne QIDI classique sans OpenSpool.</span>
-        <span class="lang lang-es"><strong>Si no estas seguro, empieza con V4.2.</strong>Usa V4.1 o V4.0.1 como fallback si quieres volver a una release combinada anterior. V2.1 es la linea QIDI clasica sin OpenSpool.</span>
-        <span class="lang lang-it"><strong>Se non sei sicuro, inizia con V4.2.</strong>Usa V4.1 o V4.0.1 come fallback se vuoi tornare a una release combinata precedente. V2.1 e la linea QIDI classica senza OpenSpool.</span>
-        <span class="lang lang-pt"><strong>Se nao tiver a certeza, comece por V4.2.</strong>Use V4.1 ou V4.0.1 como fallback se quiser voltar a uma release combinada anterior. V2.1 e a linha QIDI classica sem OpenSpool.</span>
+        <span class="lang lang-de active"><strong>Wenn du unsicher bist, starte mit V4.2.1.</strong>Nutze V4.2, V4.1 oder V4.0.1 als Fallback, wenn du zu einer vorherigen kombinierten Release zurück willst. V2.1 ist die klassische QIDI-Linie ohne OpenSpool.</span>
+        <span class="lang lang-en"><strong>If you are unsure, start with V4.2.1.</strong>Use V4.2, V4.1 or V4.0.1 as a fallback if you want to return to an earlier combined release. V2.1 is the classic QIDI line without OpenSpool.</span>
+        <span class="lang lang-fr"><strong>En cas de doute, commencez par V4.2.1.</strong>Utilisez V4.2, V4.1 ou V4.0.1 comme fallback si vous voulez revenir à une release combinee precedente. V2.1 est la ligne QIDI classique sans OpenSpool.</span>
+        <span class="lang lang-es"><strong>Si no estas seguro, empieza con V4.2.1.</strong>Usa V4.2, V4.1 o V4.0.1 como fallback si quieres volver a una release combinada anterior. V2.1 es la linea QIDI clasica sin OpenSpool.</span>
+        <span class="lang lang-it"><strong>Se non sei sicuro, inizia con V4.2.1.</strong>Usa V4.2, V4.1 o V4.0.1 come fallback se vuoi tornare a una release combinata precedente. V2.1 e la linea QIDI classica senza OpenSpool.</span>
+        <span class="lang lang-pt"><strong>Se nao tiver a certeza, comece por V4.2.1.</strong>Use V4.2, V4.1 ou V4.0.1 como fallback se quiser voltar a uma release combinada anterior. V2.1 e a linha QIDI classica sem OpenSpool.</span>
       </div>
 
       <div class="install-grid">
@@ -899,10 +899,10 @@
   <script>
     const supportedLanguages = ["de", "en", "fr", "es", "it", "pt"];
     const releases = {
-      "V4.2": {
-        manifest: "manifest-openspool-v4.2.json?v=1",
-        path: "firmware/boxrfid-openspool/v4.2/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.2.ino.merged.bin",
-        title: "BoxRFID OpenSpool Edition V4.2",
+      "V4.2.1": {
+        manifest: "manifest-openspool-v4.2.1.json?v=1",
+        path: "firmware/boxrfid-openspool/v4.2.1/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.2.1.ino.merged.bin",
+        title: "BoxRFID OpenSpool Edition V4.2.1",
         badge: "badge-current",
         status: {
           de: "Aktuelle Release",
@@ -911,6 +911,28 @@
           es: "Release actual",
           it: "Release attuale",
           pt: "Release atual"
+        },
+        description: {
+          de: "Aktuelle All-in-One-Release mit QIDI, OpenSpool, direktem Snapmaker U1 ToolHead-Senden, URL/Hostname-Unterstuetzung und zweizeiliger Variantenanzeige.",
+          en: "Current all-in-one release with QIDI, OpenSpool, direct Snapmaker U1 ToolHead sending, URL/hostname support, and two-line variant display.",
+          fr: "Release tout-en-un actuelle avec QIDI, OpenSpool, envoi direct vers ToolHead Snapmaker U1, support URL/hostname et affichage variante sur deux lignes.",
+          es: "Release todo en uno actual con QIDI, OpenSpool, envio directo a ToolHead Snapmaker U1, soporte URL/hostname y variante en dos lineas.",
+          it: "Release all-in-one attuale con QIDI, OpenSpool, invio diretto ai ToolHead Snapmaker U1, supporto URL/hostname e variante su due righe.",
+          pt: "Release all-in-one atual com QIDI, OpenSpool, envio direto para ToolHead Snapmaker U1, suporte URL/hostname e variante em duas linhas."
+        }
+      },
+      "V4.2": {
+        manifest: "manifest-openspool-v4.2.json?v=1",
+        path: "firmware/boxrfid-openspool/v4.2/BoxRFID_CYD_ESP32_2432S028R_Qidi_OpenSpool_V4.2.ino.merged.bin",
+        title: "BoxRFID OpenSpool Edition V4.2",
+        badge: "badge-fallback",
+        status: {
+          de: "Vorherige Release",
+          en: "Previous Release",
+          fr: "Release precedente",
+          es: "Release anterior",
+          it: "Release precedente",
+          pt: "Release anterior"
         },
         description: {
           de: "Aktuelle All-in-One-Release mit QIDI, OpenSpool, direktem Snapmaker U1 ToolHead-Senden, Sensor-Sicherheitsabfrage und stabilerer Speicherung.",
@@ -1004,7 +1026,7 @@
         <div class="card">
           <div class="install-wrap">
             <div id="installer-badge" class="badge badge-current">Aktuelle Release</div>
-            <div id="installer-title" class="build-name">BoxRFID OpenSpool Edition V4.2</div>
+            <div id="installer-title" class="build-name">BoxRFID OpenSpool Edition V4.2.1</div>
             <h2>
               ${langSpan("", {
                 de: "Installation",
@@ -1027,7 +1049,8 @@
                 })}
               </label>
               <select id="release-select" aria-label="Firmware version">
-                <option value="V4.2" selected>V4.2 (latest)</option>
+                <option value="V4.2.1" selected>V4.2.1 (latest)</option>
+                <option value="V4.2">V4.2</option>
                 <option value="V4.1">V4.1</option>
                 <option value="V4.0.1">V4.0.1</option>
                 <option value="V2.1">V2.1 Classic</option>
@@ -1049,7 +1072,7 @@
     function updateSelectedRelease() {
       const select = document.getElementById("release-select");
       if (!select) return;
-      const release = releases[select.value] || releases["V4.2"];
+      const release = releases[select.value] || releases["V4.2.1"];
       const badge = document.getElementById("installer-badge");
       badge.className = "badge " + release.badge;
       badge.innerHTML = langSpan("", release.status);
